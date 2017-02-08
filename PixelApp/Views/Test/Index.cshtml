@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Regenerate stat test.</h3>
+<small>Example: use 5 energy and refresh page after a minute.</small>
+<div class="row">
+    <div class="col-xs-4">
+        <form action="/Test/UseEnergyTest" method="post">
+            <div class="form-group">
+                You have <strong>@ViewBag.Energy</strong> Energy.
+            </div>
+            <div class="form-group">
+                <input type="text" name="use" class="form-control" placeholder="Use this much energy" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
