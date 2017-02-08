@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace PixelApp.Controllers
 {
+    [Authorize]
     public class TestController : BaseController
     {
         // GET: Test
