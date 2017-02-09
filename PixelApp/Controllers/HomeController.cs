@@ -6,11 +6,18 @@ using System.Web.Mvc;
 
 namespace PixelApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
+            if(this.UserContext == null)
+            {
+                return View("HomePage");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
