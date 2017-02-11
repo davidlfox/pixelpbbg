@@ -4,5 +4,178 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-<h2>Logged Out Home Page</h2>
+<style type="text/css">
+    .top-content {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding-top: 90px;
+    }
+
+    @@media (max-width: 768px) {
+        .top-content {
+            padding-top: 30px;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .top-content {
+            background-image: url('/Content/pixel-home-bg.jpg');
+            background-size: cover;
+        }
+    }
+
+    /****** register ******/
+    .register-container {
+      padding: 30px;
+      max-width: 350px;
+      width: 100% !important;
+      background-color: #6a462e;
+      margin: 0 auto;
+      border-radius: 2px;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      font-family: roboto;
+    }
+
+    .register-container h1 {
+      text-align: center;
+      font-size: 1.8em;
+      font-family: roboto;
+    }
+
+    .register-container input[type=submit] {
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .register-container input[type=text], input[type=password] {
+      height: 44px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+      -webkit-appearance: none;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      border-top: 1px solid #c0c0c0;
+      /* border-radius: 2px; */
+      padding: 0 8px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+
+    .register-container input[type=text]:hover, input[type=password]:hover {
+      border: 1px solid #b9b9b9;
+      border-top: 1px solid #a0a0a0;
+      -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+      -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .register {
+      text-align: center;
+      font-size: 14px;
+      font-family: 'Arial', sans-serif;
+      padding: 0 8px;
+    /* border-radius: 3px; */
+    /* -webkit-user-select: none;
+      user-select: none; */
+    }
+
+    .register-submit {
+      /* border: 1px solid #3079ed; */
+      border: 0px;
+      color: inherit;
+      text-shadow: 0 1px rgba(0,0,0,0.1); 
+      background-color: #4e5b72;
+      padding: 17px 0px;
+      font-family: roboto;
+      font-size: 14px;
+      /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+    }
+
+    .register-submit:hover {
+      /* border: 1px solid #2f5bb7; */
+      border: 0px;
+      text-shadow: 0 1px rgba(0,0,0,0.3);
+      background-color: #222f46;
+      /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+    }
+
+    .register-container a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 400;
+      text-align: center;
+      display: inline-block;
+      opacity: 0.6;
+      transition: opacity ease 0.5s;
+    } 
+
+    .register-help {
+      font-size: 12px;
+    }
+
+    @@media (max-width: 992px) {
+        .register-container {
+            margin-top: 30px;
+            max-width: inherit;
+        }
+        h1.title {
+            text-align: center;
+        }
+    }
+
+    .marketing-container {
+        padding: 30px;
+        background-color: rgba(134, 101, 78, 0.9);
+
+    }
+
+    @@media (min-width: 768px) and (max-width: 992px) {
+        .marketing-container {
+            display: none;
+        }
+    }
+</style>
+
+<div class="top-content">
+    <div class="container top-container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="title">Pixelocaplyse</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-push-8 col-md-offset-0">
+                <div class="register-container">
+                    <h1>Play For Free!</h1><br>
+                    <form>
+                        <input type="text" name="username" placeholder="Character Name">
+                        <input type="text" name="email" placeholder="Email">
+                        <input type="password" name="pass" placeholder="Password">
+                        <input type="submit" name="register" class="register register-submit" value="Register">
+                    </form>
+
+                    <div class="register-help">
+                        <a href="#">Login</a> - <a href="#">Forgot Password</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-pull-4 col-md-offset-0">
+                <div class="marketing-container">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non odio ipsum. Pellentesque id tempor tellus, at malesuada leo. Aliquam euismod mi sem, eu mattis nisl rutrum in. Ut laoreet interdum ex vitae volutpat. Nulla non ligula sapien. Maecenas in magna molestie nisi tincidunt fringilla. Quisque posuere felis quis congue tristique. Integer tristique eros augue, eget convallis mi commodo at. Quisque maximus, leo at ullamcorper laoreet, ipsum turpis finibus ex, nec semper lorem justo sit amet risus. Proin rutrum libero libero, ac pulvinar diam faucibus id. Integer rhoncus nunc id vehicula ultrices. Cras nibh mauris, fermentum sit amet congue ut, vehicula ut sem. Maecenas tristique tempus lobortis. Morbi ipsum nulla, viverra ut convallis eget, finibus sed urna.
+                    </p>
+                    <p>
+                        Sed nec leo et arcu molestie scelerisque. Nulla finibus, quam id ullamcorper dictum, felis justo bibendum purus, cursus venenatis nunc dolor eget tortor. Fusce non metus sit amet erat viverra maximus id eget urna. Donec pulvinar at erat sed cursus. Aliquam ac lobortis leo. Pellentesque euismod metus felis, nec efficitur orci fringilla id. Proin blandit diam quam, ac consequat augue rhoncus vitae. Aliquam sollicitudin augue vitae lacus porttitor, in placerat nunc iaculis. Vestibulum pulvinar arcu augue, id vehicula nibh porttitor nec. Proin et lorem a velit ultrices convallis sed non ex. Mauris fermentum felis at massa volutpat sagittis. Fusce eleifend id felis in dignissim. Nam mattis ultrices scelerisque.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
