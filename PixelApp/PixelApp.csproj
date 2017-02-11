@@ -198,6 +198,7 @@
     <Content Include="Content\pixel-home-bg.jpg" />
     <Content Include="Content\pixel-home-bg2.jpg" />
     <Content Include="Content\pixel-home-bg3.jpg" />
+    <Content Include="Content\pixel-home-bg4.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -256,6 +257,7 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Home\HomePage2.cshtml" />
     <Content Include="Views\Home\HomePage3.cshtml" />
+    <Content Include="Views\Home\HomePage4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
