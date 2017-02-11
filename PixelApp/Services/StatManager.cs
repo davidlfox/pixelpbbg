@@ -52,5 +52,52 @@ namespace PixelApp.Services
 
             return user.Energy;
         }
+
+        // todo: this is basically the same function as GetEnergy--figure out how to do this with Func/lambdas to make it more generic?
+
+        /// <summary>
+        /// gets a user's life stat with an option to commit updates (based on time, for example) to the db
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="db">db context</param>
+        /// <param name="commit">whether or not to commit this single change to the db</param>
+        /// <returns>the user's up-to-date life</returns>
+        public static int GetLife(string userId, ApplicationDbContext db, bool commit = true)
+        {
+            var user = db.Users.Single(x => x.Id == userId);
+
+            if (user.LifeUpdatedTime.HasValue)
+            {
+                // add life per time interval
+                var elapsed = DateTime.Now - user.LifeUpdatedTime.Value;
+                var elapsedMinutes = elapsed.Minutes;
+
+                if (elapsedMinutes >= 1) // todo: config this
+                {
+                    var newLife = user.Life + elapsedMinutes;
+                    if (newLife >= user.MaxLife)
+                    {
+                        user.Life = user.MaxLife;
+                        user.LifeUpdatedTime = null;
+                    }
+                    else
+                    {
+                        user.Life = newLife;
+
+                        // reset life update time to most recent minute interval, so calculations keep working
+                        // e.g. if 2:34 has elapsed, reset time to 0:34 ago
+                        var diff = TimeSpan.FromTicks(elapsed.Ticks % TimeSpan.FromSeconds(60).Ticks);
+                        user.LifeUpdatedTime = DateTime.Now - diff;
+                    }
+                }
+
+                if (commit)
+                {
+                    db.SaveChanges();
+                }
+            }
+
+            return user.Life;
+        }
     }
 }

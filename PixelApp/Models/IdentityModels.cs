@@ -18,6 +18,23 @@ namespace PixelApp.Models
         public int MaxEnergy { get; set; }
         public DateTime? EnergyUpdatedTime { get; set; }
 
+        /// <summary>
+        /// Player life/health/hit points
+        /// </summary>
+        public int Life { get; set; }
+        public int MaxLife { get; set; }
+        public DateTime? LifeUpdatedTime { get; set; }
+
+        /// <summary>
+        /// Player level
+        /// </summary>
+        public byte Level { get; set; }
+        /// <summary>
+        /// Player experience
+        /// </summary>
+        public int Experience { get; set; }
+
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

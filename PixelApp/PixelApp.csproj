@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201702080715324_poc-energystat.Designer.cs">
       <DependentUpon>201702080715324_poc-energystat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702111444598_player-life-xp.cs" />
+    <Compile Include="Migrations\201702111444598_player-life-xp.Designer.cs">
+      <DependentUpon>201702111444598_player-life-xp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -277,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702080715324_poc-energystat.resx">
       <DependentUpon>201702080715324_poc-energystat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702111444598_player-life-xp.resx">
+      <DependentUpon>201702111444598_player-life-xp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
