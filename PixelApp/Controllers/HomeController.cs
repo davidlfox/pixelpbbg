@@ -26,6 +26,12 @@ namespace PixelApp.Controllers
             return View();
         }
 
+        // todo: delete me
+        public ActionResult HomePage3()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
