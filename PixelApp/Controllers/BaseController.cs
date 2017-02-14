@@ -34,14 +34,25 @@ namespace PixelApp.Controllers
             {
                 // load vitals
                 this.UserContext = this.Context.Users.Single(x => x.Id == userId);
-                ViewBag.Username = this.UserContext.UserName;
-                ViewBag.Level = this.UserContext.Level;
-                ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
-                ViewBag.MaxLife = this.UserContext.MaxLife;
-                ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
-                ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
 
-                this.Context.SaveChanges();
+                // force territory selection/naming
+                if (!this.UserContext.TerritoryId.HasValue 
+                    && filterContext.ActionDescriptor.ActionName != "NameTerritory"
+                    && !(filterContext.Controller is HomeController))
+                {
+                    filterContext.Result = RedirectToAction("NameTerritory", "Dashboard");
+                }
+                else
+                {
+                    ViewBag.Username = this.UserContext.UserName;
+                    ViewBag.Level = this.UserContext.Level;
+                    ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
+                    ViewBag.MaxLife = this.UserContext.MaxLife;
+                    ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
+                    ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
+
+                    this.Context.SaveChanges();
+                }
             }
 
             base.OnActionExecuting(filterContext);

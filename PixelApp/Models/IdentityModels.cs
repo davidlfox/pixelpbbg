@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PixelApp.Migrations;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PixelApp.Models
 {
@@ -34,6 +35,13 @@ namespace PixelApp.Models
         /// </summary>
         public int Experience { get; set; }
 
+        /// <summary>
+        /// The player's home territory
+        /// </summary>
+        [ForeignKey("Territory")]
+        public int? TerritoryId { get; set; }
+        public virtual Territory Territory { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -56,5 +64,7 @@ namespace PixelApp.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.Territory> Territories { get; set; }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model PixelApp.Views.Dashboard.Models.DashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Territory: <strong>@Model.TerritoryName</strong></h4>
+        <p>Outskirts appeal: @Model.OutskirtsAppeal</p>
+        <h4>Resources</h4>
+        <ul>
+            @foreach (var res in Model.Resources)
+            {
+                <li>@res.Name: @res.Count</li>
+            }
+        </ul>
+        <p>Civilian Population: @Model.CivilianPopulation</p>
+        <p>Military Population: @Model.MilitaryPopulation</p>
+        <p>Todo: link to map</p>
+        <p>
+            Neighboring Territories:
+            <ul>
+                @foreach (var neighbor in Model.Neighbors)
+                {
+                    <li>@neighbor.TerritoryName</li>
+                    <li>Todo: power/threat?</li>
+                }
+            </ul>
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <h4>Daily Task: @Model.DailyTask</h4>
+        <p>Time to completion: todo</p>
+        <h4>Research</h4>
+        <p>Progress: todo</p>
+    </div>
+</div>

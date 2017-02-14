@@ -16,7 +16,7 @@ namespace PixelApp.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index", "Dashboard");
             }
         }
 

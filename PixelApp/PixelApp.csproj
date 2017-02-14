@@ -169,9 +169,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TerritoriesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -188,13 +190,21 @@
     <Compile Include="Migrations\201702111444598_player-life-xp.Designer.cs">
       <DependentUpon>201702111444598_player-life-xp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702140345012_scaffold-territories.cs" />
+    <Compile Include="Migrations\201702140345012_scaffold-territories.Designer.cs">
+      <DependentUpon>201702140345012_scaffold-territories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Territory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\StatManager.cs" />
+    <Compile Include="Services\TerritoryFactory.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
+    <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -262,6 +272,13 @@
     <Content Include="Views\Home\HomePage2.cshtml" />
     <Content Include="Views\Home\HomePage3.cshtml" />
     <Content Include="Views\Home\HomePage4.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\NameTerritory.cshtml" />
+    <Content Include="Views\Territories\Create.cshtml" />
+    <Content Include="Views\Territories\Delete.cshtml" />
+    <Content Include="Views\Territories\Details.cshtml" />
+    <Content Include="Views\Territories\Edit.cshtml" />
+    <Content Include="Views\Territories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702111444598_player-life-xp.resx">
       <DependentUpon>201702111444598_player-life-xp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702140345012_scaffold-territories.resx">
+      <DependentUpon>201702140345012_scaffold-territories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
