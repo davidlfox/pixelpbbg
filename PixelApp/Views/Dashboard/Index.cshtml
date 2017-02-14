@@ -7,8 +7,9 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <h4>Territory: <strong>@Model.TerritoryName</strong></h4>
-        <p>Outskirts appeal: @Model.OutskirtsAppeal</p>
+        <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
+        <p>Type: <strong>@Model.TerritoryType</strong></p>
+        <p>Outskirts appeal: <strong>@Model.OutskirtsAppeal</strong></p>
         <h4>Resources</h4>
         <ul>
             @foreach (var res in Model.Resources)
@@ -16,7 +17,7 @@
                 <li>@res.Name: @res.Count</li>
             }
         </ul>
-        <p>Civilian Population: @Model.CivilianPopulation</p>
+        <p>Civilian Population: <strong>@Model.CivilianPopulation</strong></p>
         <p>Todo: link to map</p>
         <p>
             Neighboring Territories:
@@ -29,7 +30,7 @@
         </p>
     </div>
     <div class="col-sm-6">
-        <h4>Daily Task: @Model.DailyTask</h4>
+        <h4>Daily Task: <strong>@Model.DailyTask</strong></h4>
         <p>Time to completion: todo</p>
         <h4>Research</h4>
         <p>Progress: todo</p>

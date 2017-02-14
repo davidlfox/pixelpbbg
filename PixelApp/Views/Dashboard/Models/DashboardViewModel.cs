@@ -1,4 +1,5 @@
-﻿using PixelApp.Services;
+﻿using PixelApp.Models;
+using PixelApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace PixelApp.Views.Dashboard.Models
     public class DashboardViewModel
     {
         public string TerritoryName { get; set; }
+        public TerritoryTypes TerritoryType { get; set; }
+        public int TerritoryX { get; set; }
+        public int TerritoryY { get; set; }
+
         public string OutskirtsAppeal { get; set; }
 
         public List<ResourceSkinny> Resources { get; set; }

@@ -16,9 +16,13 @@ namespace PixelApp.Controllers
         public ActionResult Index()
         {
             var vm = new DashboardViewModel();
-            vm.TerritoryName = this.UserContext.Territory.Name;
+            var terr = this.UserContext.Territory;
+            vm.TerritoryName = terr.Name;
             vm.OutskirtsAppeal = "Good";
-            vm.CivilianPopulation = this.UserContext.Territory.CivilianPopulation;
+            vm.CivilianPopulation = terr.CivilianPopulation;
+            vm.TerritoryType = terr.Type;
+            vm.TerritoryX = terr.X;
+            vm.TerritoryY = terr.Y;
 
             vm.Neighbors = TerritoryService.GetNeighbors(this.UserContext.Territory)
                 .Select(x => new TerritorySkinny
