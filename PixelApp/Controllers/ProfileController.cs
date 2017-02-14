@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace PixelApp.Controllers
 {
-    public class ProfileController : Controller
+    [Authorize]
+    public class ProfileController : BaseController
     {
         // GET: Profile
         public ActionResult Index()

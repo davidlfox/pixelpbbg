@@ -26,6 +26,13 @@ nav.sidebar, .main{
 	padding: 10px 10px 0 10px;
 }
 
+.navbar-nav > li.vitals {
+	color: #999;
+	padding-top: 13px;
+	padding-left: 13px;
+	padding-right: 13px;
+}
+
 /* .....NavBar: Icon only with coloring/layout.....*/
 
 /*small/medium side display*/

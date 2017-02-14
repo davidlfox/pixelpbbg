@@ -6,7 +6,17 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <style type="text/css">
+        .progress-bar { 
+            font-weight: bold;
+        }
+        .progress-bar.life {
+            background-color: #d9534f;
+        }
+        .progress-bar.energy {
+            background-color: #f0ad4e;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse sidebar" role="navigation">
@@ -19,11 +29,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="javascript:void(0);">Brand</a>
+                <a class="navbar-brand" href="javascript:void(0);">Pixelocalypse</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    <li class="vitals">
+                        <strong>Name:</strong> @ViewBag.Username<br />
+                        <strong>Level:</strong> @ViewBag.Level<br /><br />
+                        Life: <span class="text-muted">@ViewBag.Life / @ViewBag.MaxLife</span>
+                        <div class="progress">
+                            <div class="progress-bar life" role="progressbar" aria-valuenow="@ViewBag.Life" aria-valuemin="0" aria-valuemax="@ViewBag.MaxLife" style="width:@ViewBag.Life%"></div>
+                        </div>
+                        Energy: <span class="text-muted">@ViewBag.Energy / @ViewBag.MaxEnergy</span>
+                        <div class="progress">
+                            <div class="progress-bar energy" role="progressbar" aria-valuenow="@ViewBag.Energy" aria-valuemin="0" aria-valuemax="@ViewBag.MaxEnergy" style="width:@ViewBag.Energy%"></div>
+                        </div>
+                    </li>
                     <li class="active"><a href="@Url.Action("Index", "Home")">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
                     <li><a href="@Url.Action("Index", "Profile")">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
                     <li class="dropdown">
@@ -42,7 +64,7 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                <p>&copy; @DateTime.Now.Year - Pixelocalypse</p>
             </footer>
         </div>
     </div>

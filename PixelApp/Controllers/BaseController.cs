@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using PixelApp.Models;
+using PixelApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,36 @@ namespace PixelApp.Controllers
             var userId = this.User.Identity.GetUserId();
             if (!string.IsNullOrWhiteSpace(userId))
             {
-                this.UserContext = this.Context.Users.FirstOrDefault(x => x.Id == userId);
+                // load vitals
+                this.UserContext = this.Context.Users.Single(x => x.Id == userId);
+
+                // force territory selection/naming
+                if (!this.UserContext.TerritoryId.HasValue 
+                    && filterContext.ActionDescriptor.ActionName != "NameTerritory"
+                    && !(filterContext.Controller is HomeController))
+                {
+                    filterContext.Result = RedirectToAction("NameTerritory", "Dashboard");
+                }
+                else
+                {
+                    ViewBag.Username = this.UserContext.UserName;
+                    ViewBag.Level = this.UserContext.Level;
+                    ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
+                    ViewBag.MaxLife = this.UserContext.MaxLife;
+                    ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
+                    ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
+
+                    this.Context.SaveChanges();
+                }
             }
 
             base.OnActionExecuting(filterContext);
+        }
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            // todo: explicitly commit here?
+            base.OnActionExecuted(filterContext);
         }
     }
 }
