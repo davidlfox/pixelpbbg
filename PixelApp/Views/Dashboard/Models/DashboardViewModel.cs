@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixelApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,6 @@ namespace PixelApp.Views.Dashboard.Models
         public List<ResourceSkinny> Resources { get; set; }
 
         public int CivilianPopulation { get; set; }
-        public int MilitaryPopulation { get; set; }
 
         public List<TerritorySkinny> Neighbors { get; set; }
 
@@ -41,5 +41,6 @@ namespace PixelApp.Views.Dashboard.Models
     {
         public int TerritoryId { get; set; }
         public string TerritoryName { get; set; }
+        public Directions Direction { get; set; }
     }
 }

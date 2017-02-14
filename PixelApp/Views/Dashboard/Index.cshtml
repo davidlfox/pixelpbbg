@@ -17,15 +17,13 @@
             }
         </ul>
         <p>Civilian Population: @Model.CivilianPopulation</p>
-        <p>Military Population: @Model.MilitaryPopulation</p>
         <p>Todo: link to map</p>
         <p>
             Neighboring Territories:
             <ul>
                 @foreach (var neighbor in Model.Neighbors)
                 {
-                    <li>@neighbor.TerritoryName</li>
-                    <li>Todo: power/threat?</li>
+                    <li>@neighbor.Direction: <strong>@neighbor.TerritoryName</strong></li>
                 }
             </ul>
         </p>
