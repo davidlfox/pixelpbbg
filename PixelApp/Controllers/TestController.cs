@@ -1,7 +1,12 @@
-﻿using PixelApp.Services;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
+using PixelApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,6 +15,16 @@ namespace PixelApp.Controllers
     [Authorize]
     public class TestController : BaseController
     {
+        private CloudQueue addResourceRequestQueue;
+
+        public TestController()
+        {
+            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            addResourceRequestQueue = queueClient.GetQueueReference("addresources");
+            addResourceRequestQueue.CreateIfNotExists();
+        }
+
         // GET: Test
         public ActionResult Index()
         {
@@ -25,5 +40,26 @@ namespace PixelApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> AddResourcesTest(ResourceTypes type, int quantity, int delayInSeconds)
+        {
+            // queue message with delay
+            var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new AddResourceInfo
+            {
+                Type = type,
+                Quantity = quantity,
+                TerritoryId = this.UserContext.TerritoryId.Value,
+            }));
+            await addResourceRequestQueue.AddMessageAsync(queueMessage, null, TimeSpan.FromSeconds(delayInSeconds), null, null);
+
+            return RedirectToAction("Index");
+        }
+    }
+
+    public class AddResourceInfo
+    {
+        public int TerritoryId { get; set; }
+        public ResourceTypes Type { get; set; }
+        public int Quantity { get; set; }
     }
 }

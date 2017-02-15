@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PixelApp.Models
 {
-    public class Territory
+    public class Territory// : IValidatableObject
     {
         /// <summary>
         /// Primary key
@@ -59,10 +59,26 @@ namespace PixelApp.Models
         /// </summary>
         public int CivilianPopulation { get; set; }
 
+        //// percentages of civilian population to dedicate to resource collecting
+        //public decimal WaterAllocation { get; set; }
+        //public decimal WoodAllocation { get; set; }
+        //public decimal CoalAllocation { get; set; }
+        //public decimal StoneAllocation { get; set; }
+        //public decimal OilAllocation { get; set; }
+        //public decimal IronAllocation { get; set; }
+
         /// <summary>
         /// The related player(s) (for now, just one user per territory)
         /// </summary>
         public ICollection<ApplicationUser> Players { get; set; }
+
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    if (WaterAllocation + WoodAllocation + CoalAllocation + StoneAllocation + OilAllocation + IronAllocation > 1)
+        //    {
+        //        yield return new ValidationResult("Civilian allocations must be 100% or less.");
+        //    }
+        //}
     }
 
     public enum TerritoryTypes : byte

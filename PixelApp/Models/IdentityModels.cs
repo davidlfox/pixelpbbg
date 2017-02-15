@@ -35,6 +35,19 @@ namespace PixelApp.Models
         /// </summary>
         public int Experience { get; set; }
 
+        //// resource quantities
+        //public int Wood { get; set; }
+        //public int Water { get; set; }
+        //public int Coal { get; set; }
+        //public int Stone { get; set; }
+        //public int Oil { get; set; }
+        //public int Iron { get; set; }
+
+        ///// <summary>
+        ///// Last time resources were updated
+        ///// </summary>
+        //public DateTime LastResourceUpdate { get; set; }
+
         /// <summary>
         /// The player's home territory
         /// </summary>

@@ -19,4 +19,27 @@
             </div>
         </form>
     </div>
+    <div class="col-xs-4">
+        <form action="/Test/AddResourcesTest" method="post">
+            <div class="form-group">
+                <select name="type">
+                    <option value="Water">Water</option>
+                    <option value="Wood">Wood</option>
+                    <option value="Coal">Coal</option>
+                    <option value="Stone">Stone</option>
+                    <option value="Oil">Oil</option>
+                    <option value="Iron">Iron</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" name="quantity" class="form-control" placeholder="Add this many" />
+            </div>
+            <div class="form-group">
+                <input type="text" name="delayInSeconds" class="form-control" placeholder="In this many seconds (delay)" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
