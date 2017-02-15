@@ -339,6 +339,12 @@
       <DependentUpon>201702140345012_scaffold-territories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pixel.Common\Pixel.Common.csproj">
+      <Project>{a0c8886f-4fbf-4e44-b996-61eb43bde888}</Project>
+      <Name>Pixel.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

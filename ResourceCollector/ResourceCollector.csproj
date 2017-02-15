@@ -86,9 +86,9 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PixelApp\PixelApp.csproj">
-      <Project>{87f75367-3ae7-4d23-8b41-3e153a9e25eb}</Project>
-      <Name>PixelApp</Name>
+    <ProjectReference Include="..\Pixel.Common\Pixel.Common.csproj">
+      <Project>{a0c8886f-4fbf-4e44-b996-61eb43bde888}</Project>
+      <Name>Pixel.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

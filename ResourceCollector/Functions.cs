@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
-using PixelApp.Controllers; // hack/poc: this shouldn't be the web app's controller namespace
+using Pixel.Common.Cloud;
 
 namespace ResourceCollector
 {

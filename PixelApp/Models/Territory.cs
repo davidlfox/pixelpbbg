@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pixel.Common.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -79,13 +80,5 @@ namespace PixelApp.Models
         //        yield return new ValidationResult("Civilian allocations must be 100% or less.");
         //    }
         //}
-    }
-
-    public enum TerritoryTypes : byte
-    {
-        Urban = 1,
-        Rural = 2,
-        Forest = 3,
-        Desert = 4,
     }
 }

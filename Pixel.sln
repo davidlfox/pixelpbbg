@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelApp", "PixelApp\PixelA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceCollector", "ResourceCollector\ResourceCollector.csproj", "{8CE4BCE1-4727-402D-BA06-80716035EEC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pixel.Common", "Pixel.Common\Pixel.Common.csproj", "{A0C8886F-4FBF-4E44-B996-61EB43BDE888}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8CE4BCE1-4727-402D-BA06-80716035EEC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE4BCE1-4727-402D-BA06-80716035EEC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE4BCE1-4727-402D-BA06-80716035EEC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0C8886F-4FBF-4E44-B996-61EB43BDE888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0C8886F-4FBF-4E44-B996-61EB43BDE888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0C8886F-4FBF-4E44-B996-61EB43BDE888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0C8886F-4FBF-4E44-B996-61EB43BDE888}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

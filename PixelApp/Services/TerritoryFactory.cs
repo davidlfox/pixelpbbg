@@ -1,4 +1,5 @@
-﻿using PixelApp.Models;
+﻿using Pixel.Common.Data;
+using PixelApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,6 @@ using System.Web;
 
 namespace PixelApp.Services
 {
-    public enum ResourceTypes
-    {
-        Water,
-        Wood,
-        Coal,
-        Stone,
-        Oil,
-        Iron,
-    }
-
     public class TerritoryFactory
     {
         private static Random rand = new Random();

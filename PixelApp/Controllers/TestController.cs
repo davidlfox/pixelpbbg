@@ -1,6 +1,8 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
+using Pixel.Common.Cloud;
+using Pixel.Common.Data;
 using PixelApp.Services;
 using System;
 using System.Collections.Generic;
@@ -54,12 +56,5 @@ namespace PixelApp.Controllers
 
             return RedirectToAction("Index");
         }
-    }
-
-    public class AddResourceInfo
-    {
-        public int TerritoryId { get; set; }
-        public ResourceTypes Type { get; set; }
-        public int Quantity { get; set; }
     }
 }
