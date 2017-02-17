@@ -1,9 +1,11 @@
-﻿using PixelApp.Models;
+﻿using Pixel.Common.Cloud;
+using PixelApp.Models;
 using PixelApp.Services;
 using PixelApp.Views.Dashboard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -83,11 +85,38 @@ namespace PixelApp.Controllers
 
             // todo: profanity check
 
+            TerritoryFactory.InitializeTerritory(territory);
+
             this.UserContext.Territory.Name = vm.Name;
             this.Context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
+        // hack: this will setup queue messages for existing users who didn't have events initialized when naming their territory
+        // todo: make this admin accessible only
+        [HttpGet]
+        public ActionResult InitializeQueuesForExistingPlayers()
+        {
+            // find users that have never been queued for resource/population growth
+            var uninitializedTerritories = this.Context.Territories.Where(x => x.LastPopulationUpdate == null);
+
+            // queue messages for these people
+            var qm = new QueueManager();
+            foreach (var user in uninitializedTerritories)
+            {
+                qm.QueuePopulation(user.TerritoryId, 1);
+            }
+            
+            // do the same for resources
+            var uninitializedResources = this.Context.Territories.Where(x => x.LastResourceCollectionDate == null);
+
+            foreach (var user in uninitializedResources)
+            {
+                qm.QueueResourceCollection(user.TerritoryId, 1);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

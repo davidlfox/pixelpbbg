@@ -1,4 +1,5 @@
-﻿using Pixel.Common.Data;
+﻿using Pixel.Common.Cloud;
+using Pixel.Common.Data;
 using PixelApp.Models;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,29 @@ namespace PixelApp.Services
             terr.Y = 0;
 
             return terr;
+        }
+
+        /// <summary>
+        /// Setup default allocations, population, etc
+        /// </summary>
+        /// <param name="territory">The territory to be initialized</param>
+        public static void InitializeTerritory(Territory territory)
+        {
+            territory.CivilianPopulation = 120;
+            territory.LastPopulationUpdate = DateTime.Now;
+
+            territory.WaterAllocation = 0.16m;
+            territory.WoodAllocation = 0.16m;
+            territory.CoalAllocation = 0.16m;
+            territory.StoneAllocation = 0.16m;
+            territory.OilAllocation = 0.16m;
+            territory.IronAllocation = 0.16m;
+            territory.LastResourceCollectionDate = DateTime.Now;
+
+            // queue population and resource events
+            var qm = new QueueManager();
+            qm.QueueResourceCollection(territory.TerritoryId);
+            qm.QueuePopulation(territory.TerritoryId);
         }
 
         private static TerritoryTypes GetRandomTerritoryType()

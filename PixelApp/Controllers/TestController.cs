@@ -46,7 +46,7 @@ namespace PixelApp.Controllers
         public async Task<ActionResult> AddResourcesTest(ResourceTypes type, int quantity, int delayInSeconds)
         {
             // queue message with delay
-            var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new AddResourceInfo
+            var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new AddResourceMessage
             {
                 Type = type,
                 Quantity = quantity,
