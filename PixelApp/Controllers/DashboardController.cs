@@ -21,6 +21,14 @@ namespace PixelApp.Controllers
             var terr = this.UserContext.Territory;
             vm.TerritoryName = terr.Name;
             vm.OutskirtsAppeal = "Good";
+
+            vm.Resources.Add(new ResourceSkinny { Name = "Water", Count = this.UserContext.Water });
+            vm.Resources.Add(new ResourceSkinny { Name = "Wood", Count = this.UserContext.Wood });
+            vm.Resources.Add(new ResourceSkinny { Name = "Coal", Count = this.UserContext.Coal });
+            vm.Resources.Add(new ResourceSkinny { Name = "Stone", Count = this.UserContext.Stone });
+            vm.Resources.Add(new ResourceSkinny { Name = "Oil", Count = this.UserContext.Oil });
+            vm.Resources.Add(new ResourceSkinny { Name = "Iron", Count = this.UserContext.Iron });
+
             vm.CivilianPopulation = terr.CivilianPopulation;
             vm.TerritoryType = terr.Type;
             vm.TerritoryX = terr.X;
