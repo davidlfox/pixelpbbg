@@ -1,24 +1,44 @@
 ﻿@model PixelApp.Views.Dashboard.Models.DashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
+    var assetPath = "//storageasagvk5xvrja2.blob.core.windows.net/assets/";
 }
+
+<style type="text/css">
+    .territory-info {
+        background-color: #b9bbb4;
+        padding: 30px !important;
+    }
+
+    .territory-info img.type {
+        border: 3px solid #666;
+    }
+
+    .resource-info {
+        background-color: #b9bbb4;
+        padding: 30px !important;
+    }
+
+    .resource-info .type {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+</style>
 
 <h2>Dashboard</h2>
 
-<div class="row">
-    <div class="col-sm-6">
+<div class="row territory-info">
+    <div class="col-sm-4">
         <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
         <p>Type: <strong>@Model.TerritoryType</strong></p>
         <p>Outskirts appeal: <strong>@Model.OutskirtsAppeal</strong></p>
-        <h4>Resources</h4>
-        <ul>
-            @foreach (var res in Model.Resources)
-            {
-                <li>@res.Name: @res.Count</li>
-            }
-        </ul>
         <p>Civilian Population: <strong>@Model.CivilianPopulation</strong></p>
-        <p>Todo: link to map</p>
+    </div>
+    <div class="col-sm-4">
+        <img class="type" src="@($"{assetPath}{Model.TerritoryType.ToString().ToLower()}.png")" alt="@Model.TerritoryType"/>
+    </div>
+    <div class="col-sm-4">
         <p>
             Neighboring Territories:
             <ul>
@@ -28,6 +48,21 @@
                 }
             </ul>
         </p>
+    </div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row resource-info text-center">
+    @foreach(var res in Model.Resources)
+    {
+        <div class="col-sm-2">
+            <img class="type" src="@($"{assetPath}{res.Name.ToLower()}.png")" alt="@res.Name"/>
+            <strong>@res.Count</strong>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p>Todo: link to map</p>
     </div>
     <div class="col-sm-6">
         <h4>Daily Task: <strong>@Model.DailyTask</strong></h4>
