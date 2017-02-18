@@ -207,11 +207,11 @@
               "type": "SQLServer"
             },
             "AzureWebJobsStorage": {
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2016-08-01').key1,';')]",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2016-12-01').keys[0].value,';')]",
               "type": "Custom"
             },
             "AzureWebJobsDashboard": {
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2016-08-01').key1,';')]",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2016-12-01').keys[0].value,';')]",
               "type": "Custom"
             }
           }
