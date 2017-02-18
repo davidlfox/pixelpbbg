@@ -61,7 +61,7 @@ namespace ResourceCollector
 
             // queue next message
             var qm = new QueueManager();
-            qm.QueueResourceCollection(territory.TerritoryId);
+            qm.QueuePopulation(territory.TerritoryId);
         }
     }
 }
