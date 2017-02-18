@@ -1,4 +1,4 @@
-﻿
+﻿@model PixelApp.Models.RegisterViewModel
 @{
     ViewBag.Title = "HomePage";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -160,15 +160,18 @@
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-push-8 col-md-offset-0">
                 <div class="register-container">
                     <h1>Play For Free!</h1><br>
-                    <form>
-                        <input type="text" name="username" placeholder="Character Name">
-                        <input type="text" name="email" placeholder="Email">
-                        <input type="password" name="pass" placeholder="Password">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.UserName, new { placeholder = "Character Name" })
+                        @Html.TextBoxFor(x => x.Email, new { placeholder = "Email" })
+                        @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", type = "password" })
+                        @Html.TextBoxFor(x => x.ConfirmPassword, new { placeholder = "Confirm Password", type = "password" })
                         <input type="submit" name="register" class="register register-submit" value="Register">
-                    </form>
-
+                    }
                     <div class="register-help">
-                        <a href="#">Login</a> - <a href="#">Forgot Password</a>
+                        @Html.ActionLink("Login", "Login", "Account", null, null) - @Html.ActionLink("Forgot Password", "ForgotPassword", "Account", null, null)
                     </div>
                 </div>
             </div>
