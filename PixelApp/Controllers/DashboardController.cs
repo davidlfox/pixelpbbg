@@ -22,12 +22,12 @@ namespace PixelApp.Controllers
             vm.TerritoryName = terr.Name;
             vm.OutskirtsAppeal = "Good";
 
-            vm.Resources.Add(new ResourceSkinny { Name = "Water", Count = this.UserContext.Water });
-            vm.Resources.Add(new ResourceSkinny { Name = "Wood", Count = this.UserContext.Wood });
-            vm.Resources.Add(new ResourceSkinny { Name = "Coal", Count = this.UserContext.Coal });
-            vm.Resources.Add(new ResourceSkinny { Name = "Stone", Count = this.UserContext.Stone });
-            vm.Resources.Add(new ResourceSkinny { Name = "Oil", Count = this.UserContext.Oil });
-            vm.Resources.Add(new ResourceSkinny { Name = "Iron", Count = this.UserContext.Iron });
+            vm.Resources.Add(new ResourceSkinny { Name = "Water", Count = this.UserContext.Water, Allocation = terr.WaterAllocation });
+            vm.Resources.Add(new ResourceSkinny { Name = "Wood", Count = this.UserContext.Wood, Allocation = terr.WoodAllocation });
+            vm.Resources.Add(new ResourceSkinny { Name = "Coal", Count = this.UserContext.Coal, Allocation = terr.CoalAllocation });
+            vm.Resources.Add(new ResourceSkinny { Name = "Stone", Count = this.UserContext.Stone, Allocation = terr.StoneAllocation });
+            vm.Resources.Add(new ResourceSkinny { Name = "Oil", Count = this.UserContext.Oil, Allocation = terr.OilAllocation });
+            vm.Resources.Add(new ResourceSkinny { Name = "Iron", Count = this.UserContext.Iron, Allocation = terr.IronAllocation });
 
             vm.CivilianPopulation = terr.CivilianPopulation;
             vm.TerritoryType = terr.Type;
@@ -99,6 +99,28 @@ namespace PixelApp.Controllers
             this.Context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public JsonResult UpdateResourceAllocations(UpdateResourcesViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false }, JsonRequestBehavior.DenyGet);
+            }
+
+            var ts = new TerritoryService();
+            ts.UpdateResourceAllocations(this.UserContext.TerritoryId.Value, vm.WaterAllocation, vm.WoodAllocation
+                , vm.CoalAllocation, vm.StoneAllocation, vm.OilAllocation, vm.IronAllocation);
+            try
+            {
+                ts.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return Json(new { success = true }, JsonRequestBehavior.DenyGet);
         }
 
         // hack: this will setup queue messages for existing users who didn't have events initialized when naming their territory

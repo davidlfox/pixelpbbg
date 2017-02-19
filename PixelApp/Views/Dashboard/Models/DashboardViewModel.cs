@@ -36,6 +36,7 @@ namespace PixelApp.Views.Dashboard.Models
     {
         public string Name { get; set; }
         public int Count { get; set; }
+        public decimal Allocation { get; set; }
     }
 
     public class CitizenSkinny
