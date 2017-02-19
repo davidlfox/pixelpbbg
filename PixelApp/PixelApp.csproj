@@ -251,6 +251,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dashboard-bg.jpg" />
     <Content Include="Content\pixel-home-bg.jpg" />
     <Content Include="Content\pixel-home-bg2.jpg" />
     <Content Include="Content\pixel-home-bg3.jpg" />
