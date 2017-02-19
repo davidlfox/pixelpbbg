@@ -223,9 +223,17 @@
     <Compile Include="Migrations\201702140345012_scaffold-territories.Designer.cs">
       <DependentUpon>201702140345012_scaffold-territories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702150609041_unique username and email.cs" />
+    <Compile Include="Migrations\201702150609041_unique username and email.Designer.cs">
+      <DependentUpon>201702150609041_unique username and email.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201702170403499_resource-allocations.cs" />
     <Compile Include="Migrations\201702170403499_resource-allocations.Designer.cs">
       <DependentUpon>201702170403499_resource-allocations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702180524586_merge.cs" />
+    <Compile Include="Migrations\201702180524586_merge.Designer.cs">
+      <DependentUpon>201702180524586_merge.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -240,10 +248,12 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
+    <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dashboard-bg.jpg" />
     <Content Include="Content\pixel-home-bg.jpg" />
     <Content Include="Content\pixel-home-bg2.jpg" />
     <Content Include="Content\pixel-home-bg3.jpg" />
@@ -343,8 +353,14 @@
     <EmbeddedResource Include="Migrations\201702140345012_scaffold-territories.resx">
       <DependentUpon>201702140345012_scaffold-territories.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702150609041_unique username and email.resx">
+      <DependentUpon>201702150609041_unique username and email.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702170403499_resource-allocations.resx">
       <DependentUpon>201702170403499_resource-allocations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702180524586_merge.resx">
+      <DependentUpon>201702180524586_merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

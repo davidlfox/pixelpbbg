@@ -16,6 +16,18 @@ namespace PixelApp.Services
 
     public class TerritoryService
     {
+        private ApplicationDbContext context;
+
+        public TerritoryService()
+        {
+            this.context = new ApplicationDbContext();
+        }
+
+        public int SaveChanges()
+        {
+            return this.context.SaveChanges();
+        }
+
         public static Dictionary<Directions, Territory> GetNeighbors(Territory territory)
         {
             var db = new ApplicationDbContext();
@@ -49,6 +61,18 @@ namespace PixelApp.Services
             }
 
             return ret;
+        }
+
+        public void UpdateResourceAllocations(int territoryId, decimal water = 0, decimal wood = 0
+            , decimal coal = 0, decimal stone = 0, decimal oil = 0, decimal iron = 0)
+        {
+            var terr = this.context.Territories.Single(x => x.TerritoryId == territoryId);
+            terr.WaterAllocation = water / 100m;
+            terr.WoodAllocation = wood / 100m;
+            terr.CoalAllocation = coal / 100m;
+            terr.StoneAllocation = stone / 100m;
+            terr.OilAllocation = oil / 100m;
+            terr.IronAllocation = iron / 100m;
         }
     }
 }

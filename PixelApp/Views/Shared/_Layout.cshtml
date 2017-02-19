@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
         .progress-bar { 
@@ -15,6 +16,12 @@
         }
         .progress-bar.energy {
             background-color: #f0ad4e;
+        }
+        .main {
+            background-image: url('/Content/dashboard-bg.jpg');
+            background-size: cover;
+            top: 0;
+            bottom: 0;
         }
     </style>
 </head>
@@ -71,6 +78,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @RenderSection("scripts", required: false)
 
     <!-- theme setup -->

@@ -58,6 +58,7 @@ namespace PixelApp.Services
         public static void InitializeTerritory(Territory territory)
         {
             territory.CivilianPopulation = 120;
+            territory.PopulationGrowthRate = 0.02m;
             territory.LastPopulationUpdate = DateTime.Now;
 
             territory.WaterAllocation = 0.16m;
