@@ -49,9 +49,8 @@ namespace PixelApp.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Email / User Name")]
+        public string UserNameEmail { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
