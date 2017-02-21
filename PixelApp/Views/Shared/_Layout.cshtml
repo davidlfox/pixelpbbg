@@ -23,6 +23,9 @@
             top: 0;
             bottom: 0;
         }
+        .navbar-inverse .navbar-nav > li > button {
+            color: #999999;
+        }
     </style>
 </head>
 <body>
@@ -61,10 +64,17 @@
                             <li><a href="javascript:void(0);">Coming Soon!</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:signOut()">Sign Out</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "signout-form" }))
+    {
+        @Html.AntiForgeryToken()
+    }
     <div class="main">
         <!-- Content Here -->
         <div class="container body-content">
@@ -96,6 +106,9 @@
                 $('body').height(Math.max(height1, height3, height2));
             }
 
+        }
+        function signOut() {
+            $('#signout-form').submit();
         }
         $(document).ready(function () {
             htmlbodyHeightUpdate()

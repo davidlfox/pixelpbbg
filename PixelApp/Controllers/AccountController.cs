@@ -400,7 +400,7 @@ namespace PixelApp.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpGet]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
