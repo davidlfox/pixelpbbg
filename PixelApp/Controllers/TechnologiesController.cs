@@ -46,7 +46,7 @@ namespace PixelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TechnologyId,Name,Description,TechnologyTypeId,ResourceTypeId,ResourceCost")] Technology technology)
+        public ActionResult Create([Bind(Include = "TechnologyId,Name,Description,TechnologyTypeId,ResourceCostTypeId,ResourceCost,BoostTypeId,BoostAmount")] Technology technology)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace PixelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TechnologyId,Name,Description,TechnologyTypeId,ResourceTypeId,ResourceCost")] Technology technology)
+        public ActionResult Edit([Bind(Include = "TechnologyId,Name,Description,TechnologyTypeId,ResourceCostTypeId,ResourceCost,BoostTypeId,BoostAmount")] Technology technology)
         {
             if (ModelState.IsValid)
             {

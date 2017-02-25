@@ -16,6 +16,6 @@ namespace Pixel.Common.Data
         Iron,
         Offense,
         Defense,
-        Population
+        Population,
     }
 }

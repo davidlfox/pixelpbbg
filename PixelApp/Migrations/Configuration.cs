@@ -12,6 +12,7 @@ namespace PixelApp.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(PixelApp.Models.ApplicationDbContext context)
