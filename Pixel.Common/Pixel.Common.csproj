@@ -77,6 +77,7 @@
     <Compile Include="Cloud\AddResourceMessage.cs" />
     <Compile Include="Cloud\QueueManager.cs" />
     <Compile Include="Cloud\QueueNames.cs" />
+    <Compile Include="Data\BoostTypes.cs" />
     <Compile Include="Data\ResourceTypes.cs" />
     <Compile Include="Data\TechnologyTypes.cs" />
     <Compile Include="Data\TerritoryTypes.cs" />

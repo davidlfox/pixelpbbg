@@ -10,6 +10,6 @@ namespace Pixel.Common.Data
     {
         Military = 1,
         Resource = 2,
-        PixelAppeal = 3,
+        Culture = 3,
     }
 }
