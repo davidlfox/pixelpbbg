@@ -78,6 +78,7 @@
     <Compile Include="Cloud\QueueManager.cs" />
     <Compile Include="Cloud\QueueNames.cs" />
     <Compile Include="Data\ResourceTypes.cs" />
+    <Compile Include="Data\TechnologyTypes.cs" />
     <Compile Include="Data\TerritoryTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
