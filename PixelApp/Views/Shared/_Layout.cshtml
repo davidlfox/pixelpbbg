@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav">
                     <li class="vitals">
                         <strong>Name:</strong> @ViewBag.Username<br />
-                        <strong>Level:</strong> @ViewBag.Level<br /><br />
+                        <strong>Level:</strong> @ViewBag.Level (@string.Format("{0:P0}", ViewBag.LevelProgress))<br /><br />
                         Life: <span class="text-muted">@ViewBag.Life / @ViewBag.MaxLife</span>
                         <div class="progress">
                             <div class="progress-bar life" role="progressbar" aria-valuenow="@ViewBag.Life" aria-valuemin="0" aria-valuemax="@ViewBag.MaxLife" style="width:@ViewBag.Life%"></div>
