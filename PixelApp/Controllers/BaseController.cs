@@ -45,7 +45,8 @@ namespace PixelApp.Controllers
                 else
                 {
                     ViewBag.Username = this.UserContext.UserName;
-                    ViewBag.Level = this.UserContext.Level;
+                    ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
+                    ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
                     ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
                     ViewBag.MaxLife = this.UserContext.MaxLife;
                     ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);

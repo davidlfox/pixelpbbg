@@ -8,6 +8,9 @@ namespace PixelApp.Services
 {
     public class StatManager
     {
+        public static readonly int BaseExperience = 200;
+        public static readonly int ExperienceFactor = 2;
+
         /// <summary>
         /// gets a user's energy stat with an option to commit updates (based on time, for example) to the db
         /// </summary>
@@ -98,6 +101,61 @@ namespace PixelApp.Services
             }
 
             return user.Life;
+        }
+
+        /// <summary>
+        /// get player level accounting for any recent experience
+        /// probably something like: 300x - 150
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="db">db context</param>
+        /// <param name="commit">whether or not to commit this single change to the db</param>
+        /// <returns>player level after updating for experience</returns>
+        public static int GetLevel(string userId, ApplicationDbContext db, bool commit = true)
+        {
+            var user = db.Users.Single(x => x.Id == userId);
+
+            var experienceNeeded = BaseExperience * Math.Pow(user.Level, ExperienceFactor);
+
+            if(user.Experience >= experienceNeeded)
+            {
+                user.Level++;
+
+                if (commit)
+                {
+                    db.SaveChanges();
+                }
+            }
+
+            return user.Level;
+        }
+
+        /// <summary>
+        /// Get progress to next level as a percentage
+        /// </summary>
+        /// <param name="level">current user level</param>
+        /// <param name="experience">current user experience</param>
+        /// <returns>Progress as a percentage</returns>
+        public static double GetLevelProgress(int level, int experience)
+        {
+            double lastLevelExperience = 0;
+
+            if (level > 1)
+            {
+                lastLevelExperience = BaseExperience * Math.Pow(level - 1, ExperienceFactor);
+            }
+
+            var experienceNeeded = BaseExperience * Math.Pow(level, ExperienceFactor);
+
+            var percentage = (experience - lastLevelExperience) / (experienceNeeded - lastLevelExperience);
+
+            // e.g. player lost a bunch of experience shortly after gaining a level, but it doesn't revert them a level
+            if (percentage < 0)
+            {
+                percentage = 0;
+            }
+
+            return percentage;
         }
     }
 }
