@@ -39,9 +39,9 @@ namespace PixelApp.Models
         /// </summary>
         public decimal Wood { get; set; }
         /// <summary>
-        /// Probability of coal
+        /// Probability of food
         /// </summary>
-        public decimal Coal { get; set; }
+        public decimal Food { get; set; }
         /// <summary>
         /// Probability of stone
         /// </summary>
@@ -73,7 +73,7 @@ namespace PixelApp.Models
         // percentages of civilian population to dedicate to resource collecting
         public decimal WaterAllocation { get; set; }
         public decimal WoodAllocation { get; set; }
-        public decimal CoalAllocation { get; set; }
+        public decimal FoodAllocation { get; set; }
         public decimal StoneAllocation { get; set; }
         public decimal OilAllocation { get; set; }
         public decimal IronAllocation { get; set; }
@@ -90,7 +90,7 @@ namespace PixelApp.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (WaterAllocation + WoodAllocation + CoalAllocation + StoneAllocation + OilAllocation + IronAllocation > 1)
+            if (WaterAllocation + WoodAllocation + FoodAllocation + StoneAllocation + OilAllocation + IronAllocation > 1)
             {
                 yield return new ValidationResult("Civilian allocations must be 100% or less.");
             }

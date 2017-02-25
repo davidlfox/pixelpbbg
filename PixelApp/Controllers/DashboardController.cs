@@ -24,7 +24,7 @@ namespace PixelApp.Controllers
 
             vm.Resources.Add(new ResourceSkinny { Name = "Water", Count = this.UserContext.Water, Allocation = terr.WaterAllocation });
             vm.Resources.Add(new ResourceSkinny { Name = "Wood", Count = this.UserContext.Wood, Allocation = terr.WoodAllocation });
-            vm.Resources.Add(new ResourceSkinny { Name = "Coal", Count = this.UserContext.Coal, Allocation = terr.CoalAllocation });
+            vm.Resources.Add(new ResourceSkinny { Name = "Food", Count = this.UserContext.Food, Allocation = terr.FoodAllocation });
             vm.Resources.Add(new ResourceSkinny { Name = "Stone", Count = this.UserContext.Stone, Allocation = terr.StoneAllocation });
             vm.Resources.Add(new ResourceSkinny { Name = "Oil", Count = this.UserContext.Oil, Allocation = terr.OilAllocation });
             vm.Resources.Add(new ResourceSkinny { Name = "Iron", Count = this.UserContext.Iron, Allocation = terr.IronAllocation });
@@ -110,7 +110,7 @@ namespace PixelApp.Controllers
 
             var ts = new TerritoryService();
             ts.UpdateResourceAllocations(this.UserContext.TerritoryId.Value, vm.WaterAllocation, vm.WoodAllocation
-                , vm.CoalAllocation, vm.StoneAllocation, vm.OilAllocation, vm.IronAllocation);
+                , vm.FoodAllocation, vm.StoneAllocation, vm.OilAllocation, vm.IronAllocation);
             try
             {
                 ts.SaveChanges();

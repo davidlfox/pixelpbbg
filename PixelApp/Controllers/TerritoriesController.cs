@@ -48,7 +48,7 @@ namespace PixelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TerritoryId,Name,Type,X,Y,Water,Wood,Coal,Stone,Oil,Iron,CivilianPopulation")] Territory territory)
+        public async Task<ActionResult> Create([Bind(Include = "TerritoryId,Name,Type,X,Y,Water,Wood,Food,Stone,Oil,Iron,CivilianPopulation")] Territory territory)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace PixelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TerritoryId,Name,Type,X,Y,Water,Wood,Coal,Stone,Oil,Iron,CivilianPopulation")] Territory territory)
+        public async Task<ActionResult> Edit([Bind(Include = "TerritoryId,Name,Type,X,Y,Water,Wood,Food,Stone,Oil,Iron,CivilianPopulation")] Territory territory)
         {
             if (ModelState.IsValid)
             {

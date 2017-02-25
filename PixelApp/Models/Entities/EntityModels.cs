@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pixel.Common.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,16 +33,5 @@ namespace PixelApp.Models.Entities
         Military = 1,
         Resource = 2,
         PixelAppeal = 3,
-    }
-
-    public enum ResourceTypes : byte
-    {
-        Wood = 1,
-        Water = 2,
-        OIl = 3,
-        Iron = 4,
-        Coal = 5,
-        Stone = 6,
-        Food = 7,
     }
 }

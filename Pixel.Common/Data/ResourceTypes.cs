@@ -10,7 +10,7 @@ namespace Pixel.Common.Data
     {
         Water,
         Wood,
-        Coal,
+        Food,
         Stone,
         Oil,
         Iron,

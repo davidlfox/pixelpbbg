@@ -27,7 +27,7 @@ namespace ResourceCollector
             // add resources based on probability and allocation
             user.Water += (int)(territory.Water * territory.WaterAllocation * territory.CivilianPopulation);
             user.Wood += (int)(territory.Wood * territory.WoodAllocation * territory.CivilianPopulation);
-            user.Coal += (int)(territory.Coal * territory.CoalAllocation * territory.CivilianPopulation);
+            user.Food += (int)(territory.Food * territory.FoodAllocation * territory.CivilianPopulation);
             user.Stone += (int)(territory.Stone * territory.StoneAllocation * territory.CivilianPopulation);
             user.Oil += (int)(territory.Oil * territory.OilAllocation * territory.CivilianPopulation);
             user.Iron += (int)(territory.Iron * territory.IronAllocation * territory.CivilianPopulation);

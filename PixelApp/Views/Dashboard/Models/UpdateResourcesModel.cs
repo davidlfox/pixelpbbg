@@ -10,14 +10,14 @@ namespace PixelApp.Views.Dashboard.Models
     {
         public int WaterAllocation { get; set; }
         public int WoodAllocation { get; set; }
-        public int CoalAllocation { get; set; }
+        public int FoodAllocation { get; set; }
         public int StoneAllocation { get; set; }
         public int OilAllocation { get; set; }
         public int IronAllocation { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (WaterAllocation + WoodAllocation + CoalAllocation + StoneAllocation + OilAllocation + IronAllocation > 100)
+            if (WaterAllocation + WoodAllocation + FoodAllocation + StoneAllocation + OilAllocation + IronAllocation > 100)
             {
                 yield return new ValidationResult("Allocation percentages must be 100% or less.");
             }

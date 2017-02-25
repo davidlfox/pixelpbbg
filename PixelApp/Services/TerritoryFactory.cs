@@ -26,7 +26,7 @@ namespace PixelApp.Services
 
             terr.Water = GetRandomResource(ResourceTypes.Water, terr.Type);
             terr.Wood = GetRandomResource(ResourceTypes.Wood, terr.Type);
-            terr.Coal = GetRandomResource(ResourceTypes.Coal, terr.Type);
+            terr.Food = GetRandomResource(ResourceTypes.Food, terr.Type);
             terr.Stone = GetRandomResource(ResourceTypes.Stone, terr.Type);
             terr.Oil = GetRandomResource(ResourceTypes.Oil, terr.Type);
             terr.Iron = GetRandomResource(ResourceTypes.Iron, terr.Type);
@@ -63,7 +63,7 @@ namespace PixelApp.Services
 
             territory.WaterAllocation = 0.16m;
             territory.WoodAllocation = 0.16m;
-            territory.CoalAllocation = 0.16m;
+            territory.FoodAllocation = 0.16m;
             territory.StoneAllocation = 0.16m;
             territory.OilAllocation = 0.16m;
             territory.IronAllocation = 0.16m;
@@ -89,7 +89,7 @@ namespace PixelApp.Services
                 case TerritoryTypes.Desert:
                     switch (resType)
                     {
-                        case ResourceTypes.Coal:
+                        case ResourceTypes.Food:
                         case ResourceTypes.Iron:
                         case ResourceTypes.Stone:
                         case ResourceTypes.Wood:
@@ -106,7 +106,7 @@ namespace PixelApp.Services
                 case TerritoryTypes.Forest:
                     switch (resType)
                     {
-                        case ResourceTypes.Coal:
+                        case ResourceTypes.Food:
                         case ResourceTypes.Iron:
                         case ResourceTypes.Stone:
                         case ResourceTypes.Water:
@@ -128,7 +128,7 @@ namespace PixelApp.Services
                         case ResourceTypes.Wood:
                             ret = 0.5m;
                             break;
-                        case ResourceTypes.Coal:
+                        case ResourceTypes.Food:
                         case ResourceTypes.Stone:
                             ret = 0.8m;
                             break;
@@ -140,7 +140,7 @@ namespace PixelApp.Services
                 case TerritoryTypes.Urban:
                     switch (resType)
                     {
-                        case ResourceTypes.Coal:
+                        case ResourceTypes.Food:
                         case ResourceTypes.Oil:
                         case ResourceTypes.Wood:
                         case ResourceTypes.Water:

@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201702180524586_merge.Designer.cs">
       <DependentUpon>201702180524586_merge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702250403223_coal-to-food.cs" />
+    <Compile Include="Migrations\201702250403223_coal-to-food.Designer.cs">
+      <DependentUpon>201702250403223_coal-to-food.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\EntityModels.cs" />
@@ -361,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702180524586_merge.resx">
       <DependentUpon>201702180524586_merge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702250403223_coal-to-food.resx">
+      <DependentUpon>201702250403223_coal-to-food.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

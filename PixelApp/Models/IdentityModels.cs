@@ -43,7 +43,7 @@ namespace PixelApp.Models
         // resource quantities
         public int Wood { get; set; }
         public int Water { get; set; }
-        public int Coal { get; set; }
+        public int Food { get; set; }
         public int Stone { get; set; }
         public int Oil { get; set; }
         public int Iron { get; set; }
