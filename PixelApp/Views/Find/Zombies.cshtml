@@ -1,0 +1,20 @@
+﻿@model PixelApp.Views.Find.Models.FindZombiesViewModel
+@{
+    ViewBag.Title = "Hunt Zombies";
+}
+
+<p>
+    <a href="@Url.Action("Zombies", new { hunt = true })" class="btn btn-lg btn-danger">Hunt! @(Model.ShowBattle ? "(again!)" : string.Empty)</a>
+</p>
+
+@if (Model.ShowBattle)
+{
+    <h2 class="alert alert-@(Model.IsWin ? "success" : "danger")">@string.Format("You {0}!", Model.IsWin ? "Won" : Model.IsDead ? "Died" : "Lost")</h2>
+
+    <p class="alert alert-info">@Model.BattleText</p>
+    <p class="alert alert-@(Model.IsWin ? "success" : "danger")">@Model.ResourceText</p>
+}
+else if (!string.IsNullOrWhiteSpace(Model.BattleText))
+{
+    <p class="alert alert-info">@Model.BattleText</p>
+}

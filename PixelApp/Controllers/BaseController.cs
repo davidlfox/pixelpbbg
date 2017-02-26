@@ -42,18 +42,6 @@ namespace PixelApp.Controllers
                 {
                     filterContext.Result = RedirectToAction("NameTerritory", "Dashboard");
                 }
-                else
-                {
-                    ViewBag.Username = this.UserContext.UserName;
-                    ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
-                    ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
-                    ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
-                    ViewBag.MaxLife = this.UserContext.MaxLife;
-                    ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
-                    ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
-
-                    this.Context.SaveChanges();
-                }
             }
 
             base.OnActionExecuting(filterContext);
@@ -61,7 +49,18 @@ namespace PixelApp.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            // todo: explicitly commit here?
+            var userId = this.User.Identity.GetUserId();
+
+            ViewBag.Username = this.UserContext.UserName;
+            ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
+            ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
+            ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
+            ViewBag.MaxLife = this.UserContext.MaxLife;
+            ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
+            ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
+
+            this.Context.SaveChanges();
+
             base.OnActionExecuted(filterContext);
         }
     }

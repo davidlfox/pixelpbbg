@@ -41,11 +41,35 @@ namespace PixelApp.Models
         public int Experience { get; set; }
 
         // resource quantities
+
+        /// <summary>
+        /// Quantity of wood player is holding
+        /// </summary>
         public int Wood { get; set; }
+
+        /// <summary>
+        /// Quantity of water player is holding
+        /// </summary>
         public int Water { get; set; }
+
+        /// <summary>
+        /// Quantity of food player is holding
+        /// </summary>
         public int Food { get; set; }
+
+        /// <summary>
+        /// Quantity of stone player is holding
+        /// </summary>
         public int Stone { get; set; }
+
+        /// <summary>
+        /// Quantity of oil player is holding
+        /// </summary>
         public int Oil { get; set; }
+
+        /// <summary>
+        /// Quantity of iron player is holding
+        /// </summary>
         public int Iron { get; set; }
 
         /// <summary>

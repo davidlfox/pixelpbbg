@@ -199,6 +199,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
+    <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -331,6 +333,7 @@
     <Content Include="Views\Territories\Details.cshtml" />
     <Content Include="Views\Territories\Edit.cshtml" />
     <Content Include="Views\Territories\Index.cshtml" />
+    <Content Include="Views\Find\Zombies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
