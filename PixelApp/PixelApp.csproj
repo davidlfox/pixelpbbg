@@ -254,6 +254,7 @@
     <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
+    <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +335,7 @@
     <Content Include="Views\Territories\Edit.cshtml" />
     <Content Include="Views\Territories\Index.cshtml" />
     <Content Include="Views\Find\Zombies.cshtml" />
+    <Content Include="Views\Find\Food.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

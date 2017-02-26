@@ -35,7 +35,7 @@ namespace PixelApp.Controllers
                     // if die, -xp, -more random res
 
                     // randomize win/lose for now
-                    vm.IsWin = rand.Next(0, 10) <= 7; // 80% chance win
+                    vm.IsWin = rand.Next(0, 10) < 8; // 80% chance win
 
 
                     var deltaLife = rand.Next(0, 10) + 5;
@@ -72,7 +72,48 @@ namespace PixelApp.Controllers
 
         public ActionResult Food(bool forage = false)
         {
-            return View();
+            var vm = new FindFoodViewModel();
+
+            if (forage)
+            {
+                vm.HasForaged = true;
+                // todo: config
+                var energyRequired = 10;
+
+                if(this.UserContext.Energy < energyRequired)
+                {
+                    vm.Message = "You don't have enough energy to forage for food. Wait for your energy to replenish!";
+                }
+                else
+                {
+                    this.UserContext.Energy -= energyRequired;
+                    this.UserContext.EnergyUpdatedTime = DateTime.Now;
+
+                    // 60% chance of finding food
+                    if(rand.Next(0, 10) < 6)
+                    {
+                        // 2-5 food for now X level
+                        // todo: should this be some other f(level * factor) ?
+                        var level = Services.StatManager.GetLevel(this.UserContext.Id, this.Context, false);
+                        var qty = level * (rand.Next(0, 4) + 2);
+                        vm.IsSuccess = true;
+                        vm.Message = $"You spent {energyRequired} energy, and found {qty} food!";
+                        this.UserContext.Food += qty;
+
+                        // todo: config
+                        this.UserContext.Experience += 2;
+
+                        this.Context.SaveChanges();
+                    }
+                    else
+                    {
+                        // failed to find food
+                        vm.Message = $"You spent {energyRequired} energy, and didn't find any food!";
+                    }
+                }
+            }
+
+            return View(vm);
         }
 
         /// <summary>
