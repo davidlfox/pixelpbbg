@@ -1,0 +1,58 @@
+﻿@model PixelApp.Models.Technology
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Technology</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TechnologyTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceCost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TechnologyId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

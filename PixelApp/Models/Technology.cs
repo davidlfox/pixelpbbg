@@ -6,17 +6,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace PixelApp.Models.Entities
+namespace PixelApp.Models
 {
     public class Technology
     {
         [Key]
         public int TechnologyId { get; set; }
 
-        [ForeignKey("TechnologyId")]
-        public int? PreRequisiteId { get; set; }
+        //[ForeignKey("TechnologyId")]
+        //public int? PreRequisiteId { get; set; }
 
-        virtual public Technology PreRequisite { get; set; }
+        //virtual public Technology PreRequisite { get; set; }
 
         public string Name { get; set; }
 
@@ -24,14 +24,7 @@ namespace PixelApp.Models.Entities
 
         public TechnologyTypes TechnologyTypeId { get; set; }
 
-        public ResourceTypes ResourceTypeId {get; set;}
+        public ResourceTypes ResourceTypeId { get; set; }
         public int ResourceCost { get; set; }
-    }
-
-    public enum TechnologyTypes : byte
-    {
-        Military = 1,
-        Resource = 2,
-        PixelAppeal = 3,
     }
 }

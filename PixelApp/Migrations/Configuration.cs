@@ -27,6 +27,9 @@ namespace PixelApp.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            // Add Technologies
+            //context.Technology.AddrUdate()
         }
     }
 }
