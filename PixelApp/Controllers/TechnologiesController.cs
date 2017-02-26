@@ -10,7 +10,8 @@ using PixelApp.Models;
 
 namespace PixelApp.Controllers
 {
-    public class TechnologiesController : Controller
+    [Authorize]
+    public class TechnologiesController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
