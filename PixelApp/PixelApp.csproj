@@ -365,9 +365,7 @@
     <Content Include="Views\AttackLogs\Edit.cshtml" />
     <Content Include="Views\AttackLogs\Index.cshtml" />
     <Content Include="Views\Trades\Create.cshtml" />
-    <Content Include="Views\Trades\Delete.cshtml" />
-    <Content Include="Views\Trades\Details.cshtml" />
-    <Content Include="Views\Trades\Edit.cshtml" />
+    <Content Include="Views\Trades\Cancel.cshtml" />
     <Content Include="Views\Trades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
