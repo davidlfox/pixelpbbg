@@ -8,6 +8,7 @@ using Microsoft.Azure.WebJobs;
 using Pixel.Common.Cloud;
 using PixelApp.Models;
 using System.Data.Entity;
+using PixelApp.Services;
 
 namespace ResourceCollector
 {
@@ -62,6 +63,56 @@ namespace ResourceCollector
             // queue next message
             var qm = new QueueManager();
             qm.QueuePopulation(territory.TerritoryId);
+        }
+
+        /// <summary>
+        /// Handle a nightly attack queue message
+        /// </summary>
+        /// <param name="message">The message signaling chance of an attack</param>
+        public static void ProcessNightlyAttack([QueueTrigger(QueueNames.NightlyAttackQueue)] NightlyAttackMessage message)
+        {
+            var db = new ApplicationDbContext();
+            var territory = db.Territories
+                .Include(x => x.Players)
+                .Single(x => x.TerritoryId == message.TerritoryId);
+
+            var user = territory.Players.First();
+
+            var rand = new Random();
+
+            var log = new AttackLog
+            {
+                UserId = user.Id,
+            };
+
+            // 1/3 chance of nightly raid
+            if (rand.Next(0, 3) >= 0)
+            {
+                log.WasAttacked = true;
+
+                // 1-2 nightly population loss for right now
+                var populationLoss = rand.Next(0, 2) + 1;
+                territory.CivilianPopulation -= populationLoss;
+
+                // choose random resources the player has and remove them
+                var resourceLossText = ResourceService.RandomResource(user, false, false, 0.05);
+
+                log.Message = string.Format("Zombies attacked your territory last night. You lost {0} {1}. {2}"
+                    , populationLoss
+                    , populationLoss == 1 ? "person" : "people"
+                    , resourceLossText);
+            }
+            else
+            {
+                log.Message = "Your territory survived minor zombie attacks last night.";
+            }
+
+            db.AttackLogs.Add(log);
+            db.SaveChanges();
+
+            // queue next message
+            var qm = new QueueManager();
+            qm.QueueNightlyAttack(territory.TerritoryId);
         }
     }
 }
