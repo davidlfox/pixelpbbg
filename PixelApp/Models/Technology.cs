@@ -24,7 +24,12 @@ namespace PixelApp.Models
 
         public TechnologyTypes TechnologyTypeId { get; set; }
 
-        public ResourceTypes ResourceTypeId { get; set; }
+        public ResourceTypes ResourceCostTypeId { get; set; }
+
         public int ResourceCost { get; set; }
+
+        public BoostTypes BoostTypeId { get; set; }
+
+        public decimal BoostAmount { get; set; }
     }
 }

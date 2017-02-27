@@ -241,9 +241,9 @@
     <Compile Include="Migrations\201702250403223_coal-to-food.Designer.cs">
       <DependentUpon>201702250403223_coal-to-food.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702250847272_Technology.cs" />
-    <Compile Include="Migrations\201702250847272_Technology.Designer.cs">
-      <DependentUpon>201702250847272_Technology.cs</DependentUpon>
+    <Compile Include="Migrations\201702252207398_Technology.cs" />
+    <Compile Include="Migrations\201702252207398_Technology.Designer.cs">
+      <DependentUpon>201702252207398_Technology.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -385,8 +385,8 @@
     <EmbeddedResource Include="Migrations\201702250403223_coal-to-food.resx">
       <DependentUpon>201702250403223_coal-to-food.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702250847272_Technology.resx">
-      <DependentUpon>201702250847272_Technology.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702252207398_Technology.resx">
+      <DependentUpon>201702252207398_Technology.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace PixelApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201702250847272_Technology"; }
+            get { return "201702252207398_Technology"; }
         }
         
         string IMigrationMetadata.Source

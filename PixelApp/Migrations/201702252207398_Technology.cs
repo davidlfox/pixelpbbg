@@ -15,8 +15,10 @@ namespace PixelApp.Migrations
                         Name = c.String(),
                         Description = c.String(),
                         TechnologyTypeId = c.Byte(nullable: false),
-                        ResourceTypeId = c.Int(nullable: false),
+                        ResourceCostTypeId = c.Int(nullable: false),
                         ResourceCost = c.Int(nullable: false),
+                        BoostTypeId = c.Byte(nullable: false),
+                        BoostAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.TechnologyId);
             

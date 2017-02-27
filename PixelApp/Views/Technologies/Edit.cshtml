@@ -42,10 +42,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResourceTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResourceCostTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.ResourceTypeId, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ResourceTypeId, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.ResourceCostTypeId, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ResourceCostTypeId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -54,6 +54,22 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ResourceCost, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ResourceCost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BoostTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.BoostTypeId, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BoostTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BoostAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BoostAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BoostAmount, "", new { @class = "text-danger" })
             </div>
         </div>
 

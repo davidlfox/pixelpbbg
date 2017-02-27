@@ -21,10 +21,16 @@
             @Html.DisplayNameFor(model => model.TechnologyTypeId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ResourceTypeId)
+            @Html.DisplayNameFor(model => model.ResourceCostTypeId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ResourceCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BoostTypeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BoostAmount)
         </th>
         <th></th>
     </tr>
@@ -41,10 +47,16 @@
             @Html.DisplayFor(modelItem => item.TechnologyTypeId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ResourceTypeId)
+            @Html.DisplayFor(modelItem => item.ResourceCostTypeId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ResourceCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoostTypeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoostAmount)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TechnologyId }) |
