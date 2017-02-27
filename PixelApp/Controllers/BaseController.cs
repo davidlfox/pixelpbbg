@@ -51,15 +51,18 @@ namespace PixelApp.Controllers
         {
             var userId = this.User.Identity.GetUserId();
 
-            ViewBag.Username = this.UserContext.UserName;
-            ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
-            ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
-            ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
-            ViewBag.MaxLife = this.UserContext.MaxLife;
-            ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
-            ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
+            if (!string.IsNullOrWhiteSpace(userId))
+            {
+                ViewBag.Username = this.UserContext.UserName;
+                ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
+                ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
+                ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
+                ViewBag.MaxLife = this.UserContext.MaxLife;
+                ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
+                ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
 
-            this.Context.SaveChanges();
+                this.Context.SaveChanges();
+            }
 
             base.OnActionExecuted(filterContext);
         }
