@@ -1,0 +1,82 @@
+﻿@model PixelApp.Models.Trade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TradedToUser.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TradedToUser.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityOffered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityOffered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOffered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOffered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityAsked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityAsked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeAsked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeAsked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Posted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Posted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TradeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

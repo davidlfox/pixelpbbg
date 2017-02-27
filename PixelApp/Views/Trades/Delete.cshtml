@@ -1,0 +1,88 @@
+﻿@model PixelApp.Models.Trade
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Trade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TradedToUser.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TradedToUser.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityOffered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityOffered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOffered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOffered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityAsked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityAsked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeAsked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeAsked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Posted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Posted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

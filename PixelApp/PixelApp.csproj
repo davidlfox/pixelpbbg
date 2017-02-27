@@ -207,6 +207,7 @@
     <Compile Include="Controllers\TechnologiesController.cs" />
     <Compile Include="Controllers\TerritoriesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TradesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,6 +251,10 @@
     <Compile Include="Migrations\201702270436480_attack-logs.Designer.cs">
       <DependentUpon>201702270436480_attack-logs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702271334458_trades.cs" />
+    <Compile Include="Migrations\201702271334458_trades.Designer.cs">
+      <DependentUpon>201702271334458_trades.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -257,6 +262,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
+    <Compile Include="Models\Trade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\StatManager.cs" />
@@ -358,6 +364,11 @@
     <Content Include="Views\AttackLogs\Details.cshtml" />
     <Content Include="Views\AttackLogs\Edit.cshtml" />
     <Content Include="Views\AttackLogs\Index.cshtml" />
+    <Content Include="Views\Trades\Create.cshtml" />
+    <Content Include="Views\Trades\Delete.cshtml" />
+    <Content Include="Views\Trades\Details.cshtml" />
+    <Content Include="Views\Trades\Edit.cshtml" />
+    <Content Include="Views\Trades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702270436480_attack-logs.resx">
       <DependentUpon>201702270436480_attack-logs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702271334458_trades.resx">
+      <DependentUpon>201702271334458_trades.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
