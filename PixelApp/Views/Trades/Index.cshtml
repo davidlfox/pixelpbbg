@@ -5,8 +5,12 @@
 }
 
 <p>
-    @Html.ActionLink("Add Trade", "Create")
+    @Html.ActionLink("Add Trade", "Create", null, new { @class = "btn btn-success" })
 </p>
+@if (!string.IsNullOrWhiteSpace(ViewBag.TradeError))
+{
+    <div class="alert alert-danger">@ViewBag.TradeError</div>
+}
 <table class="table">
     <tr>
         <th>

@@ -1,6 +1,7 @@
 ﻿using Pixel.Common.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,7 @@ namespace PixelApp.Models
         /// <summary>
         /// The quantity offered by the trader
         /// </summary>
+        [Range(1, int.MaxValue, ErrorMessage = "Offer must be greater than 0.")]
         public int QuantityOffered { get; set; }
 
         /// <summary>
@@ -27,6 +29,7 @@ namespace PixelApp.Models
         /// <summary>
         /// The quantity requested by the trader
         /// </summary>
+        [Range(1, int.MaxValue, ErrorMessage = "Ask must be greater than 0.")]
         public int QuantityAsked { get; set; }
 
         /// <summary>

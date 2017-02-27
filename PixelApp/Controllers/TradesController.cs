@@ -17,8 +17,17 @@ namespace PixelApp.Controllers
         // GET: Trades
         public async Task<ActionResult> Index()
         {
-            var trades = this.Context.Trades.Include(t => t.Owner).Include(t => t.TradedToUser);
+            IQueryable<Trade> trades = GetTrades();
+
             return View(await trades.ToListAsync());
+        }
+
+        private IQueryable<Trade> GetTrades()
+        {
+            return this.Context.Trades
+                .Include(t => t.Owner)
+                .Include(t => t.TradedToUser)
+                .Where(t => t.IsActive.Equals(true));
         }
 
         // GET: Trades/Create
@@ -35,13 +44,88 @@ namespace PixelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TradeId,QuantityOffered,TypeOffered,QuantityAsked,TypeAsked,Posted,OwnerId")] Trade trade)
+        public async Task<ActionResult> Create([Bind(Include = "TradeId,QuantityOffered,TypeOffered,QuantityAsked,TypeAsked,OwnerId")] Trade trade)
         {
+            trade.Posted = DateTime.Now;
+            trade.IsActive = true;
+
             if (ModelState.IsValid)
             {
-                this.Context.Trades.Add(trade);
-                await this.Context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var quantityError = "You don't have that much to offer";
+                // validate user has the offered resources
+                // todo: this sucks, having to explicitly check different attributes. should resources be a collection on the user??
+                switch (trade.TypeOffered)
+                {
+                    case Pixel.Common.Data.ResourceTypes.Water:
+                        if (this.UserContext.Water < trade.QuantityOffered)
+                        {
+                            ModelState.AddModelError(string.Empty, quantityError);
+                        }
+                        break;
+                    case Pixel.Common.Data.ResourceTypes.Wood:
+                        if (this.UserContext.Wood < trade.QuantityOffered)
+                        {
+                            ModelState.AddModelError(string.Empty, quantityError);
+                        }
+                        break;
+                    case Pixel.Common.Data.ResourceTypes.Food:
+                        if (this.UserContext.Food < trade.QuantityOffered)
+                        {
+                            ModelState.AddModelError(string.Empty, quantityError);
+                        }
+                        break;
+                    case Pixel.Common.Data.ResourceTypes.Stone:
+                        if (this.UserContext.Stone < trade.QuantityOffered)
+                        {
+                            ModelState.AddModelError(string.Empty, quantityError);
+                        }
+                        break;
+                    case Pixel.Common.Data.ResourceTypes.Oil:
+                        if (this.UserContext.Oil < trade.QuantityOffered)
+                        {
+                            ModelState.AddModelError(string.Empty, quantityError);
+                        }
+                        break;
+                    case Pixel.Common.Data.ResourceTypes.Iron:
+                        if (this.UserContext.Iron < trade.QuantityOffered)
+                        {
+                            ModelState.AddModelError(string.Empty, quantityError);
+                        }
+                        break;
+                    default:
+                        ModelState.AddModelError(string.Empty, "The trade offer must include a type of resource");
+                        break;
+                }
+
+                if (ModelState.IsValid)
+                {
+                    // reduce resources by offer amount
+                    switch (trade.TypeOffered)
+                    {
+                        case Pixel.Common.Data.ResourceTypes.Water:
+                            this.UserContext.Water -= trade.QuantityOffered;
+                            break;
+                        case Pixel.Common.Data.ResourceTypes.Wood:
+                            this.UserContext.Wood -= trade.QuantityOffered;
+                            break;
+                        case Pixel.Common.Data.ResourceTypes.Food:
+                            this.UserContext.Food -= trade.QuantityOffered;
+                            break;
+                        case Pixel.Common.Data.ResourceTypes.Stone:
+                            this.UserContext.Stone -= trade.QuantityOffered;
+                            break;
+                        case Pixel.Common.Data.ResourceTypes.Oil:
+                            this.UserContext.Oil -= trade.QuantityOffered;
+                            break;
+                        case Pixel.Common.Data.ResourceTypes.Iron:
+                            this.UserContext.Iron -= trade.QuantityOffered;
+                            break;
+                    }
+
+                    this.Context.Trades.Add(trade);
+                    await this.Context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(trade);
@@ -50,8 +134,6 @@ namespace PixelApp.Controllers
         // GET: Trades/Accept/5
         public async Task<ActionResult> Accept(int? id)
         {
-            throw new NotImplementedException();
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -61,8 +143,65 @@ namespace PixelApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.OwnerId = new SelectList(this.Context.Users, "Id", "UserName", trade.OwnerId);
-            ViewBag.TradedToUserId = new SelectList(this.Context.Users, "Id", "UserName", trade.TradedToUserId);
+
+            if (trade.OwnerId == this.UserContext.Id)
+            {
+                ViewBag.TradeError = "You can't accept your own trade.";
+                IQueryable<Trade> trades = GetTrades();
+                return View("Index", await trades.ToListAsync());
+            }
+
+            var tradeErrorMessage = "You don't have enough to accept that trade";
+
+            // validate accepting user has resources, then take them away
+            switch (trade.TypeAsked)
+            {
+                case Pixel.Common.Data.ResourceTypes.Water:
+                    if (this.UserContext.Water < trade.QuantityAsked)
+                    {
+                        ViewBag.TradeError = tradeErrorMessage;
+                    }
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Wood:
+                    if (this.UserContext.Wood < trade.QuantityAsked)
+                    {
+                        ViewBag.TradeError = tradeErrorMessage;
+                    }
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Food:
+                    if (this.UserContext.Food < trade.QuantityAsked)
+                    {
+                        ViewBag.TradeError = tradeErrorMessage;
+                    }
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Stone:
+                    if (this.UserContext.Stone < trade.QuantityAsked)
+                    {
+                        ViewBag.TradeError = tradeErrorMessage;
+                    }
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Oil:
+                    if (this.UserContext.Oil < trade.QuantityAsked)
+                    {
+                        ViewBag.TradeError = tradeErrorMessage;
+                    }
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Iron:
+                    if (this.UserContext.Iron < trade.QuantityAsked)
+                    {
+                        ViewBag.TradeError = tradeErrorMessage;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (string.IsNullOrWhiteSpace(ViewBag.TradeError))
+            {
+                IQueryable<Trade> trades = GetTrades();
+                return View("Index", await trades.ToListAsync());
+            }
+
             return View(trade);
         }
 
@@ -78,6 +217,10 @@ namespace PixelApp.Controllers
             {
                 return HttpNotFound();
             }
+            if (trade.OwnerId != this.UserContext.Id)
+            {
+                return HttpNotFound();
+            }
             return View(trade);
         }
 
@@ -87,7 +230,37 @@ namespace PixelApp.Controllers
         public async Task<ActionResult> CancelConfirmed(int id)
         {
             Trade trade = await this.Context.Trades.FindAsync(id);
+            if (trade.OwnerId != this.UserContext.Id)
+            {
+                return HttpNotFound();
+            }
             trade.IsActive = false;
+
+            // give resources back to the user
+            switch (trade.TypeOffered)
+            {
+                case Pixel.Common.Data.ResourceTypes.Water:
+                    this.UserContext.Water += trade.QuantityOffered;
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Wood:
+                    this.UserContext.Wood += trade.QuantityOffered;
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Food:
+                    this.UserContext.Food += trade.QuantityOffered;
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Stone:
+                    this.UserContext.Stone += trade.QuantityOffered;
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Oil:
+                    this.UserContext.Oil += trade.QuantityOffered;
+                    break;
+                case Pixel.Common.Data.ResourceTypes.Iron:
+                    this.UserContext.Iron += trade.QuantityOffered;
+                    break;
+                default:
+                    break;
+            }
+
             await this.Context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
