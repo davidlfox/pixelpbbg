@@ -73,6 +73,11 @@ namespace PixelApp.Services
             var qm = new QueueManager();
             qm.QueueResourceCollection(territory.TerritoryId);
             qm.QueuePopulation(territory.TerritoryId);
+
+            // queue nightly attack event
+            var twoDaysFromNow = DateTime.Now.AddDays(2);
+            var twoMidnightsFromNow = new DateTime(twoDaysFromNow.Year, twoDaysFromNow.Month, twoDaysFromNow.Day, 0, 0, 0);
+            qm.QueueNightlyAttack(territory.TerritoryId, (int)((twoMidnightsFromNow - DateTime.Now).TotalMinutes));
         }
 
         private static TerritoryTypes GetRandomTerritoryType()
