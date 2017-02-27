@@ -23,43 +23,51 @@ namespace PixelApp.Services
             // figure out what player has
             Dictionary<ResourceTypes, int> list = GetNonZeroUserResources(user);
 
-            // randomly find/lose a resource theyre carrying
-            var resIndex = rand.Next(0, list.Count);
-            var res = list.ElementAt(resIndex);
+            if (list.Count > 0)
+            {
+                // randomly find/lose a resource theyre carrying
+                var resIndex = rand.Next(0, list.Count);
+                var res = list.ElementAt(resIndex);
 
-            // if win, normal gains, if lose, normal losses, if die, 2x losses
-            if (res.Key == ResourceTypes.Water)
-            {
-                quantity = GetQuantity(user.Water, isWin, isDie, percentageLoss);
-                user.Water += quantity;
+                // if win, normal gains, if lose, normal losses, if die, 2x losses
+                if (res.Key == ResourceTypes.Water)
+                {
+                    quantity = GetQuantity(user.Water, isWin, isDie, percentageLoss);
+                    user.Water += quantity;
+                }
+                if (res.Key == ResourceTypes.Wood)
+                {
+                    quantity = GetQuantity(user.Wood, isWin, isDie, percentageLoss);
+                    user.Wood += quantity;
+                }
+                if (res.Key == ResourceTypes.Food)
+                {
+                    quantity = GetQuantity(user.Food, isWin, isDie, percentageLoss);
+                    user.Food += quantity;
+                }
+                if (res.Key == ResourceTypes.Stone)
+                {
+                    quantity = GetQuantity(user.Stone, isWin, isDie, percentageLoss);
+                    user.Stone += quantity;
+                }
+                if (res.Key == ResourceTypes.Oil)
+                {
+                    quantity = GetQuantity(user.Oil, isWin, isDie, percentageLoss);
+                    user.Oil += quantity;
+                }
+                if (res.Key == ResourceTypes.Iron)
+                {
+                    quantity = GetQuantity(user.Iron, isWin, isDie, percentageLoss);
+                    user.Iron += quantity;
+                }
+
+                return string.Format("You {0} {1} {2}.", isWin ? "found" : "lost", Math.Abs(quantity), res.Key);
             }
-            if (res.Key == ResourceTypes.Wood)
+            else
             {
-                quantity = GetQuantity(user.Wood, isWin, isDie, percentageLoss);
-                user.Wood += quantity;
-            }
-            if (res.Key == ResourceTypes.Food)
-            {
-                quantity = GetQuantity(user.Food, isWin, isDie, percentageLoss);
-                user.Food += quantity;
-            }
-            if (res.Key == ResourceTypes.Stone)
-            {
-                quantity = GetQuantity(user.Stone, isWin, isDie, percentageLoss);
-                user.Stone += quantity;
-            }
-            if (res.Key == ResourceTypes.Oil)
-            {
-                quantity = GetQuantity(user.Oil, isWin, isDie, percentageLoss);
-                user.Oil += quantity;
-            }
-            if (res.Key == ResourceTypes.Iron)
-            {
-                quantity = GetQuantity(user.Iron, isWin, isDie, percentageLoss);
-                user.Iron += quantity;
+                return string.Format("You {0} no resources.", isWin ? "found" : "lost");
             }
 
-            return string.Format("You {0} {1} {2}.", isWin ? "found" : "lost", Math.Abs(quantity), res.Key);
         }
 
         public static Dictionary<ResourceTypes, int> GetNonZeroUserResources(ApplicationUser user)
