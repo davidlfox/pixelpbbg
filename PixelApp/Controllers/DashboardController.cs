@@ -125,25 +125,56 @@ namespace PixelApp.Controllers
 
         // hack: this will setup queue messages for existing users who didn't have events initialized when naming their territory
         // todo: make this admin accessible only
-        [HttpGet]
-        public ActionResult InitializeQueuesForExistingPlayers()
+        //[HttpGet]
+        //public ActionResult InitializeQueuesForExistingPlayers()
+        //{
+        //    // find users that have never been queued for resource/population growth
+        //    var uninitializedTerritories = this.Context.Territories.Where(x => x.LastPopulationUpdate == null);
+
+        //    // queue messages for these people
+        //    var qm = new QueueManager();
+        //    foreach (var user in uninitializedTerritories)
+        //    {
+        //        qm.QueuePopulation(user.TerritoryId, 1);
+        //    }
+
+        //    // do the same for resources
+        //    var uninitializedResources = this.Context.Territories.Where(x => x.LastResourceCollectionDate == null);
+
+        //    foreach (var user in uninitializedResources)
+        //    {
+        //        qm.QueueResourceCollection(user.TerritoryId, 1);
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+        //public ActionResult TestInitNightly()
+        //{
+        //    // find users without attack logs
+        //    var territories = this.Context.Users
+        //        .Where(x => x.Id == this.UserContext.Id)
+        //        .Select(x => x.TerritoryId);
+
+        //    var territory = this.UserContext.Territory;
+
+        //    var qm = new QueueManager();
+        //    qm.QueueNightlyAttack(territory.TerritoryId, 1);
+
+        //    return RedirectToAction("Index");
+        //}
+
+        public ActionResult InitializeNightlyAttackQueuesForExistingPlayers()
         {
-            // find users that have never been queued for resource/population growth
-            var uninitializedTerritories = this.Context.Territories.Where(x => x.LastPopulationUpdate == null);
+            // find users without attack logs
+            var territories = this.Context.Users
+                .Where(x => x.TerritoryId.HasValue && x.AttackLogs.Count == 0)
+                .Select(x => x.TerritoryId);
 
-            // queue messages for these people
             var qm = new QueueManager();
-            foreach (var user in uninitializedTerritories)
+            foreach (var territoryId in territories)
             {
-                qm.QueuePopulation(user.TerritoryId, 1);
-            }
-            
-            // do the same for resources
-            var uninitializedResources = this.Context.Territories.Where(x => x.LastResourceCollectionDate == null);
-
-            foreach (var user in uninitializedResources)
-            {
-                qm.QueueResourceCollection(user.TerritoryId, 1);
+                qm.QueueNightlyAttack(territoryId.Value);
             }
 
             return RedirectToAction("Index");

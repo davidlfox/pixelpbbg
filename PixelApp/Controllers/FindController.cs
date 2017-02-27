@@ -1,4 +1,5 @@
 ﻿using Pixel.Common.Data;
+using PixelApp.Services;
 using PixelApp.Views.Find.Models;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,9 @@ namespace PixelApp.Controllers
                     // setup battle text for user
                     vm.BattleText = $"You lost {deltaLife} life while hunting for zombies.";
 
-                    vm.ResourceText = randomResource(vm.IsWin, vm.IsDead);
+                    // todo: config
+                    var percentageLoss = 0.02;
+                    vm.ResourceText = ResourceService.RandomResource(this.UserContext, vm.IsWin, vm.IsDead, percentageLoss);
 
                     this.Context.SaveChanges();
                 }
@@ -114,103 +117,6 @@ namespace PixelApp.Controllers
             }
 
             return View(vm);
-        }
-
-        /// <summary>
-        /// Get random resource find/lose text based on non-zero resources
-        /// </summary>
-        /// <param name="isWin">Whether or not the player won the battle</param>
-        /// <param name="isDie">Whether or not the player died during the fight</param>
-        /// <returns>A formatted string indicating resource gfind/loss.</returns>
-        private string randomResource(bool isWin, bool isDie)
-        {
-            var quantity = 0;
-
-            // figure out what player has
-            var list = new Dictionary<ResourceTypes, int>();
-            if(this.UserContext.Water > 0)
-            {
-                list.Add(ResourceTypes.Water, this.UserContext.Water);
-            }
-            if (this.UserContext.Wood > 0)
-            {
-                list.Add(ResourceTypes.Wood, this.UserContext.Wood);
-            }
-            if (this.UserContext.Food > 0)
-            {
-                list.Add(ResourceTypes.Food, this.UserContext.Food);
-            }
-            if (this.UserContext.Stone > 0)
-            {
-                list.Add(ResourceTypes.Stone, this.UserContext.Stone);
-            }
-            if (this.UserContext.Oil > 0)
-            {
-                list.Add(ResourceTypes.Oil, this.UserContext.Oil);
-            }
-            if (this.UserContext.Iron > 0)
-            {
-                list.Add(ResourceTypes.Iron, this.UserContext.Iron);
-            }
-
-            // randomly find/lose a resource theyre carrying
-            var resIndex = this.rand.Next(0, list.Count);
-            var res = list.ElementAt(resIndex);
-
-            // if win, normal gains, if lose, normal losses, if die, 2x losses
-            if(res.Key == ResourceTypes.Water)
-            {
-                quantity = GetQuantity(this.UserContext.Water, isWin, isDie);
-                this.UserContext.Water += quantity;
-            }
-            if (res.Key == ResourceTypes.Wood)
-            {
-                quantity = GetQuantity(this.UserContext.Wood, isWin, isDie);
-                this.UserContext.Wood += quantity;
-            }
-            if (res.Key == ResourceTypes.Food)
-            {
-                quantity = GetQuantity(this.UserContext.Food, isWin, isDie);
-                this.UserContext.Food += quantity;
-            }
-            if (res.Key == ResourceTypes.Stone)
-            {
-                quantity = GetQuantity(this.UserContext.Stone, isWin, isDie);
-                this.UserContext.Stone += quantity;
-            }
-            if (res.Key == ResourceTypes.Oil)
-            {
-                quantity = GetQuantity(this.UserContext.Oil, isWin, isDie);
-                this.UserContext.Oil += quantity;
-            }
-            if (res.Key == ResourceTypes.Iron)
-            {
-                quantity = GetQuantity(this.UserContext.Iron, isWin, isDie);
-                this.UserContext.Iron += quantity;
-            }
-
-            return string.Format("You {0} {1} {2}.", isWin ? "found" : "lost", Math.Abs(quantity), res.Key);
-        }
-
-        private int GetQuantity(int userQty, bool isWin, bool isDie)
-        {
-            // todo: config the 0.02 percentage and multipliers for isWin/isDie/etc.
-            var deltaQty = (int)(userQty * 0.02) * (isWin ? 1 : (isDie ? -2 : -1));
-
-            // if they dont have enough to calculate 2%, gain/lose 1
-            if(deltaQty == 0)
-            {
-                deltaQty = 1 * (isWin ? 1 : (isDie ? -2 : -1));
-            }
-
-            // don't set negative res values
-            // yeah, this is a bit odd, but deltaQty should be indicative of gain/loss at this point
-            if(userQty + deltaQty < 0)
-            {
-                deltaQty = 0;
-            }
-
-            return deltaQty;
         }
     }
 }
