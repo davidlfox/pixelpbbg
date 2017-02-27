@@ -86,7 +86,7 @@ namespace ResourceCollector
             };
 
             // 1/3 chance of nightly raid
-            if (rand.Next(0, 3) >= 0)
+            if (rand.Next(0, 3) == 0)
             {
                 log.WasAttacked = true;
 
