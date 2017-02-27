@@ -14,6 +14,11 @@
             border: 3px solid #666;
         }
 
+    .recent-attack-info {
+        background-color: #b9bbb4;
+        padding: 15px 30px !important;
+    }
+
     .resource-info {
         background-color: #b9bbb4;
         padding: 30px !important;
@@ -56,6 +61,23 @@
                 }
             </ul>
         </p>
+    </div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row recent-attack-info">
+    <div class="col-xs-12">
+        <h4>Recent Attacks</h4>
+        @if (Model.RecentAttacks.Count == 0)
+        {
+            <p class="alert alert-info">Your territory has not recently been attacked.</p>
+        }
+        else
+        {
+            foreach (var log in Model.RecentAttacks)
+            {
+                <p class="alert alert-@(log.WasAttacked ? "danger" : "success")">@log.TimeOfAttack.ToShortDateString(): @log.Message</p>
+            }
+        }
     </div>
 </div>
 <div class="row">&nbsp;</div>

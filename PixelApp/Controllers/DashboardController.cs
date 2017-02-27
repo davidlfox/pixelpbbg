@@ -42,6 +42,18 @@ namespace PixelApp.Controllers
                     TerritoryName = x.Value.Name,
                 }).ToList();
 
+            vm.RecentAttacks = this.Context.AttackLogs
+                .Where(x => x.UserId == this.UserContext.Id)
+                .OrderByDescending(x => x.TimeOfAttack)
+                .Take(3)
+                .Select(x => new AttackLogSkinny
+                {
+                    Message = x.Message,
+                    WasAttacked = x.WasAttacked,
+                    TimeOfAttack = x.TimeOfAttack,
+                })
+                .ToList();
+
             return View(vm);
         }
 

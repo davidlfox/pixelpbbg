@@ -25,10 +25,13 @@ namespace PixelApp.Views.Dashboard.Models
 
         public string DailyTask { get; set; }
 
+        public List<AttackLogSkinny> RecentAttacks { get; set; }
+
         public DashboardViewModel()
         {
             this.Resources = new List<ResourceSkinny>();
             this.Neighbors = new List<TerritorySkinny>();
+            this.RecentAttacks = new List<AttackLogSkinny>();
         }
     }
 
@@ -49,5 +52,12 @@ namespace PixelApp.Views.Dashboard.Models
         public int TerritoryId { get; set; }
         public string TerritoryName { get; set; }
         public Directions Direction { get; set; }
+    }
+
+    public class AttackLogSkinny
+    {
+        public string Message { get; set; }
+        public bool WasAttacked { get; set; }
+        public DateTime TimeOfAttack { get; set; }
     }
 }
