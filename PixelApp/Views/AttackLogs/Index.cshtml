@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PixelApp.Models.AttackLog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeOfAttack)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WasAttacked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeOfAttack)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WasAttacked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AttackLogId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AttackLogId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AttackLogId })
+        </td>
+    </tr>
+}
+
+</table>

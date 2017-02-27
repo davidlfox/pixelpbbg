@@ -1,0 +1,50 @@
+﻿@model PixelApp.Models.AttackLog
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AttackLog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeOfAttack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeOfAttack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WasAttacked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WasAttacked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AttackLogId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using PixelApp.Migrations;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Collections.Generic;
 
 namespace PixelApp.Models
 {
@@ -79,6 +79,11 @@ namespace PixelApp.Models
         public int? TerritoryId { get; set; }
         public virtual Territory Territory { get; set; }
 
+        /// <summary>
+        /// Collection of nightly attacks on the user's territory
+        /// </summary>
+        public ICollection<AttackLog> AttackLogs { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -105,5 +110,7 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.Territory> Territories { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.Technology> Technologies { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.AttackLog> AttackLogs { get; set; }
     }
 }

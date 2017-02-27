@@ -197,6 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttackLogsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
@@ -245,8 +246,13 @@
     <Compile Include="Migrations\201702252207398_Technology.Designer.cs">
       <DependentUpon>201702252207398_Technology.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702270436480_attack-logs.cs" />
+    <Compile Include="Migrations\201702270436480_attack-logs.Designer.cs">
+      <DependentUpon>201702270436480_attack-logs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AttackLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Technology.cs" />
@@ -346,6 +352,11 @@
     <Content Include="Views\Technologies\Index.cshtml" />
     <Content Include="Views\Find\Zombies.cshtml" />
     <Content Include="Views\Find\Food.cshtml" />
+    <Content Include="Views\AttackLogs\Create.cshtml" />
+    <Content Include="Views\AttackLogs\Delete.cshtml" />
+    <Content Include="Views\AttackLogs\Details.cshtml" />
+    <Content Include="Views\AttackLogs\Edit.cshtml" />
+    <Content Include="Views\AttackLogs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -387,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702252207398_Technology.resx">
       <DependentUpon>201702252207398_Technology.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702270436480_attack-logs.resx">
+      <DependentUpon>201702270436480_attack-logs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
