@@ -10,5 +10,6 @@ namespace Pixel.Common.Cloud
     {
         public const string ResourceQueue = "addresources";
         public const string PopulationQueue = "addpopulation";
+        public const string NightlyAttackQueue = "nightlyattacks";
     }
 }

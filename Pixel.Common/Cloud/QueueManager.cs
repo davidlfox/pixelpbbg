@@ -43,5 +43,17 @@ namespace Pixel.Common.Cloud
 
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
+
+        public void QueueNightlyAttack(int territoryId, int delayInMinutes = 1440)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.NightlyAttackQueue);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new NightlyAttackMessage
+            {
+                TerritoryId = territoryId,
+            }));
+
+            queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
+        }
     }
 }
