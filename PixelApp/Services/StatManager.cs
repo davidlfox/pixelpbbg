@@ -26,7 +26,7 @@ namespace PixelApp.Services
             {
                 // add energy per time interval
                 var elapsed = DateTime.Now - user.EnergyUpdatedTime.Value;
-                var elapsedMinutes = elapsed.Minutes;
+                var elapsedMinutes = (int)elapsed.TotalMinutes;
 
                 if (elapsedMinutes >= 1) // todo: config this
                 {
@@ -73,7 +73,7 @@ namespace PixelApp.Services
             {
                 // add life per time interval
                 var elapsed = DateTime.Now - user.LifeUpdatedTime.Value;
-                var elapsedMinutes = elapsed.Minutes;
+                var elapsedMinutes = (int)elapsed.TotalMinutes;
 
                 if (elapsedMinutes >= 1) // todo: config this
                 {
