@@ -20,12 +20,13 @@ namespace PixelApp.Controllers
             return View(vm);
         }
 
+        [HttpPost]
         public ActionResult StartResearch(int technologyId)
         {
             var ts = new TechnologyService();
             //ts.StartResearch(technologyId);
 
-            return Json(new { success = true });
+            return Json(new { success = true }, JsonRequestBehavior.DenyGet);
         }
     }
 }

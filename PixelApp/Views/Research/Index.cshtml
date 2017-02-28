@@ -3,6 +3,45 @@
     ViewBag.Title = "Research";
 }
 
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('.tech').on('click', function () {
+                alert('fefsfe');
+                var techname = $(this).data("techname");
+                var data = {
+                    technologyId: $(this).data('techid')
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '/research/startresearch',
+                    data: data,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(techname + ' is now being researched.');
+                        } else {
+                            toastError(data.message);
+                        }
+                    },
+                    error: function (error) {
+                        toastError('There was a problem researching ' + techname + '. Please try again later.');
+                    }
+                });
+            });
+
+            function toastError(message) {
+                if (message.length) {
+                    toastr.error(message);
+                } else {
+                    toastr.error('There was a problem. Please try again later.');
+                }
+            }
+        });
+    </script>
+}
+
 <style type="text/css">
     .research-info {
         background-color: #b9bbb4;
@@ -13,18 +52,18 @@
             border: 3px solid #666;
         }
 
-    .titles{
-        padding-top:0px;
+    .titles {
+        padding-top: 0px;
     }
 
-    .tech{
-        padding-bottom:10px;
+    .tech {
+        padding-bottom: 10px;
     }
 
-    .tech a {
-        text-decoration: none;
-        color:black;
-    }
+        .tech a {
+            text-decoration: none;
+            color: black;
+        }
 </style>
 
 <div class="row research-info">
@@ -32,9 +71,9 @@
         <h1 class="text-center titles">Resources</h1>
         @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Resource)))
         {
-            <div class="well well-sm tech clearfix">
-                <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
-                <span class="col-xs-10">@tech.Name</span>    
+            <div class="well well-sm tech clearfix" data-techid="@tech.TechnologyId" data-techname="@tech.Name">
+                <span class="col-xs-2" data-toggle="tooltip" title="@tech.Description"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
+                <span class="col-xs-10">@tech.Name</span>
             </div>
         }
     </div>
@@ -43,7 +82,7 @@
         @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Military)))
         {
             <div class="well well-sm tech clearfix">
-                <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
+                <span class="col-xs-2" data-toggle="tooltip" title="@tech.Description"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
                 <span class="col-xs-10">@tech.Name</span>
             </div>
         }
@@ -53,7 +92,7 @@
         @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Culture)))
         {
             <div class="well well-sm tech clearfix">
-                <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
+                <span class="col-xs-2" data-toggle="tooltip" title="@tech.Description"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
                 <span class="col-xs-10">@tech.Name</span>
             </div>
         }
