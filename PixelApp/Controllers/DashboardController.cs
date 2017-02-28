@@ -74,7 +74,9 @@ namespace PixelApp.Controllers
                 var length = available.Count();
                 var rand = new Random();
                 var index = rand.Next(0, length);
-                territory = available.ElementAt(index);
+                territory = available.ToList().ElementAt(index);
+                territory.Players = new List<ApplicationUser>();
+                territory.Players.Add(this.UserContext);
             }
             else
             {
@@ -84,6 +86,8 @@ namespace PixelApp.Controllers
                 
                 this.Context.Territories.Add(territory);
             }
+
+            TerritoryFactory.InitializeTerritory(territory);
 
             this.Context.SaveChanges();
 
@@ -104,8 +108,6 @@ namespace PixelApp.Controllers
                 && x.Players.Any(y => y.Id == this.UserContext.Id));
 
             // todo: profanity check
-
-            TerritoryFactory.InitializeTerritory(territory);
 
             this.UserContext.Territory.Name = vm.Name;
             this.Context.SaveChanges();

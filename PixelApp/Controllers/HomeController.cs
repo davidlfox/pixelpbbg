@@ -77,6 +77,12 @@ namespace PixelApp.Controllers
                     MaxLife = 100,
                     Level = 1,
                     UserName = model.UserName,
+                    Water = 50,
+                    Wood = 50,
+                    Food = 50,
+                    Stone = 50,
+                    Oil = 50,
+                    Iron = 50,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
