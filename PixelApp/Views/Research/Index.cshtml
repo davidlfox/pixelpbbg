@@ -1,6 +1,6 @@
 ﻿@model PixelApp.Views.Research.Models.ResearchViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Research";
 }
 
 <style type="text/css">
@@ -30,7 +30,7 @@
 <div class="row research-info">
     <div class="col-sm-4">
         <h1 class="text-center titles">Resources</h1>
-        @foreach(var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Resource)))
+        @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Resource)))
         {
             <div class="well well-sm tech clearfix">
                 <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>

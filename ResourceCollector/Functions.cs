@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Pixel.Common.Cloud;
-using PixelApp.Models;
 using System.Data.Entity;
+using PixelApp.Models;
 using PixelApp.Services;
 
 namespace ResourceCollector

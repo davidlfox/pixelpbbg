@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace PixelApp.Controllers
 {
-    public class ResearchController : Controller
+    public class ResearchController : BaseController
     {
         // GET: Research
         public ActionResult Index()
