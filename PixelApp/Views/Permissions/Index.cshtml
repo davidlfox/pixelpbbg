@@ -1,0 +1,15 @@
+﻿@model PixelApp.Views.Permissions.Models.PermissionsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User List</h2>
+
+<ul>
+    @foreach (var user in Model.Users)
+    {
+        <li>
+            @Html.ActionLink(user.UserName, "UserDetail", new { id = user.Id })
+        </li>
+    }
+</ul>

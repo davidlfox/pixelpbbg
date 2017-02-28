@@ -6,6 +6,10 @@ namespace PixelApp.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Pixel.Common.Data;
+    using System.Collections.Generic;
+    using Pixel.Common;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity;
 
     internal sealed class Configuration : DbMigrationsConfiguration<PixelApp.Models.ApplicationDbContext>
     {
@@ -30,6 +34,97 @@ namespace PixelApp.Migrations
             //    );
             //
 
+            SeedPermissions(context);
+            SeedUsers(context);
+            TryToSetupAdmin(context);
+            SeedTechnologies(context);
+        }
+
+        private static void SeedPermissions(ApplicationDbContext context)
+        {
+            var roles = new List<string>
+            {
+                Permissions.CanEditPermissions,
+                Permissions.CanEditUsers,
+                Permissions.CanEditAttackLogs,
+                Permissions.CanEditTechnologies,
+                Permissions.CanEditTerritories,
+            };
+
+            foreach (var roleName in roles)
+            {
+                if (!context.Roles.Any(r => r.Name == roleName))
+                {
+                    var store = new RoleStore<IdentityRole>(context);
+                    var manager = new RoleManager<IdentityRole>(store);
+                    var role = new IdentityRole { Name = roleName };
+
+                    manager.Create(role);
+                }
+            }
+        }
+
+        private void SeedUsers(ApplicationDbContext context)
+        {
+            var store = new UserStore<ApplicationUser>(context);
+            var manager = new UserManager<ApplicationUser>(store);
+
+            // seed an admin
+            var adminUserEmail = System.Configuration.ConfigurationManager.AppSettings["AdminUserEmail"];
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" 
+                && !context.Users.Any(x => x.Email == adminUserEmail))
+            {
+                var user = new ApplicationUser
+                {
+                    Email = adminUserEmail,
+                    EmailConfirmed = true,
+                    Energy = 100,
+                    MaxEnergy = 100,
+                    Life = 100,
+                    MaxLife = 100,
+                    Level = 1,
+                    UserName = adminUserEmail,
+                    Water = 50,
+                    Wood = 50,
+                    Food = 50,
+                    Stone = 50,
+                    Oil = 50,
+                    Iron = 50,
+                };
+
+                var result = manager.Create(user, "123456");
+                // give all roles
+                manager.AddToRole(user.Id, Permissions.CanEditPermissions);
+                manager.AddToRole(user.Id, Permissions.CanEditUsers);
+                manager.AddToRole(user.Id, Permissions.CanEditAttackLogs);
+                manager.AddToRole(user.Id, Permissions.CanEditTechnologies);
+                manager.AddToRole(user.Id, Permissions.CanEditTerritories);
+            }
+        }
+
+        private void TryToSetupAdmin(ApplicationDbContext context)
+        {
+            if(System.Configuration.ConfigurationManager.AppSettings["Environment"] == "prod")
+            {
+                var adminUserEmail = System.Configuration.ConfigurationManager.AppSettings["AdminUserEmail"];
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                // seed an admin
+                var adminUser = context.Users.FirstOrDefault(x => x.Email == adminUserEmail);
+                if (adminUser != null)
+                {
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditPermissions);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditUsers);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditAttackLogs);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditTechnologies);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditTerritories);
+                }
+            }
+        }
+
+        private static void SeedTechnologies(ApplicationDbContext context)
+        {
             // Add Technologies
             context.Technologies.AddOrUpdate(x => x.TechnologyId,
                 new Models.Technology

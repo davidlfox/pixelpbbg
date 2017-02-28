@@ -203,6 +203,7 @@
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TechnologiesController.cs" />
     <Compile Include="Controllers\TerritoriesController.cs" />
@@ -274,6 +275,8 @@
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
+    <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
+    <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -367,6 +370,8 @@
     <Content Include="Views\Trades\Create.cshtml" />
     <Content Include="Views\Trades\Cancel.cshtml" />
     <Content Include="Views\Trades\Index.cshtml" />
+    <Content Include="Views\Permissions\Index.cshtml" />
+    <Content Include="Views\Permissions\UserDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

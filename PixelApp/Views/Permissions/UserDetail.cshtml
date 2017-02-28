@@ -1,0 +1,26 @@
+﻿@model PixelApp.Views.Permissions.Models.PermissionsUserModel
+@{
+    ViewBag.Title = "UserDetail";
+}
+
+&laquo;
+@Html.ActionLink("User List", "Index")
+
+<h2>User Detail</h2>
+
+<h3>@Model.User.UserName</h3>
+
+@foreach (var role in Model.Roles)
+{
+    <p>
+        Level: @role.Name
+        @if (Model.User.Roles.Any(x => x.RoleId == role.Id))
+        {
+            @Html.ActionLink("Revoke", "UpdatePermission", new { userId = Model.User.Id, roleName = role.Name, give = false })
+        }
+        else
+        {
+            @Html.ActionLink("Grant", "UpdatePermission", new { userId = Model.User.Id, roleName = role.Name, give = true })
+        }
+    </p>
+}
