@@ -8,10 +8,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PixelApp.Models;
+using Pixel.Common;
 
 namespace PixelApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Permissions.CanEditTerritories)]
     public class TerritoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

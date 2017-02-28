@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PixelApp.Models;
+using Pixel.Common;
 
 namespace PixelApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Permissions.CanEditTechnologies)]
     public class TechnologiesController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
