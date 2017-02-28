@@ -268,8 +268,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\Trade.cs" />
+=======
     <Compile Include="Models\UserTechnology.cs" />
+>>>>>>> goon
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\StatManager.cs" />
@@ -280,11 +283,14 @@
     <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
+<<<<<<< HEAD
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
-    <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
+=======
+    <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
+>>>>>>> goon
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -365,8 +371,8 @@
     <Content Include="Views\Technologies\Details.cshtml" />
     <Content Include="Views\Technologies\Edit.cshtml" />
     <Content Include="Views\Technologies\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Find\Zombies.cshtml" />
-    <Content Include="Views\Research\Index.cshtml" />
     <Content Include="Views\Find\Food.cshtml" />
     <Content Include="Views\AttackLogs\Create.cshtml" />
     <Content Include="Views\AttackLogs\Delete.cshtml" />
@@ -379,6 +385,9 @@
     <Content Include="Views\Permissions\Index.cshtml" />
     <Content Include="Views\Permissions\UserDetail.cshtml" />
     <Content Include="Views\Account\ReconfirmEmail.cshtml" />
+=======
+    <Content Include="Views\Research\Index.cshtml" />
+>>>>>>> goon
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

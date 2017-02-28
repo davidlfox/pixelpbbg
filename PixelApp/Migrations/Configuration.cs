@@ -126,7 +126,7 @@ namespace PixelApp.Migrations
         private static void SeedTechnologies(ApplicationDbContext context)
         {
             // Add Technologies
-            context.Technologies.AddOrUpdate(x => x.TechnologyId,
+            context.Technologies.AddOrUpdate(x => x.Name,
                 new Models.Technology
                 {
                     Name = "Wind Powered Pump",
