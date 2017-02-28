@@ -31,7 +31,7 @@ namespace PixelApp.Migrations
             //
 
             // Add Technologies
-            context.Technologies.AddOrUpdate(x => x.TechnologyId,
+            context.Technologies.AddOrUpdate(x => x.Name,
                 new Models.Technology
                 {
                     Name = "Wind Powered Pump",

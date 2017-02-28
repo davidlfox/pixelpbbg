@@ -81,5 +81,7 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.Territory> Territories { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.Technology> Technologies { get; set; }
+
+
     }
 }

@@ -202,6 +202,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\ResearchController.cs" />
     <Compile Include="Controllers\TechnologiesController.cs" />
     <Compile Include="Controllers\TerritoriesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -250,14 +251,17 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
+    <Compile Include="Models\UserTechnology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\StatManager.cs" />
+    <Compile Include="Services\TechnologyService.cs" />
     <Compile Include="Services\TerritoryFactory.cs" />
     <Compile Include="Services\TerritoryService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
+    <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -341,6 +345,7 @@
     <Content Include="Views\Technologies\Details.cshtml" />
     <Content Include="Views\Technologies\Edit.cshtml" />
     <Content Include="Views\Technologies\Index.cshtml" />
+    <Content Include="Views\Research\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

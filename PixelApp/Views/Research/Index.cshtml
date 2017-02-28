@@ -1,0 +1,61 @@
+﻿@model PixelApp.Views.Research.Models.ResearchViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    .research-info {
+        background-color: #b9bbb4;
+        padding: 30px !important;
+    }
+
+        .research-info img.type {
+            border: 3px solid #666;
+        }
+
+    .titles{
+        padding-top:0px;
+    }
+
+    .tech{
+        padding-bottom:10px;
+    }
+
+    .tech a {
+        text-decoration: none;
+        color:black;
+    }
+</style>
+
+<div class="row research-info">
+    <div class="col-sm-4">
+        <h1 class="text-center titles">Resources</h1>
+        @foreach(var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Resource)))
+        {
+            <div class="well well-sm tech clearfix">
+                <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
+                <span class="col-xs-10">@tech.Name</span>    
+            </div>
+        }
+    </div>
+    <div class="col-sm-4">
+        <h1 class="text-center titles">Military</h1>
+        @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Military)))
+        {
+            <div class="well well-sm tech clearfix">
+                <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
+                <span class="col-xs-10">@tech.Name</span>
+            </div>
+        }
+    </div>
+    <div class="col-sm-4">
+        <h1 class="text-center titles">Culture</h1>
+        @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Culture)))
+        {
+            <div class="well well-sm tech clearfix">
+                <span class="col-xs-2" data-toggle="tooltip" data-title="@tech.Name"><a><span style="font-size:18px;" class="pull-left glyphicon glyphicon-plus-sign"></span></a></span>
+                <span class="col-xs-10">@tech.Name</span>
+            </div>
+        }
+    </div>
+</div>
