@@ -2,15 +2,18 @@
 
 @{
     ViewBag.Title = "Trades";
+    var isError = ViewBag.IsError != null && ViewBag.IsError == true;
+    var message = ViewBag.Message != null ? ViewBag.Message : string.Empty;
 }
 
 <p>
     @Html.ActionLink("Add Trade", "Create", null, new { @class = "btn btn-success" })
 </p>
-@if (!string.IsNullOrWhiteSpace(ViewBag.TradeError))
-{
-    <div class="alert alert-danger">@ViewBag.TradeError</div>
-}
+
+<div class="alert alert-@(isError ? "danger": "success")" style="@(string.IsNullOrWhiteSpace(message) ? "display:none;" : string.Empty)">
+    @message
+</div>
+
 <table class="table">
     <tr>
         <th>
