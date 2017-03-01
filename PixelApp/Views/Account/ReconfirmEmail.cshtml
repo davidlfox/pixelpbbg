@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Confirm Email";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<h2>@ViewBag.Title.</h2>
+<div>
+    <p>
+        You need to confirm your email address. Check your inbox for a confirmation link.
+    </p>
+    <p>
+        @Html.ActionLink("Click here to resend the confirmation email", "ReconfirmEmail", "Account", routeValues: new { id = ViewBag.Id }, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>

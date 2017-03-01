@@ -11,15 +11,41 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using PixelApp.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace PixelApp
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var apiKey = string.Empty;
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev")
+            {
+                apiKey = Environment.GetEnvironmentVariable("SendgridApiKey");
+            }
+            else
+            {
+                apiKey = System.Configuration.ConfigurationManager.AppSettings["SendgridApiKey"];
+            }
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("donoterply@pixelocalypse.com", "Pixelocalypse");
+            var subject = message.Subject;
+            var to = new EmailAddress(message.Destination);
+            var plainTextContent = message.Body;
+            var htmlContent = message.Body;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+            // only validates message, does not send if working locally
+            //msg.SetSandBoxMode(System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev");
+
+            var response = await client.SendEmailAsync(msg);
         }
     }
 
