@@ -71,12 +71,13 @@ namespace PixelApp.Controllers
                 var user = new ApplicationUser
                 {
                     Email = model.Email,
+                    UserName = model.UserName,
+                    LastLoginDate = DateTime.Now,
                     Energy = 100,
                     MaxEnergy = 100,
                     Life = 100,
                     MaxLife = 100,
                     Level = 1,
-                    UserName = model.UserName,
                     Water = 50,
                     Wood = 50,
                     Food = 50,

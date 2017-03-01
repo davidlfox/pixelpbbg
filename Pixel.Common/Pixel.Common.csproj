@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Cloud\AddPopulationMessage.cs" />
     <Compile Include="Cloud\AddResourceMessage.cs" />
+    <Compile Include="Cloud\ExperienceMessage.cs" />
     <Compile Include="Cloud\NightlyAttackMessage.cs" />
     <Compile Include="Cloud\QueueManager.cs" />
     <Compile Include="Cloud\QueueNames.cs" />

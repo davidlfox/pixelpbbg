@@ -55,5 +55,18 @@ namespace Pixel.Common.Cloud
 
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
+
+        public void QueueExperience(string userId, int experience, int delayInMinutes = 0)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.Experience);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new ExperienceMessage
+            {
+                UserId = userId,
+                Experience = experience,
+            }));
+
+            queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
+        }
     }
 }
