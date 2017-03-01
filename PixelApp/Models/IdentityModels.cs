@@ -17,6 +17,12 @@ namespace PixelApp.Models
         public override string UserName { get; set; }
         [Index(IsUnique = true)]
         public override string Email { get; set; }
+
+        /// <summary>
+        /// Last login date
+        /// </summary>
+        public DateTime? LastLoginDate { get; set; }
+
         /// <summary>
         /// User energy
         /// </summary>

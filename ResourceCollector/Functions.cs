@@ -111,5 +111,15 @@ namespace ResourceCollector
             var qm = new QueueManager();
             qm.QueueNightlyAttack(territory.TerritoryId);
         }
+
+        public static void ProcessExperience([QueueTrigger(QueueNames.Experience)] ExperienceMessage message)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Single(x => x.Id == message.UserId);
+                user.Experience += message.Experience;
+                db.SaveChanges();
+            }
+        }
     }
 }

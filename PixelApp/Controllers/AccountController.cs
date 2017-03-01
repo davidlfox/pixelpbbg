@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PixelApp.Models;
+using Pixel.Common.Cloud;
 
 namespace PixelApp.Controllers
 {
@@ -75,14 +76,27 @@ namespace PixelApp.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var userName = Context.Users
+            var user = Context.Users
                 .Where(x => x.Email.Equals(model.UserNameEmail, StringComparison.OrdinalIgnoreCase))
-                .Select(x => x.UserName)
-                .FirstOrDefault() ?? model.UserNameEmail;
+                .FirstOrDefault();
+
+            var userName = user.UserName ?? model.UserNameEmail;
+
             var result = await SignInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    // if logging in every day, give them a little xp
+                    if ((DateTime.Now - (user.LastLoginDate.HasValue ? user.LastLoginDate.Value : DateTime.Now)) > TimeSpan.FromDays(1))
+                    {
+                        // just update this when crediting for experience for now
+                        user.LastLoginDate = DateTime.Now;
+                        Context.SaveChanges();
+                        var qm = new QueueManager();
+                        // todo: config 10 experience
+                        qm.QueueExperience(user.Id, 10);
+                    }
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -254,10 +268,6 @@ namespace PixelApp.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ReconfirmEmail(string id)
         {
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(id);
-            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
             ViewBag.Id = id;
             return View();
         }
