@@ -223,6 +223,10 @@ namespace PixelApp.Controllers
                 }
                 if (!(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
+                    string forgotCode = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    var forgotCallbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = forgotCode }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + forgotCallbackUrl + "\">here</a>");
+
                     ViewBag.Id = user.Id;
                     return View("ReconfirmEmail");
                 }
@@ -277,7 +281,7 @@ namespace PixelApp.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
