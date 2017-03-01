@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201702271334458_trades.Designer.cs">
       <DependentUpon>201702271334458_trades.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703011638159_UserTechnology.cs" />
+    <Compile Include="Migrations\201703011638159_UserTechnology.Designer.cs">
+      <DependentUpon>201703011638159_UserTechnology.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -426,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702271334458_trades.resx">
       <DependentUpon>201702271334458_trades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703011638159_UserTechnology.resx">
+      <DependentUpon>201703011638159_UserTechnology.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

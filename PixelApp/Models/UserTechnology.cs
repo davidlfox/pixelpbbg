@@ -12,17 +12,19 @@ namespace PixelApp.Models
         [Key]
         public int UserTechnologyId { get; set; }
 
-        [ForeignKey("TechnologyId")]
+        [ForeignKey("Technology")]
         public int TechnologyId { get; set; }
 
-        virtual public Technology Technology { get; set; }
+        public virtual Technology Technology { get; set; }
 
-        [ForeignKey("Id")]
-        public Guid Id { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
 
-        virtual public ApplicationUser ApplicationUser { get; set; }
+        virtual public ApplicationUser User { get; set; }
 
-        public DateTime ResearchStartDate { get; set; }         
+        public DateTime ResearchStartDate { get; set; }  
+        
+        public int ResearchDays { get; set; }       
         
         public UserTechnologyStatusTypes StatusId { get; set; }   
     }

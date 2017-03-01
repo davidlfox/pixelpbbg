@@ -114,5 +114,7 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.AttackLog> AttackLogs { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.Trade> Trades { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.UserTechnology> UserTechnologies { get; set; }
     }
 }
