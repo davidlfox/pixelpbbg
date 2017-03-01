@@ -103,31 +103,13 @@ namespace PixelApp.Controllers
             // If we got this far, something failed, redisplay form
             return View("HomePage", model);
         }
-        
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
-        }
-
-        // todo: delete me
-        public ActionResult HomePage2()
-        {
-            return View();
-        }
-
-        // todo: delete me
-        public ActionResult HomePage3()
-        {
-            return View();
-        }
-
-        // todo: delete me
-        public ActionResult HomePage4()
-        {
-            return View();
         }
 
         public ActionResult About()
