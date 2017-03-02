@@ -1,0 +1,15 @@
+﻿@model IEnumerable<PixelApp.Views.MOTD.Models.MOTDViewModel>
+@{
+    ViewBag.Title = "MOTD History";
+}
+
+<h2>MOTD History</h2>
+
+@foreach (var msg in Model)
+{
+    <p>
+        <strong>@msg.Posted.ToString()</strong>: 
+        @msg.Message<br />
+        - @msg.Author
+    </p>
+}
