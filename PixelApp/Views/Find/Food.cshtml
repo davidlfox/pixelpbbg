@@ -3,6 +3,11 @@
     ViewBag.Title = "Forage for Food";
 }
 
+<div class="alert alert-info">
+    Foraging for food is an easy way, albeit plain, to gain experience and a little food while you're at it.
+    Your people need food now! As population grows, they'll need more and more.
+</div>
+
 <p>
     <a href="@Url.Action("Food", new { forage = true })" class="btn btn-lg btn-danger">Forage! @(Model.HasForaged ? "(again!)" : string.Empty)</a>
 </p>

@@ -3,6 +3,11 @@
     ViewBag.Title = "Hunt Zombies";
 }
 
+<div class="alert alert-info">
+    Hunt zombies for experience. More experience means higher levels and more perks!<br />
+    <strong>Watch out!</strong> Hunting zombies requires energy, and may result in loss of life. If you die, you'll lose a little more experience.
+</div>
+
 <p>
     <a href="@Url.Action("Zombies", new { hunt = true })" class="btn btn-lg btn-danger">Hunt! @(Model.ShowBattle ? "(again!)" : string.Empty)</a>
 </p>
