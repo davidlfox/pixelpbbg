@@ -42,6 +42,14 @@
     }
 </style>
 
+@if (!string.IsNullOrWhiteSpace(Model.MOTD.Message))
+{
+    <div class="alert alert-danger">
+        <strong>@Model.MOTD.Posted.ToShortDateString()</strong>: @Model.MOTD.Message<br />
+        - @Model.MOTD.Author
+    </div>
+}
+
 <div class="row section-info territory-info">
     <div class="col-sm-4">
         <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>

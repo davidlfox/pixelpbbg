@@ -1,6 +1,7 @@
 ﻿using Pixel.Common.Data;
 using PixelApp.Models;
 using PixelApp.Services;
+using PixelApp.Views.MOTD.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,14 @@ namespace PixelApp.Views.Dashboard.Models
 
         public List<AttackLogSkinny> RecentAttacks { get; set; }
 
+        public MOTDViewModel MOTD { get; set; }
+
         public DashboardViewModel()
         {
             this.Resources = new List<ResourceSkinny>();
             this.Neighbors = new List<TerritorySkinny>();
             this.RecentAttacks = new List<AttackLogSkinny>();
+            this.MOTD = new MOTDViewModel();
         }
     }
 
