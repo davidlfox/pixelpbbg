@@ -46,7 +46,8 @@
 {
     <div class="alert alert-danger">
         <strong>@Model.MOTD.Posted.ToShortDateString()</strong>: @Model.MOTD.Message<br />
-        - @Model.MOTD.Author
+        - @Model.MOTD.Author<br />
+        @Html.ActionLink("MOTD History", "Index", "MOTD")
     </div>
 }
 
