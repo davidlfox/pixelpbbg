@@ -5,8 +5,11 @@
 }
 
 <style type="text/css">
+    .section-info {
+        background-color: #222123;
+    }
+
     .territory-info {
-        background-color: #b9bbb4;
         padding: 30px !important;
     }
 
@@ -15,12 +18,10 @@
         }
 
     .recent-attack-info {
-        background-color: #b9bbb4;
         padding: 15px 30px !important;
     }
 
     .resource-info {
-        background-color: #b9bbb4;
         padding: 30px !important;
     }
 
@@ -41,7 +42,7 @@
     }
 </style>
 
-<div class="row territory-info">
+<div class="row section-info territory-info">
     <div class="col-sm-4">
         <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
         <p>Type: <strong>@Model.TerritoryType</strong></p>
@@ -64,7 +65,7 @@
     </div>
 </div>
 <div class="row">&nbsp;</div>
-<div class="row recent-attack-info">
+<div class="row section-info recent-attack-info">
     <div class="col-xs-12">
         <h4>Recent Attacks</h4>
         @if (Model.RecentAttacks.Count == 0)
@@ -81,10 +82,10 @@
     </div>
 </div>
 <div class="row">&nbsp;</div>
-<div class="row resource-info text-center">
+<div class="row section-info resource-info text-center">
     <p class="alert alert-info">
         This is your resource stockpile. You can adjust the <strong>percentages</strong> of civilian population dedicated to gathering each resource.
-        <strong>Percentags must total 100% or less.</strong>
+        <strong>Percentages must total 100% or less.</strong>
     </p>
     @foreach (var res in Model.Resources)
     {
