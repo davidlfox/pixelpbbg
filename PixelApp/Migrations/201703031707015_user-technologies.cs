@@ -3,7 +3,7 @@ namespace PixelApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UserTechnology : DbMigration
+    public partial class usertechnologies : DbMigration
     {
         public override void Up()
         {

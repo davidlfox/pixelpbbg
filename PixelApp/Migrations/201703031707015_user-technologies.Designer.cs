@@ -7,13 +7,13 @@ namespace PixelApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UserTechnology : IMigrationMetadata
+    public sealed partial class usertechnologies : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserTechnology));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(usertechnologies));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703011638159_UserTechnology"; }
+            get { return "201703031707015_user-technologies"; }
         }
         
         string IMigrationMetadata.Source

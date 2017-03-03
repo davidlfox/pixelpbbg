@@ -266,9 +266,9 @@
     <Compile Include="Migrations\201703011857508_last-login-date.Designer.cs">
       <DependentUpon>201703011857508_last-login-date.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703011638159_UserTechnology.cs" />
-    <Compile Include="Migrations\201703011638159_UserTechnology.Designer.cs">
-      <DependentUpon>201703011638159_UserTechnology.cs</DependentUpon>
+    <Compile Include="Migrations\201703031707015_user-technologies.cs" />
+    <Compile Include="Migrations\201703031707015_user-technologies.Designer.cs">
+      <DependentUpon>201703031707015_user-technologies.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -442,8 +442,8 @@
     <EmbeddedResource Include="Migrations\201703011857508_last-login-date.resx">
       <DependentUpon>201703011857508_last-login-date.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703011638159_UserTechnology.resx">
-      <DependentUpon>201703011638159_UserTechnology.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703031707015_user-technologies.resx">
+      <DependentUpon>201703031707015_user-technologies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
