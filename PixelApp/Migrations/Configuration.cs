@@ -49,6 +49,7 @@ namespace PixelApp.Migrations
                 Permissions.CanEditAttackLogs,
                 Permissions.CanEditTechnologies,
                 Permissions.CanEditTerritories,
+                Permissions.CanEditMOTD,
             };
 
             foreach (var roleName in roles)
@@ -99,6 +100,7 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanEditAttackLogs);
                 manager.AddToRole(user.Id, Permissions.CanEditTechnologies);
                 manager.AddToRole(user.Id, Permissions.CanEditTerritories);
+                manager.AddToRole(user.Id, Permissions.CanEditMOTD);
             }
         }
 
@@ -119,6 +121,7 @@ namespace PixelApp.Migrations
                     manager.AddToRole(adminUser.Id, Permissions.CanEditAttackLogs);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditTechnologies);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditTerritories);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditMOTD);
                 }
             }
         }

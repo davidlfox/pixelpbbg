@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace PixelApp.Controllers
 {
+    [Authorize]
     public class FindController : BaseController
     {
         protected Random rand = new Random();

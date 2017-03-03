@@ -13,5 +13,6 @@ namespace Pixel.Common
         public const string CanEditTerritories = "canEditTerritories";
         public const string CanEditTechnologies = "canEditTechnologies";
         public const string CanEditAttackLogs = "canEditAttackLogs";
+        public const string CanEditMOTD = "canEditMOTD";
     }
 }

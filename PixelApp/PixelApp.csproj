@@ -207,6 +207,7 @@
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MOTDController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ResearchController.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
+    <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
     <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
@@ -387,6 +389,8 @@
     <Content Include="Views\Permissions\Index.cshtml" />
     <Content Include="Views\Permissions\UserDetail.cshtml" />
     <Content Include="Views\Account\ReconfirmEmail.cshtml" />
+    <Content Include="Views\MOTD\Index.cshtml" />
+    <Content Include="Views\MOTD\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

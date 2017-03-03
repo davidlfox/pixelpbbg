@@ -1,4 +1,6 @@
-﻿using Pixel.Common.Cloud;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
+using Pixel.Common.Cloud;
 using PixelApp.Models;
 using PixelApp.Services;
 using PixelApp.Views.Dashboard.Models;
@@ -53,6 +55,30 @@ namespace PixelApp.Controllers
                     TimeOfAttack = x.TimeOfAttack,
                 })
                 .ToList();
+
+            // setup motd
+            var storageAccount = CloudStorageAccount.Parse(System.Configuration.ConfigurationManager
+                .ConnectionStrings["StorageConnectionString"].ConnectionString);
+            var tableClient = storageAccount.CreateCloudTableClient();
+            var table = tableClient.GetTableReference("motd");
+            table.CreateIfNotExists();
+
+            var query = new TableQuery<MessageOfTheDayEntity>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "motd"));
+
+            var motd = table.ExecuteQuery(query)
+                .OrderByDescending(x => x.Posted)
+                .FirstOrDefault();
+
+            if (motd != null)
+            {
+                vm.MOTD = new Views.MOTD.Models.MOTDViewModel
+                {
+                    Author = motd.Author,
+                    Message = motd.Message,
+                    Posted = motd.Posted,
+                };
+            }
 
             return View(vm);
         }

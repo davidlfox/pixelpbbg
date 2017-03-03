@@ -6,6 +6,22 @@
     var message = ViewBag.Message != null ? ViewBag.Message : string.Empty;
 }
 
+<style type="text/css">
+    .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+        background-color: #646266;
+    }
+    .table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+        background-color: #858186;
+        color: #222123;
+    }
+</style>
+
+<h2>Trade Board</h2>
+
+<div class="alert alert-info">
+    <strong>Looking for extra resources?</strong> Post an offer on the trade board, and ask for what you need. Help establish a post-apocalyptic economy!
+</div>
+
 <p>
     @Html.ActionLink("Add Trade", "Create", null, new { @class = "btn btn-success" })
 </p>
@@ -14,7 +30,7 @@
     @message
 </div>
 
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             Owner
@@ -58,8 +74,8 @@
             @Html.DisplayFor(modelItem => item.Posted)
         </td>
         <td>
-            @Html.ActionLink("Accept", "Accept", new { id=item.TradeId }) |
-            @Html.ActionLink("Cancel", "Cancel", new { id=item.TradeId })
+            @Html.ActionLink("Accept", "Accept", new { id=item.TradeId }, new { @class = "label label-success" }) |
+            @Html.ActionLink("Cancel", "Cancel", new { id=item.TradeId }, new { @class = "label label-danger" })
         </td>
     </tr>
 }

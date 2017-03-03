@@ -80,9 +80,20 @@ namespace PixelApp.Controllers
                 .Where(x => x.Email.Equals(model.UserNameEmail, StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
 
-            var userName = user.UserName ?? model.UserNameEmail;
+            if (user == null)
+            {
+                user = Context.Users
+                    .Where(x => x.UserName.Equals(model.UserNameEmail, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
+            }
 
-            var result = await SignInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, shouldLockout: false);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
