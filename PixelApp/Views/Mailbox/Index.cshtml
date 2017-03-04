@@ -1,0 +1,42 @@
+﻿@model PixelApp.Views.Mailbox.Models.MailboxViewModel
+@{
+    ViewBag.Title = "Mailbox";
+}
+
+<style type="text/css">
+    .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+        background-color: #646266;
+    }
+    .table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+        background-color: #858186;
+        color: #222123;
+    }
+    .unread-mail {
+        font-weight: bold;
+    }
+</style>
+
+<h2>Mailbox</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>Sent</th>
+        <th>From</th>
+        <th>Title</th>
+        <th>Body</th>
+    </tr>
+    @foreach(var mail in Model.Notes)
+    {
+        <tr class="@(mail.IsRead ? string.Empty : "unread-mail")">
+            <td>
+                <a href="@Url.Action("Delete", new { id = mail.NoteId })" class="label label-danger">Archive</a>
+                <a href="@Url.Action("View", new { id = mail.NoteId })" class="label label-success">View</a>
+            </td>
+            <td>@mail.Sent.ToString()</td>
+            <td><strong>System</strong></td>
+            <td>@Html.Raw(mail.Title)</td>
+            <td>@Html.Raw(mail.Body)</td>
+        </tr>
+    }
+</table>

@@ -23,6 +23,9 @@
             top: 0;
             bottom: 0;
         }
+        .has-mail { 
+            color: #d9534f !important;
+        }
     </style>
 </head>
 <body>
@@ -54,6 +57,7 @@
                         </div>
                     </li>
                     <li class="active"><a href="@Url.Action("Index", "Home")">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="@Url.Action("Index", "Mailbox")" class="mailbox">Mailbox<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
                     <li><a href="@Url.Action("Index", "Profile")">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
                     <li><a href="@Url.Action("Zombies", "Find")">Hunt Zombies<span class="pull-right hidden-xs showopacity glyphicon glyphicon-warning-sign"></span></a></li>
                     <li><a href="@Url.Action("Index", "Research")">Research<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tree-deciduous"></span></a></li>
@@ -126,5 +130,19 @@
         });
     </script>
     <!-- /theme setup-->
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type: 'get',
+                url: '/mailbox/any',
+                success: function (data) {
+                    if (data.hasmail) {
+                        $('.mailbox').addClass('has-mail');
+                    }
+                }
+            })
+        })
+    </script>
 </body>
 </html>
