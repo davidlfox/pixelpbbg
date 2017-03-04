@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PixelApp.Models;
+using PixelApp.Services;
 
 namespace PixelApp.Controllers
 {
@@ -260,6 +261,16 @@ namespace PixelApp.Controllers
                 default:
                     break;
             }
+
+            // notify initiating user of completed trade
+            // todo: queue this
+            var note = CommunicationService.CreateNotification(
+                trade.OwnerId,
+                $"Your trade was accepted by {this.UserContext.UserName}!",
+                $"{this.UserContext.UserName} traded you {trade.QuantityAsked} {trade.TypeAsked} " +
+                    $"for {trade.QuantityOffered} of your {trade.TypeOffered}.");
+
+            this.Context.Notes.Add(note);
 
             return RedirectToAction("Index", new { message = "You successfully completed the trade." });
         }
