@@ -262,6 +262,8 @@ namespace PixelApp.Controllers
                     break;
             }
 
+            trade.TradedToUserId = this.UserContext.Id;
+
             // notify initiating user of completed trade
             // todo: queue this
             var note = CommunicationService.CreateNotification(
