@@ -23,12 +23,12 @@ namespace ResourceCollector
             var user = db.Users.Single(x => x.Id == userId);
 
             // add resources based on probability and allocation
-            user.Water += (int)(territory.Water * territory.WaterAllocation * territory.CivilianPopulation);
-            user.Wood += (int)(territory.Wood * territory.WoodAllocation * territory.CivilianPopulation);
-            user.Food += (int)(territory.Food * territory.FoodAllocation * territory.CivilianPopulation);
-            user.Stone += (int)(territory.Stone * territory.StoneAllocation * territory.CivilianPopulation);
-            user.Oil += (int)(territory.Oil * territory.OilAllocation * territory.CivilianPopulation);
-            user.Iron += (int)(territory.Iron * territory.IronAllocation * territory.CivilianPopulation);
+            user.Water += (int)(territory.WaterAllocation * territory.CivilianPopulation);
+            user.Wood += (int)(territory.WoodAllocation * territory.CivilianPopulation);
+            user.Food += (int)(territory.FoodAllocation * territory.CivilianPopulation);
+            user.Stone += (int)(territory.StoneAllocation * territory.CivilianPopulation);
+            user.Oil += (int)(territory.OilAllocation * territory.CivilianPopulation);
+            user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation);
 
             territory.LastResourceCollectionDate = DateTime.Now;
 
