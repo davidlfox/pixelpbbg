@@ -31,5 +31,7 @@ namespace PixelApp.Models
         public BoostTypes BoostTypeId { get; set; }
 
         public decimal BoostAmount { get; set; }
+
+        public int ResearchDays { get; set; }
     }
 }

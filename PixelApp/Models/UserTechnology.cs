@@ -22,9 +22,7 @@ namespace PixelApp.Models
 
         virtual public ApplicationUser User { get; set; }
 
-        public DateTime ResearchStartDate { get; set; }  
-        
-        public int ResearchDays { get; set; }       
+        public DateTime ResearchStartDate { get; set; }       
         
         public UserTechnologyStatusTypes StatusId { get; set; }   
     }

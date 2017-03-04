@@ -276,6 +276,10 @@
     <Compile Include="Migrations\201703040109207_system-notifications.Designer.cs">
       <DependentUpon>201703040109207_system-notifications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703041553460_moved-researchdys.cs" />
+    <Compile Include="Migrations\201703041553460_moved-researchdys.Designer.cs">
+      <DependentUpon>201703041553460_moved-researchdys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -463,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703040109207_system-notifications.resx">
       <DependentUpon>201703040109207_system-notifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703041553460_moved-researchdys.resx">
+      <DependentUpon>201703041553460_moved-researchdys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
