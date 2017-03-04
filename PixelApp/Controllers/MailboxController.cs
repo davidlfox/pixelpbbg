@@ -26,6 +26,7 @@ namespace PixelApp.Controllers
             vm.Notes = this.Context.Notes
                 .Where(x => x.UserId == this.UserContext.Id)
                 .Where(x => x.IsActive.Equals(true))
+                .OrderByDescending(x => x.Sent)
                 .Select(x => new NoteSkinny
                 {
                     IsRead = x.IsRead,

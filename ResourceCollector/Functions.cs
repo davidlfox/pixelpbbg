@@ -42,7 +42,12 @@ namespace ResourceCollector
         public static void ProcessPopulationMessage([QueueTrigger(QueueNames.PopulationQueue)] AddPopulationMessage message)
         {
             var db = new ApplicationDbContext();
-            var territory = db.Territories.Single(x => x.TerritoryId == message.TerritoryId);
+            var territory = db.Territories
+                .Include(x => x.Players)
+                .Single(x => x.TerritoryId == message.TerritoryId);
+
+            var noteText = string.Empty;
+            var growth = message.Population;
 
             if(message.Population > 0)
             {
@@ -50,10 +55,25 @@ namespace ResourceCollector
             }
             else
             {
-                territory.CivilianPopulation += (int)(territory.CivilianPopulation * territory.PopulationGrowthRate);
+                growth = (int)(territory.CivilianPopulation * territory.PopulationGrowthRate);
+                territory.CivilianPopulation += growth;
             }
 
             territory.LastPopulationUpdate = DateTime.Now;
+
+            noteText = "A few people from the outskirts found their way into your territory last night. " +
+                       $"Your population grew by {growth} to {territory.CivilianPopulation}. " +
+                       "Your increased population will automatically help you gather more resources.";
+
+            var user = territory.Players.First();
+
+            // notify user
+            var note = CommunicationService.CreateNotification(
+                user.Id,
+                $"Your civilian population grew by {growth} last night!",
+                noteText);
+
+            db.Notes.Add(note);
 
             db.SaveChanges();
 
@@ -103,6 +123,13 @@ namespace ResourceCollector
             {
                 log.Message = "Your territory survived minor zombie attacks last night.";
             }
+
+            var note = CommunicationService.CreateNotification(
+                user.Id,
+                "Zombies attacked last night!",
+                log.Message);
+
+            db.Notes.Add(note);
 
             db.AttackLogs.Add(log);
             db.SaveChanges();

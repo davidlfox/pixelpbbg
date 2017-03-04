@@ -98,7 +98,10 @@ namespace PixelApp.Controllers
                     {
                         // 2-5 food for now X level
                         // todo: should this be some other f(level * factor) ?
-                        var level = Services.StatManager.GetLevel(this.UserContext.Id, this.Context, false);
+
+                        // this is intentionally using the .Level property to avoid race condition when messaging about leveling up
+                        var level = this.UserContext.Level;
+
                         var qty = level * (rand.Next(0, 4) + 2);
                         vm.IsSuccess = true;
                         vm.Message = $"You spent {energyRequired} energy, and found {qty} food!";

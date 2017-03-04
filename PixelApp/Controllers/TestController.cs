@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
+using Pixel.Common;
 using Pixel.Common.Cloud;
 using Pixel.Common.Data;
 using PixelApp.Services;
@@ -14,17 +15,25 @@ using System.Web.Mvc;
 
 namespace PixelApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Permissions.CanTestController)]
     public class TestController : BaseController
     {
         private CloudQueue addResourceRequestQueue;
+        private CloudQueue addPopulationQueue;
+        private CloudQueue nightlyAttackQueue;
 
         public TestController()
         {
             var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            addResourceRequestQueue = queueClient.GetQueueReference("addresources");
+            addResourceRequestQueue = queueClient.GetQueueReference(QueueNames.ResourceQueue);
             addResourceRequestQueue.CreateIfNotExists();
+
+            addPopulationQueue = queueClient.GetQueueReference(QueueNames.PopulationQueue);
+            addPopulationQueue.CreateIfNotExists();
+
+            nightlyAttackQueue = queueClient.GetQueueReference(QueueNames.NightlyAttackQueue);
+            nightlyAttackQueue.CreateIfNotExists();
         }
 
         // GET: Test
@@ -53,6 +62,31 @@ namespace PixelApp.Controllers
                 TerritoryId = this.UserContext.TerritoryId.Value,
             }));
             await addResourceRequestQueue.AddMessageAsync(queueMessage, null, TimeSpan.FromSeconds(delayInSeconds), null, null);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> AddPopulationTest(int quantity, int delayInSeconds)
+        {
+            // queue message with delay
+            var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new AddPopulationMessage
+            {
+                Population = quantity,
+                TerritoryId = this.UserContext.TerritoryId.Value,
+            }));
+            await addPopulationQueue.AddMessageAsync(queueMessage, null, TimeSpan.FromSeconds(delayInSeconds), null, null);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> NightlyAttackTest(int delayInSeconds)
+        {
+            // queue message with delay
+            var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new NightlyAttackMessage
+            {
+                TerritoryId = this.UserContext.TerritoryId.Value,
+            }));
+            await nightlyAttackQueue.AddMessageAsync(queueMessage, null, TimeSpan.FromSeconds(delayInSeconds), null, null);
 
             return RedirectToAction("Index");
         }

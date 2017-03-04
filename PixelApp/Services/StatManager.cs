@@ -119,6 +119,15 @@ namespace PixelApp.Services
 
             if(user.Experience >= experienceNeeded)
             {
+                // todo: probably queue this message
+                var note = CommunicationService.CreateNotification(
+                    user.Id,
+                    $"You leveled up to {user.Level + 1}!",
+                    $"You gained enough experience to level up to {user.Level + 1}. Higher levels means more perks--keep up the good work!");
+
+                db.Notes.Add(note);
+                db.SaveChanges();
+
                 user.Level++;
 
                 if (commit)

@@ -51,6 +51,7 @@ namespace PixelApp.Migrations
                 Permissions.CanEditTerritories,
                 Permissions.CanEditMOTD,
                 Permissions.CanEditNotes,
+                Permissions.CanTestController,
             };
 
             foreach (var roleName in roles)
@@ -103,6 +104,7 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanEditTerritories);
                 manager.AddToRole(user.Id, Permissions.CanEditMOTD);
                 manager.AddToRole(user.Id, Permissions.CanEditNotes);
+                manager.AddToRole(user.Id, Permissions.CanTestController);
             }
         }
 
@@ -125,6 +127,7 @@ namespace PixelApp.Migrations
                     manager.AddToRole(adminUser.Id, Permissions.CanEditTerritories);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditMOTD);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditNotes);
+                    manager.AddToRole(adminUser.Id, Permissions.CanTestController);
                 }
             }
         }
