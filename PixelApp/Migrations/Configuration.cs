@@ -105,6 +105,11 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanEditMOTD);
                 manager.AddToRole(user.Id, Permissions.CanEditNotes);
                 manager.AddToRole(user.Id, Permissions.CanTestController);
+
+                var territory = new Territory();
+                Services.TerritoryFactory.InitializeTerritory(territory);
+                territory.Name = "me@a.com's territory";
+                user.Territory = territory;
             }
         }
 
