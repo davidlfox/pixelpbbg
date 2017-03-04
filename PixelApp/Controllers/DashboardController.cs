@@ -88,34 +88,38 @@ namespace PixelApp.Controllers
         {
             var vm = new NameTerritoryViewModel();
 
-            // find a territory or create new one
-            var available = this.Context.Territories.Where(x => x.Players.Count == 0);
-
-            Territory territory = null;
-
-            // todo: put this in domain/data layer
-            if (available.Any())
+            // setup new territory for new users
+            if (!this.UserContext.TerritoryId.HasValue)
             {
-                // get a random one
-                var length = available.Count();
-                var rand = new Random();
-                var index = rand.Next(0, length);
-                territory = available.ToList().ElementAt(index);
-                territory.Players = new List<ApplicationUser>();
-                territory.Players.Add(this.UserContext);
-            }
-            else
-            {
-                // create territory
-                territory = TerritoryFactory.CreateTerritory();
-                territory.Players.Add(this.UserContext);
+                // find a territory or create new one
+                var available = this.Context.Territories.Where(x => x.Players.Count == 0);
+
+                Territory territory = null;
+
+                // todo: put this in domain/data layer
+                if (available.Any())
+                {
+                    // get a random one
+                    var length = available.Count();
+                    var rand = new Random();
+                    var index = rand.Next(0, length);
+                    territory = available.ToList().ElementAt(index);
+                    territory.Players = new List<ApplicationUser>();
+                    territory.Players.Add(this.UserContext);
+                }
+                else
+                {
+                    // create territory
+                    territory = TerritoryFactory.CreateTerritory();
+                    territory.Players.Add(this.UserContext);
                 
-                this.Context.Territories.Add(territory);
+                    this.Context.Territories.Add(territory);
+                }
+
+                TerritoryFactory.InitializeTerritory(territory);
+
+                this.Context.SaveChanges();
             }
-
-            TerritoryFactory.InitializeTerritory(territory);
-
-            this.Context.SaveChanges();
 
             return View(vm);
         }
