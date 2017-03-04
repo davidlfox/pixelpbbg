@@ -111,7 +111,7 @@ namespace PixelApp.Controllers
         public ActionResult Users(int page = 1)
         {
             var vm = new UsersViewModel();
-            vm.PageSize = 3;
+            vm.PageSize = 10;
 
             var userList = this.Context.Users
                 .Include(x => x.Territory)
@@ -120,7 +120,7 @@ namespace PixelApp.Controllers
             vm.UserCount = userList.Count();
 
             var users = userList
-                .OrderBy(x => x.UserName)
+                .OrderByDescending(x => x.LastLoginDate)
                 .Skip((page - 1) * vm.PageSize)
                 .Take(vm.PageSize)
                 .ToList();
