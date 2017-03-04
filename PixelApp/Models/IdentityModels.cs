@@ -90,6 +90,11 @@ namespace PixelApp.Models
         /// </summary>
         public ICollection<AttackLog> AttackLogs { get; set; }
 
+        /// <summary>
+        /// Collection of system notifications
+        /// </summary>
+        public ICollection<Note> Notifications { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -122,5 +127,7 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.Trade> Trades { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.UserTechnology> UserTechnologies { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.Note> Notes { get; set; }
     }
 }

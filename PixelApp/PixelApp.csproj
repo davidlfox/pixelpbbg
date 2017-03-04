@@ -208,6 +208,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MOTDController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ResearchController.cs" />
@@ -270,11 +271,16 @@
     <Compile Include="Migrations\201703031707015_user-technologies.Designer.cs">
       <DependentUpon>201703031707015_user-technologies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703040109207_system-notifications.cs" />
+    <Compile Include="Migrations\201703040109207_system-notifications.Designer.cs">
+      <DependentUpon>201703040109207_system-notifications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
     <Compile Include="Models\Trade.cs" />
@@ -391,6 +397,11 @@
     <Content Include="Views\Account\ReconfirmEmail.cshtml" />
     <Content Include="Views\MOTD\Index.cshtml" />
     <Content Include="Views\MOTD\Create.cshtml" />
+    <Content Include="Views\Notes\Create.cshtml" />
+    <Content Include="Views\Notes\Delete.cshtml" />
+    <Content Include="Views\Notes\Details.cshtml" />
+    <Content Include="Views\Notes\Edit.cshtml" />
+    <Content Include="Views\Notes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -444,6 +455,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703031707015_user-technologies.resx">
       <DependentUpon>201703031707015_user-technologies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703040109207_system-notifications.resx">
+      <DependentUpon>201703040109207_system-notifications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
