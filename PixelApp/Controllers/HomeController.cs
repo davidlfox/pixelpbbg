@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PixelApp.Models;
+using PixelApp.Views.Home.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace PixelApp.Controllers
 {
@@ -103,6 +105,47 @@ namespace PixelApp.Controllers
 
             // If we got this far, something failed, redisplay form
             return View("HomePage", model);
+        }
+
+        [Authorize]
+        public ActionResult Users(int page = 1)
+        {
+            var vm = new UsersViewModel();
+            vm.PageSize = 3;
+
+            var userList = this.Context.Users
+                .Include(x => x.Territory)
+                .Where(x => x.TerritoryId.HasValue.Equals(true));
+
+            vm.UserCount = userList.Count();
+
+            var users = userList
+                .OrderBy(x => x.UserName)
+                .Skip((page - 1) * vm.PageSize)
+                .Take(vm.PageSize)
+                .ToList();
+
+            if (users.Any())
+            {
+                vm.Users = users
+                    .Select(x => new UserSkinny
+                    {
+                        Id = x.Id,
+                        TerrainType = x.Territory.Type.ToString(),
+                        Username = x.UserName,
+                        TerritoryName = x.Territory.Name,
+                        X = x.Territory.X,
+                        Y = x.Territory.Y,
+                        Level = Services.StatManager.GetLevel(x.Id, this.Context),
+                    })
+                    .ToList();
+            }
+
+            vm.Page = page;
+            vm.PageCount = vm.UserCount / vm.PageSize + (vm.UserCount % vm.PageSize > 0 ? 1 : 0);
+            vm.ShowNextButton = page * vm.PageSize < vm.UserCount;
+
+            return View(vm);
         }
 
         private void AddErrors(IdentityResult result)

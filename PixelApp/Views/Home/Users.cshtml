@@ -1,0 +1,61 @@
+﻿@model PixelApp.Views.Home.Models.UsersViewModel
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+@if (Model.UserCount > Model.PageSize)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            @if (Model.Page > 1)
+            {
+                <li>
+                    <a href="@Url.Action("Users", new { page = Model.Page - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (var i = 0; i < Model.PageCount; i++)
+            {
+                if (i + 1 == Model.Page)
+                {
+                    <li class="active"><a href="javascript:void(0);">@(i + 1)</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Users", new { page = i + 1 })">@(i + 1)</a></li>
+                }
+            }
+            @if (Model.ShowNextButton)
+            {
+                <li>
+                    <a href="@Url.Action("Users", new { page = Model.Page + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>Username</th>
+        <th>Level</th>
+        <th>Territory</th>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td><a href="javascript:void(0);" class="label label-success">View Profile</a></td>
+            <td>@user.Username</td>
+            <td>@user.Level</td>
+            <td>
+                @($"{user.TerritoryName}: ({user.X}, {user.Y}) {user.TerrainType})")
+            </td>
+        </tr>
+    }
+</table>
