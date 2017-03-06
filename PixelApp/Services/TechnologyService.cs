@@ -112,7 +112,7 @@ namespace PixelApp.Services
 
         public UserTechnology GetCheckPendingResearch(string userId)
         {
-            var pending = context.UserTechnologies.Include("Technology").FirstOrDefault(x => x.UserId.Equals(userId));
+            var pending = context.UserTechnologies.Include("Technology").FirstOrDefault(x => x.UserId.Equals(userId) && x.StatusId == UserTechnologyStatusTypes.Pending);
 
             if (pending != null)
             {

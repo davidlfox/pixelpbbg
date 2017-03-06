@@ -47,7 +47,7 @@
         <h4>@Model.Technology.Description</h4>
         <strong>@Model.Technology.BoostTypeId.ToString()</strong>&nbsp;&nbsp;<strong class="text-success"> + @((int)(Model.Technology.BoostAmount * 100))%</strong>
         <div>&nbsp;</div>
-        <a class="btn btn-default" href="/Research">Back</a>&nbsp;&nbsp;<a id="start" class="btn btn-success @(Model.StatusId.HasValue ? "disabled" : "")" data-toggle="tooltip" title="@(Model.StatusId.HasValue ? Model.StatusId == PixelApp.Models.UserTechnologyStatusTypes.Pending ? "This Technology is already being researched" : "This Technology has already been researched" : "")" href="javascript:void(0)">Start Researching</a>
+        <a class="btn btn-default" href="/Research">Back</a>&nbsp;&nbsp;<a id="start" class="btn btn-success" data-toggle="tooltip" title="@(Model.StatusId.HasValue ? Model.StatusId == PixelApp.Models.UserTechnologyStatusTypes.Pending ? "This Technology is already being researched" : "This Technology has already been researched" : "")" href="javascript:void(0)">Start Researching</a>
     </div>
 </div>
 
