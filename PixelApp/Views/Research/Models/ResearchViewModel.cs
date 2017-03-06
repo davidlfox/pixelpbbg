@@ -9,5 +9,9 @@ namespace PixelApp.Views.Research.Models
     public class ResearchViewModel
     {
         public List<Technology> Technologies { get; set; }
+
+        public List<int> ResearchedTechnologyIds { get; set; }
+
+        public UserTechnology CurrentlyResearching { get; set; }
     }
 }

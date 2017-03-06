@@ -7,77 +7,72 @@
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
-
-            $('.tech').on('click', function () {
-                alert('fefsfe');
-                var techname = $(this).data("techname");
-                var data = {
-                    technologyId: $(this).data('techid')
-                };
-                $.ajax({
-                    type: 'post',
-                    url: '/research/startresearch',
-                    data: data,
-                    success: function (data) {
-                        if (data.success) {
-                            toastr.success(techname + ' is now being researched.');
-                        } else {
-                            toastError(data.message);
-                        }
-                    },
-                    error: function (error) {
-                        toastError('There was a problem researching ' + techname + '. Please try again later.');
-                    }
-                });
-            });
-
-            function toastError(message) {
-                if (message.length) {
-                    toastr.error(message);
-                } else {
-                    toastr.error('There was a problem. Please try again later.');
-                }
-            }
         });
     </script>
 }
 
 <style type="text/css">
-    .research-info {
+    div.research-info {
         background-color: #b9bbb4;
-        padding: 30px !important;
+        color: black;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        padding-top: 15px !important;
     }
 
-        .research-info img.type {
-            border: 3px solid #666;
-        }
+    .research-info img.type {
+        border: 3px solid #666;
+    }
 
     .titles {
-        padding-top: 0px;
+        margin-top: 0px;
     }
 
     .tech {
         padding-bottom: 10px;
     }
 
+        .tech:hover {
+            cursor: pointer;
+            cursor: hand;
+        }
+
         .tech a {
             text-decoration: none;
-            color: black;
         }
+
+    div.currently {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
 </style>
 
-<div class="alert alert-danger">
-    Coming soon! Nothing works on this page yet.
-</div>
+@if (Model.CurrentlyResearching != null)
+{
+    <div class="row research-info currently">
+        <h4 class="text-center">Currently Researching</h4>
+        <h5 class="text-center">@Model.CurrentlyResearching.Technology.Name</h5>
+        <div class="progress-bar researching" role="progressbar" aria-valuenow="@(Math.Round((DateTime.Now - Model.CurrentlyResearching.ResearchStartDate).TotalHours / (Model.CurrentlyResearching.Technology.ResearchDays * 24), 2))" aria-valuemin="0" aria-valuemax="100" style="width:@(Math.Round((DateTime.Now - Model.CurrentlyResearching.ResearchStartDate).TotalHours / (Model.CurrentlyResearching.Technology.ResearchDays * 24), 2))"></div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="@(Math.Round((DateTime.Now - Model.CurrentlyResearching.ResearchStartDate).TotalHours / (Model.CurrentlyResearching.Technology.ResearchDays * 24), 2) * 100)"
+                 aria-valuemin="0" aria-valuemax="100" style="width:@(Math.Round((DateTime.Now - Model.CurrentlyResearching.ResearchStartDate).TotalHours / (Model.CurrentlyResearching.Technology.ResearchDays * 24), 2) * 100)%">
+                <span style="margin-top:5px;">@(Math.Round((DateTime.Now - Model.CurrentlyResearching.ResearchStartDate).TotalHours / (Model.CurrentlyResearching.Technology.ResearchDays * 24), 2) * 100)%</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+}
 
 <div class="row research-info">
     <div class="col-sm-4">
         <h1 class="text-center titles">Resources</h1>
         @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Resource)))
         {
-            <div class="well well-sm tech clearfix" data-techid="@tech.TechnologyId" data-techname="@tech.Name">
-                <span class="col-xs-2" data-toggle="tooltip" title="@tech.Description"><a><i style="font-size:18px;" class="pull-left fa fa-plus-circle"></i></a></span>
-                <span class="col-xs-10">@tech.Name</span>
+            <div class="well well-sm tech clearfix">
+                <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
+                    <span class="col-xs-2" data-toggle="tooltip" title="@(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "Researched" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "Currently researching" : "Not yet researched")"><i style="font-size:18px;" class="pull-left fa fa-plus-circle @(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "text-danger" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "text-warning" : "text-success")"></i></span>
+                    <span class="col-xs-10">@tech.Name</span>
+                </a>
             </div>
         }
     </div>
@@ -86,8 +81,10 @@
         @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Military)))
         {
             <div class="well well-sm tech clearfix">
-                <span class="col-xs-2" data-toggle="tooltip" title="@tech.Description"><a><i style="font-size:18px;" class="pull-left fa fa-plus-circle"></i></a></span>
-                <span class="col-xs-10">@tech.Name</span>
+                <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
+                    <span class="col-xs-2" data-toggle="tooltip" title="@(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "Researched" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "Currently researching" : "Not yet researched")"><i style="font-size:18px;" class="pull-left fa fa-plus-circle @(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "text-danger" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "text-warning" : "text-success")"></i></span>
+                    <span class="col-xs-10">@tech.Name</span>
+                </a>
             </div>
         }
     </div>
@@ -96,8 +93,10 @@
         @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Culture)))
         {
             <div class="well well-sm tech clearfix">
-                <span class="col-xs-2" data-toggle="tooltip" title="@tech.Description"><a><i style="font-size:18px;" class="pull-left fa fa-plus-circle"></i></a></span>
-                <span class="col-xs-10">@tech.Name</span>
+                <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
+                    <span class="col-xs-2" data-toggle="tooltip" title="@(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "Researched" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "Currently researching" : "Not yet researched")"><i style="font-size:18px;" class="pull-left fa fa-plus-circle @(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "text-danger" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "text-warning" : "text-success")"></i></span>
+                    <span class="col-xs-10">@tech.Name</span>
+                </a>
             </div>
         }
     </div>

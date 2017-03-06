@@ -150,6 +150,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Water,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -160,6 +162,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Wood,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -170,6 +174,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Food,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -180,6 +186,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Stone,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -190,6 +198,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Oil,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -200,6 +210,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Iron,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -210,6 +222,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Offense,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -220,6 +234,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Offense,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -230,6 +246,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Offense,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -240,6 +258,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Defense,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -250,6 +270,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Defense,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -260,6 +282,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Defense,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -270,6 +294,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -280,6 +306,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -290,6 +318,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -300,6 +330,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -310,6 +342,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -320,6 +354,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .02m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -330,6 +366,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 500,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .03m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 },
                 new Models.Technology
                 {
@@ -340,6 +378,8 @@ namespace PixelApp.Migrations
                     ResourceCost = 500,
                     BoostTypeId = BoostTypes.Population,
                     BoostAmount = .03m,
+                    ResearchDays = 1,
+                    EnergyCost = 20,
                 }
             );
         }

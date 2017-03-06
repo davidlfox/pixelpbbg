@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201703041553460_moved-researchdys.Designer.cs">
       <DependentUpon>201703041553460_moved-researchdys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703060134055_tech-prereq.cs" />
+    <Compile Include="Migrations\201703060134055_tech-prereq.Designer.cs">
+      <DependentUpon>201703060134055_tech-prereq.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -309,6 +313,7 @@
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
+    <Compile Include="Views\Research\Models\TechDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -411,6 +416,7 @@
     <Content Include="Views\Mailbox\Index.cshtml" />
     <Content Include="Views\Mailbox\View.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
+    <Content Include="Views\Research\TechDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -470,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703041553460_moved-researchdys.resx">
       <DependentUpon>201703041553460_moved-researchdys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060134055_tech-prereq.resx">
+      <DependentUpon>201703060134055_tech-prereq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

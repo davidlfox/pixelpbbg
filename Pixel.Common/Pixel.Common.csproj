@@ -84,6 +84,7 @@
     <Compile Include="Data\ResourceTypes.cs" />
     <Compile Include="Data\TechnologyTypes.cs" />
     <Compile Include="Data\TerritoryTypes.cs" />
+    <Compile Include="Models\ProcessResponse.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
