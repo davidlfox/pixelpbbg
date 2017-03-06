@@ -110,9 +110,17 @@ namespace PixelApp.Services
             return new ProcessResponse(true, string.Format("Research has begun on {0}", tech.Name));
         }
 
-        public UserTechnology GetPendingReserch(string userId)
+        public UserTechnology GetCheckPendingResearch(string userId)
         {
-            return context.UserTechnologies.Include("Technology").Where(x => x.UserId.Equals(userId)).FirstOrDefault();
+            var pending = context.UserTechnologies.Include("Technology").Where(x => x.UserId.Equals(userId)).FirstOrDefault();
+
+            if ((DateTime.Now - pending.ResearchStartDate).TotalDays > pending.Technology.ResearchDays)
+            {
+                pending.StatusId = UserTechnologyStatusTypes.Researched;
+                return null;
+            }
+
+            return pending;
         }
 
         public Technology GetById(int technologyId)

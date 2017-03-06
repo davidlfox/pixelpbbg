@@ -17,8 +17,9 @@ namespace PixelApp.Controllers
             var ts = new TechnologyService();
             var vm = new ResearchViewModel();
             vm.Technologies = ts.GetTechnologies().ToList();
-            vm.CurrentlyResearching = ts.GetPendingReserch(this.UserContext.Id);
             vm.ResearchedTechnologyIds = ts.GetResearchedTechnologyIds(this.UserContext.Id);
+            vm.CurrentlyResearching = ts.GetCheckPendingResearch(this.UserContext.Id);
+            ts.SaveChanges();
             return View(vm);
         }
 
@@ -36,7 +37,9 @@ namespace PixelApp.Controllers
             var ts = new TechnologyService();
 
             // Check for pending Research
-            var pending = ts.GetPendingReserch(this.UserContext.Id);
+            var pending = ts.GetCheckPendingResearch(this.UserContext.Id);
+            ts.SaveChanges();
+
             if (pending != null)
                 return Json(new { success = false, message = string.Format("There is research currently pending ({0}) which must finish before starting new research.", pending.Technology.Name) }, JsonRequestBehavior.DenyGet);
 

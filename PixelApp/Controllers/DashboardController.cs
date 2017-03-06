@@ -81,7 +81,8 @@ namespace PixelApp.Controllers
             }
 
             var ts = new TechnologyService();
-            vm.CurrentlyReasearching = ts.GetPendingReserch(this.UserContext.Id);
+            vm.CurrentlyReasearching = ts.GetCheckPendingResearch(this.UserContext.Id);
+            ts.SaveChanges();
 
             return View(vm);
         }
