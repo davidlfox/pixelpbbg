@@ -64,40 +64,26 @@
 }
 
 <div class="row research-info">
-    <div class="col-sm-4">
-        <h1 class="text-center titles">Resources</h1>
-        @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Resource)))
-        {
-            <div class="well well-sm tech clearfix">
-                <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
-                    <span class="col-xs-2" data-toggle="tooltip" title="@(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "Researched" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "Currently researching" : "Not yet researched")"><i style="font-size:18px;" class="pull-left fa fa-plus-circle @(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "text-danger" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "text-warning" : "text-success")"></i></span>
-                    <span class="col-xs-10">@tech.Name</span>
-                </a>
-            </div>
-        }
-    </div>
-    <div class="col-sm-4">
-        <h1 class="text-center titles">Military</h1>
-        @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Military)))
-        {
-            <div class="well well-sm tech clearfix">
-                <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
-                    <span class="col-xs-2" data-toggle="tooltip" title="@(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "Researched" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "Currently researching" : "Not yet researched")"><i style="font-size:18px;" class="pull-left fa fa-plus-circle @(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "text-danger" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "text-warning" : "text-success")"></i></span>
-                    <span class="col-xs-10">@tech.Name</span>
-                </a>
-            </div>
-        }
-    </div>
-    <div class="col-sm-4">
-        <h1 class="text-center titles">Culture</h1>
-        @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(Pixel.Common.Data.TechnologyTypes.Culture)))
-        {
-            <div class="well well-sm tech clearfix">
-                <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
-                    <span class="col-xs-2" data-toggle="tooltip" title="@(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "Researched" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "Currently researching" : "Not yet researched")"><i style="font-size:18px;" class="pull-left fa fa-plus-circle @(Model.ResearchedTechnologyIds.Contains(tech.TechnologyId) ? "text-danger" : Model.CurrentlyResearching.TechnologyId == tech.TechnologyId ? "text-warning" : "text-success")"></i></span>
-                    <span class="col-xs-10">@tech.Name</span>
-                </a>
-            </div>
-        }
-    </div>
+    @foreach (var techType in Enum.GetValues(typeof(Pixel.Common.Data.TechnologyTypes)))
+    {
+        <div class="col-sm-4">
+            <h1 class="text-center titles">@techType</h1>
+            @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(techType)))
+            {
+                var completedResearch = Model.ResearchedTechnologyIds.Contains(tech.TechnologyId);
+                var isCurrent = Model.CurrentlyResearching?.TechnologyId == tech.TechnologyId;
+
+                <div class="well well-sm tech clearfix">
+                    <a href="/Research/TechDetail?technologyId=@tech.TechnologyId">
+                        <span class="col-xs-2" data-toggle="tooltip" 
+                              title="@(completedResearch ? "Researched" : isCurrent ? "Currently researching" : "Not yet researched")">
+                            <i style="font-size:18px;" 
+                               class="pull-left fa fa-plus-circle @(completedResearch ? "text-danger" : isCurrent ? "text-warning" : "text-success")"></i>
+                        </span>
+                        <span class="col-xs-10">@tech.Name</span>
+                    </a>
+                </div>
+            }
+        </div>
+    }
 </div>

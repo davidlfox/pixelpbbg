@@ -112,12 +112,15 @@ namespace PixelApp.Services
 
         public UserTechnology GetCheckPendingResearch(string userId)
         {
-            var pending = context.UserTechnologies.Include("Technology").Where(x => x.UserId.Equals(userId)).FirstOrDefault();
+            var pending = context.UserTechnologies.Include("Technology").FirstOrDefault(x => x.UserId.Equals(userId));
 
-            if ((DateTime.Now - pending.ResearchStartDate).TotalDays > pending.Technology.ResearchDays)
+            if (pending != null)
             {
-                pending.StatusId = UserTechnologyStatusTypes.Researched;
-                return null;
+                if ((DateTime.Now - pending.ResearchStartDate).TotalDays > pending.Technology.ResearchDays)
+                {
+                    pending.StatusId = UserTechnologyStatusTypes.Researched;
+                    return null;
+                }
             }
 
             return pending;
@@ -130,7 +133,10 @@ namespace PixelApp.Services
 
         public List<int> GetResearchedTechnologyIds(string userId)
         {
-            return context.UserTechnologies.Where(x => x.UserId.Equals(userId) && x.StatusId == UserTechnologyStatusTypes.Researched).Select(x => x.TechnologyId).ToList();
+            return context.UserTechnologies
+                .Where(x => x.UserId.Equals(userId) && x.StatusId == UserTechnologyStatusTypes.Researched)
+                .Select(x => x.TechnologyId)
+                .ToList();
         }
     }
 }
