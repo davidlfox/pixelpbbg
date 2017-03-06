@@ -13,10 +13,10 @@ namespace PixelApp.Models
         [Key]
         public int TechnologyId { get; set; }
 
-        //[ForeignKey("TechnologyId")]
-        //public int? PreRequisiteId { get; set; }
+        [ForeignKey("PreRequisite")]
+        public int? PreRequisiteId { get; set; }
 
-        //virtual public Technology PreRequisite { get; set; }
+        virtual public Technology PreRequisite { get; set; }
 
         public string Name { get; set; }
 
@@ -31,5 +31,9 @@ namespace PixelApp.Models
         public BoostTypes BoostTypeId { get; set; }
 
         public decimal BoostAmount { get; set; }
+
+        public int ResearchDays { get; set; }
+
+        public int EnergyCost { get; set; }
     }
 }

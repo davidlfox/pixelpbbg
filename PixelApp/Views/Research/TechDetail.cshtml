@@ -1,0 +1,53 @@
+﻿@model PixelApp.Views.Research.Models.TechDetailViewModel
+@{
+    ViewBag.Title = "TechDetail";
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('#start').on('click', function () {
+                var techname = '@Model.Technology.Name';
+                var data = {
+                    technologyId: '@Model.Technology.TechnologyId'
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '/research/startresearch',
+                    data: data,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(data.message);
+                        } else {
+                            toastr.error(data.message);
+                        }
+                    },
+                    error: function (error) {
+                        toastr.error('There was a problem researching ' + techname + '. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+}
+<style type="text/css">
+    .research-info {
+        background-color: #b9bbb4;
+        padding: 30px !important;
+        color: black;
+    }
+        .research-info img.type {
+            border: 3px solid #666;
+        }
+</style>
+<div class="research-info">
+    <div class="col-xs-12 text-center">
+        <h2>@Model.Technology.Name</h2>
+        <h4>@Model.Technology.Description</h4>
+        <strong>@Model.Technology.BoostTypeId.ToString()</strong>&nbsp;&nbsp;<strong class="text-success"> + @((int)(Model.Technology.BoostAmount * 100))%</strong>
+        <div>&nbsp;</div>
+        <a class="btn btn-default" href="/Research">Back</a>&nbsp;&nbsp;<a id="start" class="btn btn-success @(Model.StatusId.HasValue ? "disabled" : "")" data-toggle="tooltip" title="@(Model.StatusId.HasValue ? Model.StatusId == PixelApp.Models.UserTechnologyStatusTypes.Pending ? "This Technology is already being researched" : "This Technology has already been researched" : "")" href="javascript:void(0)">Start Researching</a>
+    </div>
+</div>
+
