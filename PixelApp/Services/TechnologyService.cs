@@ -112,13 +112,24 @@ namespace PixelApp.Services
 
         public UserTechnology GetCheckPendingResearch(string userId)
         {
-            var pending = context.UserTechnologies.Include("Technology").FirstOrDefault(x => x.UserId.Equals(userId) && x.StatusId == UserTechnologyStatusTypes.Pending);
+            var pending = context.UserTechnologies.Include("Technology")
+                .FirstOrDefault(x => x.UserId.Equals(userId) && x.StatusId == UserTechnologyStatusTypes.Pending);
 
             if (pending != null)
             {
                 if ((DateTime.Now - pending.ResearchStartDate).TotalDays > pending.Technology.ResearchDays)
                 {
                     pending.StatusId = UserTechnologyStatusTypes.Researched;
+
+                    var tech = pending.Technology;
+                    // notify user
+                    var note = CommunicationService.CreateNotification(
+                        userId,
+                        "Your research is complete!",
+                        $"You finished researching {tech.Name} and gained {tech.BoostAmount:P1} {tech.BoostTypeId}");
+
+                    context.Notes.Add(note);
+
                     return null;
                 }
             }
