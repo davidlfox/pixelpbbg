@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Pixel.Common.Data;
 
 namespace PixelApp.Services
 {
@@ -26,20 +27,26 @@ namespace PixelApp.Services
                     var elapsed = DateTime.Now - territory.LastResourceCollection;
                     var hoursElapsed = elapsed.Hours;
 
-                    if (territory != null)
-                    {
-                        // add resources based on probability, allocation and intervals elapsed
-                        // todo: boosts
-                        user.Water += (int)(territory.WaterAllocation * territory.CivilianPopulation * hoursElapsed);
-                        user.Wood += (int)(territory.WoodAllocation * territory.CivilianPopulation * hoursElapsed);
-                        user.Food += (int)(territory.FoodAllocation * territory.CivilianPopulation * hoursElapsed);
-                        user.Stone += (int)(territory.StoneAllocation * territory.CivilianPopulation * hoursElapsed);
-                        user.Oil += (int)(territory.OilAllocation * territory.CivilianPopulation * hoursElapsed);
-                        user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation * hoursElapsed);
+                    // Get boosts from technology
+                    var boosts = db.UserTechnologies.Where(x => x.UserId.Equals(user.Id)
+                        && x.StatusId == UserTechnologyStatusTypes.Researched)
+                        .Select(x => new
+                        {
+                            BoostTypeId = x.Technology.BoostTypeId,
+                            BoostAmount = x.Technology.BoostAmount,
+                        })
+                        .ToList();
 
-                        // reset update time to the most recent hour to account for partial intervals
-                        territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
-                    }
+                    // add resources based on probability, allocation and intervals elapsed
+                    user.Water += (int)(territory.WaterAllocation * territory.CivilianPopulation * hoursElapsed);
+                    user.Wood += (int)(territory.WoodAllocation * territory.CivilianPopulation * hoursElapsed);
+                    user.Food += (int)(territory.FoodAllocation * territory.CivilianPopulation * hoursElapsed);
+                    user.Stone += (int)(territory.StoneAllocation * territory.CivilianPopulation * hoursElapsed);
+                    user.Oil += (int)(territory.OilAllocation * territory.CivilianPopulation * hoursElapsed);
+                    user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation * hoursElapsed);
+
+                    // reset update time to the most recent hour to account for partial intervals
+                    territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
                 }
 
                 // check territory population growth
@@ -50,8 +57,13 @@ namespace PixelApp.Services
 
                     var noteText = string.Empty;
 
-                    // todo: boosts
-                    var growth = (int)(territory.CivilianPopulation * territory.PopulationGrowthRate * daysElapsed);
+                    // Get boosts from technology
+                    var populationBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
+                        && x.StatusId == UserTechnologyStatusTypes.Researched
+                        && x.Technology.BoostTypeId == BoostTypes.Population)
+                        .Sum(x => x.Technology.BoostAmount);
+
+                    var growth = (int)(territory.CivilianPopulation * (territory.PopulationGrowthRate + populationBoosts) * daysElapsed);
 
                     territory.CivilianPopulation += growth;
 
@@ -90,10 +102,16 @@ namespace PixelApp.Services
                     var populationLoss = 0;
                     var resourceLossText = string.Empty;
 
+                    // Calculate winPercentage
+                    var defenseBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
+                        && x.StatusId == UserTechnologyStatusTypes.Researched
+                        && x.Technology.BoostTypeId == BoostTypes.Defense)
+                        .Sum(x => x.Technology.BoostAmount);
+                    var winPercentage = 67 + defenseBoosts;
+
                     for (var i = 0; i < daysElapsed; i++)
                     {
-                        // 1/3 chance of nightly raid
-                        if (rand.Next(0, 3) == 0)
+                        if (rand.Next(0, 100) > winPercentage)
                         {
                             attacks++;
                             log.WasAttacked = true;
