@@ -15,6 +15,8 @@ namespace PixelApp.Services
                 .Include(x => x.Players)
                 .FirstOrDefault(x => x.TerritoryId == user.TerritoryId);
 
+            var now = DateTime.Now;
+
             if (territory != null)
             {
                 // check resource updates
@@ -23,7 +25,6 @@ namespace PixelApp.Services
                     // determine how many intervals
                     var elapsed = DateTime.Now - territory.LastResourceCollection;
                     var hoursElapsed = elapsed.Hours;
-                    var secondsLeftover = elapsed.Seconds;
 
                     if (territory != null)
                     {
@@ -36,8 +37,8 @@ namespace PixelApp.Services
                         user.Oil += (int)(territory.OilAllocation * territory.CivilianPopulation * hoursElapsed);
                         user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation * hoursElapsed);
 
-                        // reset update time to account for partial intervals
-                        territory.LastResourceCollection = DateTime.Now.AddSeconds(-1 * secondsLeftover);
+                        // reset update time to the most recent hour to account for partial intervals
+                        territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
                     }
                 }
 
@@ -46,7 +47,6 @@ namespace PixelApp.Services
                 {
                     var elapsed = DateTime.Now - territory.LastPopulationUpdate;
                     var daysElapsed = elapsed.Days;
-                    var secondsLeftover = elapsed.Seconds;
 
                     var noteText = string.Empty;
 
@@ -56,7 +56,7 @@ namespace PixelApp.Services
                     territory.CivilianPopulation += growth;
 
                     // reset update time to account for partial intervals
-                    territory.LastPopulationUpdate = DateTime.Now.AddSeconds(-1 * secondsLeftover);
+                    territory.LastPopulationUpdate = new DateTime(now.Year, now.Month, now.Day);
 
                     // notify user
                     var timeText = daysElapsed > 1 ? "recently" : "last night";
@@ -75,9 +75,8 @@ namespace PixelApp.Services
                 // check nightly attacks
                 if (territory.LastNightlyAttack < DateTime.Now.AddHours(-24))
                 {
-                    var elapsed = DateTime.Now - territory.LastPopulationUpdate;
+                    var elapsed = DateTime.Now - territory.LastNightlyAttack;
                     var daysElapsed = elapsed.Days;
-                    var secondsLeftover = elapsed.Seconds;
 
                     var rand = new Random();
 
@@ -116,18 +115,21 @@ namespace PixelApp.Services
                     territory.CivilianPopulation -= populationLoss;
 
                     // reset update time to account for partial intervals
-                    territory.LastNightlyAttack = DateTime.Now.AddSeconds(-1 * secondsLeftover);
+                    territory.LastNightlyAttack = new DateTime(now.Year, now.Month, now.Day);
 
                     if (attacks > 1)
                     {
-                        log.Message = string.Format("Zombies have been pillaging your territory while you were away. You lost {0} {1}. {2}"
+                        log.Message = string.Format(
+                            "Zombies have been pillaging your territory while you were away. You lost {0} {1}. {2}" +
+                                $"Zombie Attacks: {attacks}. Thwarted attempts: {survivals}"
                             , populationLoss
                             , populationLoss == 1 ? "person" : "people"
                             , "You lost too many resources to count!");
                     }
                     else if (attacks == 1)
                     {
-                        log.Message = string.Format("Zombies attacked your territory last night. You lost {0} {1}. {2}"
+                        log.Message = string.Format(
+                            "Zombies attacked your territory last night. You lost {0} {1}. {2}"
                             , populationLoss
                             , populationLoss == 1 ? "person" : "people"
                             , resourceLossText);
@@ -147,7 +149,6 @@ namespace PixelApp.Services
                     db.AttackLogs.Add(log);
                 }
             }
-
         }
     }
 }

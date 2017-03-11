@@ -73,8 +73,8 @@ namespace PixelApp.Services
             territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0, 0);
 
             // get the next midnight timestamp
-            territory.LastPopulationUpdate = DateTime.Now;
-            territory.LastNightlyAttack = DateTime.Now;
+            territory.LastPopulationUpdate = new DateTime(now.Year, now.Month, now.Day);
+            territory.LastNightlyAttack = new DateTime(now.Year, now.Month, now.Day);
         }
 
         private static TerritoryTypes GetRandomTerritoryType()

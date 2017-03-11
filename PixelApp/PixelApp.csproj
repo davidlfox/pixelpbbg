@@ -284,6 +284,10 @@
     <Compile Include="Migrations\201703060134055_tech-prereq.Designer.cs">
       <DependentUpon>201703060134055_tech-prereq.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703110228107_event-timestamps.cs" />
+    <Compile Include="Migrations\201703110228107_event-timestamps.Designer.cs">
+      <DependentUpon>201703110228107_event-timestamps.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -480,6 +484,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703060134055_tech-prereq.resx">
       <DependentUpon>201703060134055_tech-prereq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703110228107_event-timestamps.resx">
+      <DependentUpon>201703110228107_event-timestamps.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
