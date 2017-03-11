@@ -6,6 +6,7 @@ using Pixel.Common.Cloud;
 using System.Data.Entity;
 using PixelApp.Models;
 using PixelApp.Services;
+using Pixel.Common.Data;
 
 namespace ResourceCollector
 {
@@ -25,13 +26,29 @@ namespace ResourceCollector
                 var userId = territory.Players.First().Id;
                 var user = db.Users.Single(x => x.Id == userId);
 
+                // Get boosts from technology
+                var boosts = db.UserTechnologies.Where(x => x.UserId.Equals(userId)
+                    && x.StatusId == UserTechnologyStatusTypes.Researched)
+                    .Select(x => new
+                    {
+                        BoostTypeId = x.Technology.BoostTypeId,
+                        BoostAmount = x.Technology.BoostAmount,
+                    })
+                    .ToList();
+
                 // add resources based on probability and allocation
-                user.Water += (int)(territory.WaterAllocation * territory.CivilianPopulation);
-                user.Wood += (int)(territory.WoodAllocation * territory.CivilianPopulation);
-                user.Food += (int)(territory.FoodAllocation * territory.CivilianPopulation);
-                user.Stone += (int)(territory.StoneAllocation * territory.CivilianPopulation);
-                user.Oil += (int)(territory.OilAllocation * territory.CivilianPopulation);
-                user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation);
+                user.Water += (int)((territory.WaterAllocation + boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Water)).Sum(x => x.BoostAmount)) 
+                    * territory.CivilianPopulation);
+                user.Wood += (int)((territory.WoodAllocation + boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Wood)).Sum(x => x.BoostAmount))
+                    * territory.CivilianPopulation);
+                user.Food += (int)((territory.FoodAllocation + boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Food)).Sum(x => x.BoostAmount))
+                    * territory.CivilianPopulation);
+                user.Stone += (int)((territory.StoneAllocation + boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Stone)).Sum(x => x.BoostAmount))
+                    * territory.CivilianPopulation);
+                user.Oil += (int)((territory.OilAllocation + boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Oil)).Sum(x => x.BoostAmount))
+                    * territory.CivilianPopulation);
+                user.Iron += (int)((territory.IronAllocation + boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Iron)).Sum(x => x.BoostAmount))
+                    * territory.CivilianPopulation);
 
                 territory.LastResourceCollectionDate = DateTime.Now;
 
@@ -61,7 +78,14 @@ namespace ResourceCollector
                 }
                 else
                 {
-                    growth = (int)(territory.CivilianPopulation * territory.PopulationGrowthRate);
+                    // Get boosts from technology
+                    var populationBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
+                        && x.StatusId == UserTechnologyStatusTypes.Researched
+                        && x.Technology.BoostTypeId == BoostTypes.Population)
+                        .Sum(x => x.Technology.BoostAmount);
+
+                    growth = (int)(territory.CivilianPopulation * 
+                        (territory.PopulationGrowthRate + populationBoosts));
                     territory.CivilianPopulation += growth;
                 }
 
@@ -111,13 +135,20 @@ namespace ResourceCollector
                     UserId = user.Id,
                 };
 
-                // 1/3 chance of nightly raid
-                if (rand.Next(0, 3) == 0)
+                // Calculate winPercentage
+                var defenseBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
+                    && x.StatusId == UserTechnologyStatusTypes.Researched
+                    && x.Technology.BoostTypeId == BoostTypes.Defense)
+                    .Sum(x => x.Technology.BoostAmount);
+                var winPercentage = 67 + defenseBoosts;
+
+                // Roll for attack resolution
+                if (rand.Next(0, 100) > winPercentage)
                 {
                     log.WasAttacked = true;
 
                     // 1-2 nightly population loss for right now
-                    var populationLoss = rand.Next(0, 2) + 1;
+                    var populationLoss = rand.Next(1, 3);
                     territory.CivilianPopulation -= populationLoss;
 
                     // choose random resources the player has and remove them
