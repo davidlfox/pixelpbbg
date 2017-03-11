@@ -37,7 +37,7 @@ namespace PixelApp.Controllers
 
                 // do timed updates
                 var em = new EventManager();
-                em.ProcessEvents(this.UserContext);
+                em.ProcessEvents(this.Context, this.UserContext);
 
                 // force territory selection/naming
                 if (!this.UserContext.TerritoryId.HasValue 

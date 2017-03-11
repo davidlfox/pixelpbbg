@@ -79,11 +79,6 @@ namespace PixelApp.Models
         public int Iron { get; set; }
 
         /// <summary>
-        /// Date of last resource collection
-        /// </summary>
-        public DateTime LastResourceUpdate { get; set; }
-
-        /// <summary>
         /// The player's home territory
         /// </summary>
         [ForeignKey("Territory")]

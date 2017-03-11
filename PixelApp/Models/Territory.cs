@@ -86,7 +86,7 @@ namespace PixelApp.Models
         /// <summary>
         /// Time of last resource collection update
         /// </summary>
-        public DateTime? LastResourceCollectionDate { get; set; }
+        public DateTime LastResourceCollection { get; set; }
 
         /// <summary>
         /// The related player(s) (for now, just one user per territory)

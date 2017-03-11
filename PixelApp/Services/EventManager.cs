@@ -18,10 +18,10 @@ namespace PixelApp.Services
             if (territory != null)
             {
                 // check resource updates
-                if (user.LastResourceUpdate < DateTime.Now.AddHours(-1))
+                if (territory.LastResourceCollection < DateTime.Now.AddHours(-1))
                 {
                     // determine how many intervals
-                    var elapsed = DateTime.Now - user.LastResourceUpdate;
+                    var elapsed = DateTime.Now - territory.LastResourceCollection;
                     var hoursElapsed = elapsed.Hours;
                     var secondsLeftover = elapsed.Seconds;
 
@@ -37,7 +37,7 @@ namespace PixelApp.Services
                         user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation * hoursElapsed);
 
                         // reset update time to account for partial intervals
-                        territory.LastResourceCollectionDate = DateTime.Now.AddSeconds(-1 * secondsLeftover);
+                        territory.LastResourceCollection = DateTime.Now.AddSeconds(-1 * secondsLeftover);
                     }
                 }
 

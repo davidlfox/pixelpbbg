@@ -23,10 +23,6 @@ namespace ResourceCollector
             // todo: potentially delete this
         }
 
-        /// <summary>
-        /// Handle a nightly attack queue message
-        /// </summary>
-        /// <param name="message">The message signaling chance of an attack</param>
         public static void ProcessNightlyAttack([QueueTrigger(QueueNames.NightlyAttackQueue)] NightlyAttackMessage message)
         {
             // todo: potentially delete this
