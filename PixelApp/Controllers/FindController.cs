@@ -1,4 +1,5 @@
 ﻿using Pixel.Common.Data;
+using PixelApp.Models;
 using PixelApp.Services;
 using PixelApp.Views.Find.Models;
 using System;
@@ -36,9 +37,15 @@ namespace PixelApp.Controllers
                     // if lose, -xp, -random res
                     // if die, -xp, -more random res
 
-                    // randomize win/lose for now
-                    vm.IsWin = rand.Next(0, 10) < 8; // 80% chance win
+                    // Calculate winPercentage
+                    var offenseBoosts = this.Context.UserTechnologies.Include("Technology").Where(x => x.UserId.Equals(this.UserContext.Id)
+                        && x.StatusId == UserTechnologyStatusTypes.Researched
+                        && x.Technology.BoostTypeId == BoostTypes.Offense)
+                        .Select(x => x.Technology.BoostAmount).ToList();
+                    var winPercentage = 80 + (offenseBoosts.Sum() * 100);
 
+                    // randomize win/lose for now
+                    vm.IsWin = rand.Next(0, 100) < winPercentage; // 80% + boosts chance win
 
                     var deltaLife = rand.Next(0, 10) + 5;
 
