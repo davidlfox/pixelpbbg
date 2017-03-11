@@ -37,13 +37,26 @@ namespace PixelApp.Services
                         })
                         .ToList();
 
-                    // add resources based on probability, allocation and intervals elapsed
-                    user.Water += (int)(territory.WaterAllocation * territory.CivilianPopulation * hoursElapsed);
-                    user.Wood += (int)(territory.WoodAllocation * territory.CivilianPopulation * hoursElapsed);
-                    user.Food += (int)(territory.FoodAllocation * territory.CivilianPopulation * hoursElapsed);
-                    user.Stone += (int)(territory.StoneAllocation * territory.CivilianPopulation * hoursElapsed);
-                    user.Oil += (int)(territory.OilAllocation * territory.CivilianPopulation * hoursElapsed);
-                    user.Iron += (int)(territory.IronAllocation * territory.CivilianPopulation * hoursElapsed);
+                    var civPop = territory.CivilianPopulation;
+
+                    // add resources based on probability, allocation, intervals elapsed, and boosts
+                    var boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Water)).Sum(x => x.BoostAmount);
+                    user.Water += (int)((territory.WaterAllocation + boost) * civPop * hoursElapsed);
+
+                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Wood)).Sum(x => x.BoostAmount);
+                    user.Wood += (int)(territory.WoodAllocation * civPop * hoursElapsed);
+
+                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Food)).Sum(x => x.BoostAmount);
+                    user.Food += (int)(territory.FoodAllocation * civPop * hoursElapsed);
+
+                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Stone)).Sum(x => x.BoostAmount);
+                    user.Stone += (int)(territory.StoneAllocation * civPop * hoursElapsed);
+
+                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Oil)).Sum(x => x.BoostAmount);
+                    user.Oil += (int)(territory.OilAllocation * civPop * hoursElapsed);
+
+                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Iron)).Sum(x => x.BoostAmount);
+                    user.Iron += (int)(territory.IronAllocation * civPop * hoursElapsed);
 
                     // reset update time to the most recent hour to account for partial intervals
                     territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
@@ -58,12 +71,12 @@ namespace PixelApp.Services
                     var noteText = string.Empty;
 
                     // Get boosts from technology
-                    var populationBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
+                    var populationBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(user.Id)
                         && x.StatusId == UserTechnologyStatusTypes.Researched
                         && x.Technology.BoostTypeId == BoostTypes.Population)
-                        .Sum(x => x.Technology.BoostAmount);
+                        .Select(x => x.Technology.BoostAmount).ToList();
 
-                    var growth = (int)(territory.CivilianPopulation * (territory.PopulationGrowthRate + populationBoosts) * daysElapsed);
+                    var growth = (int)(territory.CivilianPopulation * (territory.PopulationGrowthRate + populationBoosts.Sum()) * daysElapsed);
 
                     territory.CivilianPopulation += growth;
 
@@ -103,11 +116,11 @@ namespace PixelApp.Services
                     var resourceLossText = string.Empty;
 
                     // Calculate winPercentage
-                    var defenseBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
+                    var defenseBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(user.Id)
                         && x.StatusId == UserTechnologyStatusTypes.Researched
                         && x.Technology.BoostTypeId == BoostTypes.Defense)
-                        .Sum(x => x.Technology.BoostAmount);
-                    var winPercentage = 67 + defenseBoosts;
+                        .Select(x => x.Technology.BoostAmount).ToList();
+                    var winPercentage = 67 + (defenseBoosts.Sum() * 100);
 
                     for (var i = 0; i < daysElapsed; i++)
                     {
