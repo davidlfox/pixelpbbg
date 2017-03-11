@@ -74,10 +74,9 @@ namespace ResourceCollector
                     var populationBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
                         && x.StatusId == UserTechnologyStatusTypes.Researched
                         && x.Technology.BoostTypeId == BoostTypes.Population)
-                        .Sum(x => x.Technology.BoostAmount);
+                        .Select(x => x.Technology.BoostAmount).ToList();
 
-                    growth = (int)(territory.CivilianPopulation * 
-                        (territory.PopulationGrowthRate + populationBoosts));
+                    growth = (int)(territory.CivilianPopulation * (territory.PopulationGrowthRate + populationBoosts.Sum()));
                     territory.CivilianPopulation += growth;
                 }
 
@@ -125,8 +124,8 @@ namespace ResourceCollector
                 var defenseBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(territory.Players.First().Id)
                     && x.StatusId == UserTechnologyStatusTypes.Researched
                     && x.Technology.BoostTypeId == BoostTypes.Defense)
-                    .Sum(x => x.Technology.BoostAmount);
-                var winPercentage = 67 + defenseBoosts;
+                    .Select(x => x.Technology.BoostAmount).ToList();
+                var winPercentage = 67 + (defenseBoosts.Sum() * 100);
 
                 // Roll for attack resolution
                 if (rand.Next(0, 100) > winPercentage)
