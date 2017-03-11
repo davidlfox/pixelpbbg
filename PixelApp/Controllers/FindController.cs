@@ -1,10 +1,12 @@
-﻿using Pixel.Common.Data;
+﻿using Pixel.Common.Cloud;
+using Pixel.Common.Data;
 using PixelApp.Models;
 using PixelApp.Services;
 using PixelApp.Views.Find.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,7 +17,7 @@ namespace PixelApp.Controllers
     {
         protected Random rand = new Random();
 
-        public ActionResult Zombies(bool hunt = false)
+        public async Task<ActionResult> Zombies(bool hunt = false)
         {
             var vm = new FindZombiesViewModel();
 
@@ -75,13 +77,16 @@ namespace PixelApp.Controllers
                     vm.ResourceText = ResourceService.RandomResource(this.UserContext, vm.IsWin, vm.IsDead, percentageLoss);
 
                     this.Context.SaveChanges();
+
+                    var qm = new QueueManager();
+                    await qm.QueueZombieFight(this.UserContext.Id, deltaXp, deltaLife, vm.IsWin, vm.IsDead);
                 }
             }
 
             return View(vm);
         }
 
-        public ActionResult Food(bool forage = false)
+        public async Task<ActionResult> Food(bool forage = false)
         {
             var vm = new FindFoodViewModel();
 
@@ -118,6 +123,9 @@ namespace PixelApp.Controllers
                         this.UserContext.Experience += 2;
 
                         this.Context.SaveChanges();
+
+                        var qm = new QueueManager();
+                        await qm.QueueFoodForage(this.UserContext.Id, 2, qty);
                     }
                     else
                     {

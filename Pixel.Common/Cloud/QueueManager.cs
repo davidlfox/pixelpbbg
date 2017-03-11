@@ -71,5 +71,35 @@ namespace Pixel.Common.Cloud
 
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
+
+        public async Task QueueZombieFight(string userId, int deltaXp, int deltaLife, bool isWin, bool isDead)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.ZombieFights);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new ZombieFightMessage
+            {
+                UserId = userId,
+                DeltaXp = deltaXp,
+                DeltaLife = deltaLife,
+                IsWin = isWin,
+                IsDead = isDead,
+            }));
+
+            await queue.AddMessageAsync(message);
+        }
+
+        public async Task QueueFoodForage(string userId, int deltaXp, int foodFound)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.FoodForage);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new FoodForageMessage
+            {
+                UserId = userId,
+                DeltaXp = deltaXp,
+                FoodFound = foodFound,
+            }));
+
+            await queue.AddMessageAsync(message);
+        }
     }
 }

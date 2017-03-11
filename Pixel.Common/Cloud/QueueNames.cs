@@ -12,5 +12,7 @@ namespace Pixel.Common.Cloud
         public const string PopulationQueue = "addpopulation";
         public const string NightlyAttackQueue = "nightlyattacks";
         public const string Experience = "experience";
+        public const string ZombieFights = "zombiefights";
+        public const string FoodForage = "foodforage";
     }
 }
