@@ -100,7 +100,7 @@ namespace PixelApp.Controllers
                         // todo: should this be some other f(level * factor) ?
 
                         // this is intentionally using the .Level property to avoid race condition when messaging about leveling up
-                        var level = this.UserContext.Level;
+                        var level = StatManager.GetLevel(this.UserContext.Id, this.Context);
 
                         var qty = level * (rand.Next(0, 4) + 2);
                         vm.IsSuccess = true;

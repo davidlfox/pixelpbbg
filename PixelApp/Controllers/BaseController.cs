@@ -35,6 +35,10 @@ namespace PixelApp.Controllers
                 // load vitals
                 this.UserContext = this.Context.Users.Single(x => x.Id == userId);
 
+                // do timed updates
+                var em = new EventManager();
+                em.ProcessEvents(this.UserContext);
+
                 // force territory selection/naming
                 if (!this.UserContext.TerritoryId.HasValue 
                     && filterContext.ActionDescriptor.ActionName != "NameTerritory"

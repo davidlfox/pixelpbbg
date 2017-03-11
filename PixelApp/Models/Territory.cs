@@ -68,7 +68,12 @@ namespace PixelApp.Models
         /// <summary>
         /// Time of last population update
         /// </summary>
-        public DateTime? LastPopulationUpdate { get; set; }
+        public DateTime LastPopulationUpdate { get; set; }
+
+        /// <summary>
+        /// Date of last nightly attack
+        /// </summary>
+        public DateTime LastNightlyAttack { get; set; }
 
         // percentages of civilian population to dedicate to resource collecting
         public decimal WaterAllocation { get; set; }
