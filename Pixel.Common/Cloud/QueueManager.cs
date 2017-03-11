@@ -20,6 +20,7 @@ namespace Pixel.Common.Cloud
             this.queueClient = storageAccount.CreateCloudQueueClient();
         }
 
+        [Obsolete("Resource collections are checked in real-time")]
         public void QueueResourceCollection(int territoryId, int delayInMinutes = 60)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.ResourceQueue);
@@ -32,6 +33,7 @@ namespace Pixel.Common.Cloud
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
 
+        [Obsolete("Population growth events are checked in real-time")]
         public void QueuePopulation(int territoryId, int delayInMinutes = 1440)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.PopulationQueue);
@@ -44,6 +46,7 @@ namespace Pixel.Common.Cloud
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
 
+        [Obsolete("Nightly attacks are checked in real-time")]
         public void QueueNightlyAttack(int territoryId, int delayInMinutes = 1440)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.NightlyAttackQueue);
