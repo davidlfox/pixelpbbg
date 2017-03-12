@@ -111,6 +111,52 @@ namespace PixelApp.Migrations
                 territory.Name = "me@a.com's territory";
                 user.Territory = territory;
             }
+
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "1@a.com"))
+                CreateRandomUser(1, context, manager, 0, 1);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "2@a.com"))
+                CreateRandomUser(2, context, manager, -1, 1);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "3@a.com"))
+                CreateRandomUser(3, context, manager, -1, 0);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "4@a.com"))
+                CreateRandomUser(4, context, manager, -2, 0);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "5@a.com"))
+                CreateRandomUser(5, context, manager, 1, 0);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "6@a.com"))
+                CreateRandomUser(6, context, manager, 0, 2);
+        }
+
+        private void CreateRandomUser(int seed, ApplicationDbContext context, UserManager<ApplicationUser> manager, int? xCoord = null, int? yCoord = null)
+        {
+            var user = new ApplicationUser()
+            {
+                Email = string.Format("{0}@testing.com", seed),
+                EmailConfirmed = true,
+                Energy = 100,
+                MaxEnergy = 100,
+                Life = 100,
+                MaxLife = 100,
+                Level = 1,
+                UserName = string.Format("{0}@testing.com", seed),
+                Water = 50,
+                Wood = 50,
+                Food = 50,
+                Stone = 50,
+                Oil = 50,
+                Iron = 50,
+            };
+            manager.Create(user, string.Format("{0}-123456", seed));
+
+            var territory = Services.TerritoryFactory.CreateTerritory();
+            Services.TerritoryFactory.InitializeTerritory(territory);
+            territory.Name = string.Format("{0}'s territory", user.UserName);
+            user.Territory = territory;
+            if(xCoord.HasValue && yCoord.HasValue)
+            {
+                territory.X = xCoord.Value;
+                territory.Y = yCoord.Value;
+            }
+            context.Territories.AddOrUpdate(x => x.Name, territory);
         }
 
         private void TryToSetupAdmin(ApplicationDbContext context)
