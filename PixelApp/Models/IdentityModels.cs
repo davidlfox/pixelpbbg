@@ -129,5 +129,9 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.UserTechnology> UserTechnologies { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.Note> Notes { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.Badge> Badges { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.UserBadge> UserBadges { get; set; }
     }
 }

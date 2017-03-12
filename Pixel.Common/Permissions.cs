@@ -16,5 +16,6 @@ namespace Pixel.Common
         public const string CanEditMOTD = "canEditMOTD";
         public const string CanEditNotes = "canEditNotes";
         public const string CanTestController = "canTestController";
+        public const string CanEditBadges = "canEditBadges";
     }
 }
