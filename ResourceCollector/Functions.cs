@@ -8,6 +8,7 @@ using PixelApp.Models;
 using Pixel.Common.Data;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using PixelApp.Services;
 
 namespace ResourceCollector
 {
@@ -58,15 +59,18 @@ namespace ResourceCollector
 
             table.Execute(op);
 
-            //// check counts for badges
-            //var query = new TableQuery<ZombieFightEntity>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.ZombieFights))
-            //    .Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId));
+            // check counts for badges
+            var query = new TableQuery<ZombieFightEntity>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.ZombieFights))
+                .Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId));
 
-            //var fights = table.ExecuteQuery(query);
+            var fights = table.ExecuteQuery(query);
 
-            //var wins = fights.Count(x => x.IsWin.Equals(true));
+            var wins = fights.Count(x => x.IsWin.Equals(true));
+            // todo: badge for losses
             //var losses = fights.Count(x => x.IsWin.Equals(false));
+
+            AddBadges(wins, message.UserId, BadgeTypes.ZombieKills);
         }
 
         public static void ProcessFoodForage([QueueTrigger(QueueNames.FoodForage)] FoodForageMessage message)
@@ -85,14 +89,56 @@ namespace ResourceCollector
 
             table.Execute(op);
 
-            //// check counts for badges
-            //var query = new TableQuery<FoodForageEntity>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.FoodForages))
-            //    .Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId));
+            // check counts for badges
+            var query = new TableQuery<FoodForageEntity>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.FoodForages))
+                .Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId));
 
-            //var forageCount = table.ExecuteQuery(query).Count();
+            var forageCount = table.ExecuteQuery(query).Count();
 
+            AddBadges(forageCount, message.UserId, BadgeTypes.FoodForages);
+        }
 
+        private static void AddBadges(int level, string userId, BadgeTypes type)
+        {
+            var db = new ApplicationDbContext();
+            var user = db.Users.Include(x => x.Badges).Single(x => x.Id == userId);
+            var badges = db.Badges.Where(x => x.BadgeType == type);
+            var commit = false;
+
+            foreach (var badge in badges)
+            {
+                // if user doesn't have badge and they've met the level e.g. 10 zombie kills, give them the badge
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && level >= badge.Level)
+                {
+                    user.Experience += badge.ExperienceGain;
+
+                    // todo: create badge service or something similar for this operation
+                    // create user badge
+                    var newBadge = new UserBadge
+                    {
+                        BadgeId = badge.BadgeId,
+                        UserId = user.Id,
+                        Created = DateTime.Now,
+                    };
+                    db.UserBadges.Add(newBadge);
+
+                    // create notification
+                    var note = CommunicationService.CreateNotification(
+                        user.Id,
+                        "You earned a badge!",
+                        $"You've been conferred a new badge for: {badge.Name}. You earned {badge.ExperienceGain} experience!!");
+
+                    db.Notes.Add(note);
+
+                    commit = true;
+                }
+            }
+
+            if (commit)
+            {
+                db.SaveChanges();
+            }
         }
 
         private static CloudTable GetGameEventTable()
