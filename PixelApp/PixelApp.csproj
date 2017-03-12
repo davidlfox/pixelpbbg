@@ -322,6 +322,7 @@
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
+    <Compile Include="Views\Profile\Models\ProfileViewModel.cs" />
     <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />

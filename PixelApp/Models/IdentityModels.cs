@@ -95,6 +95,11 @@ namespace PixelApp.Models
         /// </summary>
         public ICollection<Note> Notifications { get; set; }
 
+        /// <summary>
+        /// Related UserBage records
+        /// </summary>
+        public ICollection<UserBadge> Badges { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

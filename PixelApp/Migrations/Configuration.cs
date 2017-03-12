@@ -38,6 +38,7 @@ namespace PixelApp.Migrations
             SeedUsers(context);
             TryToSetupAdmin(context);
             SeedTechnologies(context);
+            SeedBadges(context);
         }
 
         private static void SeedPermissions(ApplicationDbContext context)
@@ -387,5 +388,317 @@ namespace PixelApp.Migrations
                 }
             );
         }
+
+        private void SeedBadges(ApplicationDbContext context)
+        {
+            context.Badges.AddOrUpdate(x => x.BadgeId,
+                new Badge
+                {
+                    BadgeId = 1,
+                    BadgeType = BadgeTypes.ZombieKills,
+                    Name = "Zombie Kills",
+                    Description = "Kill 10 zombies while hunting!",
+                    ExperienceGain = 50,
+                    Level = 10,
+                },
+                new Badge
+                {
+                    BadgeId = 2,
+                    BadgeType = BadgeTypes.ZombieKills,
+                    Name = "Zombie Kills",
+                    Description = "Kill 50 zombies while hunting!",
+                    ExperienceGain = 200,
+                    Level = 50,
+                },
+                new Badge
+                {
+                    BadgeId = 3,
+                    BadgeType = BadgeTypes.ZombieKills,
+                    Name = "Zombie Kills",
+                    Description = "Kill 300 zombies while hunting!",
+                    ExperienceGain = 1000,
+                    Level = 300,
+                },
+                new Badge
+                {
+                    BadgeId = 4,
+                    BadgeType = BadgeTypes.ZombieKills,
+                    Name = "Zombie Kills",
+                    Description = "Kill 1,000 zombies while hunting!",
+                    ExperienceGain = 2500,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 5,
+                    BadgeType = BadgeTypes.FoodForages,
+                    Name = "Foraging",
+                    Description = "Successfully forage for food 10 times!",
+                    ExperienceGain = 75,
+                    Level = 10,
+                },
+                new Badge
+                {
+                    BadgeId = 6,
+                    BadgeType = BadgeTypes.FoodForages,
+                    Name = "Foraging",
+                    Description = "Successfully forage for food 50 times!",
+                    ExperienceGain = 275,
+                    Level = 50,
+                },
+                new Badge
+                {
+                    BadgeId = 7,
+                    BadgeType = BadgeTypes.WaterCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100 Water!",
+                    ExperienceGain = 50,
+                    Level = 100,
+                },
+                new Badge
+                {
+                    BadgeId = 8,
+                    BadgeType = BadgeTypes.WaterCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 1,000 Water!",
+                    ExperienceGain = 350,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 9,
+                    BadgeType = BadgeTypes.WaterCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 10,000 Water!",
+                    ExperienceGain = 2500,
+                    Level = 10000,
+                },
+                new Badge
+                {
+                    BadgeId = 10,
+                    BadgeType = BadgeTypes.WaterCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100,000 Water!",
+                    ExperienceGain = 50,
+                    Level = 100000,
+                },
+                new Badge
+                {
+                    BadgeId = 11,
+                    BadgeType = BadgeTypes.WoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100 Wood!",
+                    ExperienceGain = 50,
+                    Level = 100,
+                },
+                new Badge
+                {
+                    BadgeId = 12,
+                    BadgeType = BadgeTypes.WoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 1,000 Wood!",
+                    ExperienceGain = 350,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 13,
+                    BadgeType = BadgeTypes.WoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 10,000 Wood!",
+                    ExperienceGain = 2500,
+                    Level = 10000,
+                },
+                new Badge
+                {
+                    BadgeId = 14,
+                    BadgeType = BadgeTypes.WoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100,000 Wood!",
+                    ExperienceGain = 50,
+                    Level = 100000,
+                },
+                new Badge
+                {
+                    BadgeId = 15,
+                    BadgeType = BadgeTypes.FoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100 Food!",
+                    ExperienceGain = 50,
+                    Level = 100,
+                },
+                new Badge
+                {
+                    BadgeId = 16,
+                    BadgeType = BadgeTypes.FoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 1,000 Food!",
+                    ExperienceGain = 350,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 17,
+                    BadgeType = BadgeTypes.FoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 10,000 Food!",
+                    ExperienceGain = 2500,
+                    Level = 10000,
+                },
+                new Badge
+                {
+                    BadgeId = 18,
+                    BadgeType = BadgeTypes.FoodCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100,000 Food!",
+                    ExperienceGain = 50,
+                    Level = 100000,
+                },
+                new Badge
+                {
+                    BadgeId = 19,
+                    BadgeType = BadgeTypes.StoneCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100 Stone!",
+                    ExperienceGain = 50,
+                    Level = 100,
+                },
+                new Badge
+                {
+                    BadgeId = 20,
+                    BadgeType = BadgeTypes.StoneCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 1,000 Stone!",
+                    ExperienceGain = 350,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 21,
+                    BadgeType = BadgeTypes.StoneCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 10,000 Stone!",
+                    ExperienceGain = 2500,
+                    Level = 10000,
+                },
+                new Badge
+                {
+                    BadgeId = 22,
+                    BadgeType = BadgeTypes.StoneCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100,000 Stone!",
+                    ExperienceGain = 50,
+                    Level = 100000,
+                },
+                new Badge
+                {
+                    BadgeId = 23,
+                    BadgeType = BadgeTypes.OilCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100 Oil!",
+                    ExperienceGain = 50,
+                    Level = 100,
+                },
+                new Badge
+                {
+                    BadgeId = 24,
+                    BadgeType = BadgeTypes.OilCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 1,000 Oil!",
+                    ExperienceGain = 350,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 25,
+                    BadgeType = BadgeTypes.OilCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 10,000 Oil!",
+                    ExperienceGain = 2500,
+                    Level = 10000,
+                },
+                new Badge
+                {
+                    BadgeId = 26,
+                    BadgeType = BadgeTypes.OilCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100,000 Oil!",
+                    ExperienceGain = 50,
+                    Level = 100000,
+                },
+                new Badge
+                {
+                    BadgeId = 27,
+                    BadgeType = BadgeTypes.IronCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100 Iron!",
+                    ExperienceGain = 50,
+                    Level = 100,
+                },
+                new Badge
+                {
+                    BadgeId = 28,
+                    BadgeType = BadgeTypes.IronCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 1,000 Iron!",
+                    ExperienceGain = 350,
+                    Level = 1000,
+                },
+                new Badge
+                {
+                    BadgeId = 29,
+                    BadgeType = BadgeTypes.IronCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 10,000 Iron!",
+                    ExperienceGain = 2500,
+                    Level = 10000,
+                },
+                new Badge
+                {
+                    BadgeId = 30,
+                    BadgeType = BadgeTypes.IronCount,
+                    Name = "Water Storage",
+                    Description = "Successfully store 100,000 Iron!",
+                    ExperienceGain = 50,
+                    Level = 100000,
+                },
+                new Badge
+                {
+                    BadgeId = 31,
+                    BadgeType = BadgeTypes.ResearchedSubjects,
+                    Name = "Scholar",
+                    Description = "Successfully researched 3 subjects!",
+                    ExperienceGain = 300,
+                    Level = 3,
+                },
+                new Badge
+                {
+                    BadgeId = 32,
+                    BadgeType = BadgeTypes.ResearchedSubjects,
+                    Name = "Scholar",
+                    Description = "Successfully researched 9 subjects!",
+                    ExperienceGain = 850,
+                    Level = 9,
+                },
+                new Badge
+                {
+                    BadgeId = 33,
+                    BadgeType = BadgeTypes.ResearchedSubjects,
+                    Name = "Scholar",
+                    Description = "Successfully researched 20 subjects!",
+                    ExperienceGain = 1800,
+                    Level = 20,
+                },
+                new Badge
+                {
+                    BadgeId = 34,
+                    BadgeType = BadgeTypes.TerritoryNamed,
+                    Name = "Settler",
+                    Description = "Successfully name your territory!",
+                    ExperienceGain = 40,
+                    Level = 1,
+                });
+        }
+
     }
 }
