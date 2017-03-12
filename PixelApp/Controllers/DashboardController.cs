@@ -212,20 +212,20 @@ namespace PixelApp.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        public ActionResult InitializeNightlyAttackQueuesForExistingPlayers()
-        {
-            // find users without attack logs
-            var territories = this.Context.Users
-                .Where(x => x.TerritoryId.HasValue && x.AttackLogs.Count == 0)
-                .Select(x => x.TerritoryId);
+        //public ActionResult InitializeNightlyAttackQueuesForExistingPlayers()
+        //{
+        //    // find users without attack logs
+        //    var territories = this.Context.Users
+        //        .Where(x => x.TerritoryId.HasValue && x.AttackLogs.Count == 0)
+        //        .Select(x => x.TerritoryId);
 
-            var qm = new QueueManager();
-            foreach (var territoryId in territories)
-            {
-                qm.QueueNightlyAttack(territoryId.Value);
-            }
+        //    var qm = new QueueManager();
+        //    foreach (var territoryId in territories)
+        //    {
+        //        qm.QueueNightlyAttack(territoryId.Value);
+        //    }
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }

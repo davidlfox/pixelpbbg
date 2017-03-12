@@ -22,7 +22,7 @@ namespace PixelApp.Controllers
             var storageAccount = CloudStorageAccount.Parse(System.Configuration.ConfigurationManager
                 .ConnectionStrings["StorageConnectionString"].ConnectionString);
             var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference("motd");
+            var table = tableClient.GetTableReference(TableNames.MOTD);
             table.CreateIfNotExists();
 
             var query = new TableQuery<MessageOfTheDayEntity>()
@@ -69,7 +69,7 @@ namespace PixelApp.Controllers
             var storageAccount = CloudStorageAccount.Parse(System.Configuration.ConfigurationManager
                 .ConnectionStrings["StorageConnectionString"].ConnectionString);
             var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference("motd");
+            var table = tableClient.GetTableReference(TableNames.MOTD);
             table.CreateIfNotExists();
 
             table.Execute(op);

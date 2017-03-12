@@ -67,17 +67,14 @@ namespace PixelApp.Services
             territory.StoneAllocation = 0.16m;
             territory.OilAllocation = 0.16m;
             territory.IronAllocation = 0.16m;
-            territory.LastResourceCollectionDate = DateTime.Now;
 
-            // queue population and resource events
-            var qm = new QueueManager();
-            qm.QueueResourceCollection(territory.TerritoryId);
-            qm.QueuePopulation(territory.TerritoryId);
+            // get the last hour timestamp
+            var now = DateTime.Now;
+            territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0, 0);
 
-            // queue nightly attack event
-            var twoDaysFromNow = DateTime.Now.AddDays(2);
-            var twoMidnightsFromNow = new DateTime(twoDaysFromNow.Year, twoDaysFromNow.Month, twoDaysFromNow.Day, 0, 0, 0);
-            qm.QueueNightlyAttack(territory.TerritoryId, (int)((twoMidnightsFromNow - DateTime.Now).TotalMinutes));
+            // get the next midnight timestamp
+            territory.LastPopulationUpdate = new DateTime(now.Year, now.Month, now.Day);
+            territory.LastNightlyAttack = new DateTime(now.Year, now.Month, now.Day);
         }
 
         private static TerritoryTypes GetRandomTerritoryType()

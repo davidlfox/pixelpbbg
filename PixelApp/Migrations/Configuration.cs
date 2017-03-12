@@ -77,6 +77,7 @@ namespace PixelApp.Migrations
             if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" 
                 && !context.Users.Any(x => x.Email == adminUserEmail))
             {
+                var now = DateTime.Now;
                 var user = new ApplicationUser
                 {
                     Email = adminUserEmail,

@@ -20,6 +20,7 @@ namespace Pixel.Common.Cloud
             this.queueClient = storageAccount.CreateCloudQueueClient();
         }
 
+        [Obsolete("Resource collections are checked in real-time")]
         public void QueueResourceCollection(int territoryId, int delayInMinutes = 60)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.ResourceQueue);
@@ -32,6 +33,7 @@ namespace Pixel.Common.Cloud
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
 
+        [Obsolete("Population growth events are checked in real-time")]
         public void QueuePopulation(int territoryId, int delayInMinutes = 1440)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.PopulationQueue);
@@ -44,6 +46,7 @@ namespace Pixel.Common.Cloud
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
         }
 
+        [Obsolete("Nightly attacks are checked in real-time")]
         public void QueueNightlyAttack(int territoryId, int delayInMinutes = 1440)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.NightlyAttackQueue);
@@ -67,6 +70,36 @@ namespace Pixel.Common.Cloud
             }));
 
             queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
+        }
+
+        public async Task QueueZombieFight(string userId, int deltaXp, int deltaLife, bool isWin, bool isDead)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.ZombieFights);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new ZombieFightMessage
+            {
+                UserId = userId,
+                DeltaXp = deltaXp,
+                DeltaLife = deltaLife,
+                IsWin = isWin,
+                IsDead = isDead,
+            }));
+
+            await queue.AddMessageAsync(message);
+        }
+
+        public async Task QueueFoodForage(string userId, int deltaXp, int foodFound)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.FoodForage);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new FoodForageMessage
+            {
+                UserId = userId,
+                DeltaXp = deltaXp,
+                FoodFound = foodFound,
+            }));
+
+            await queue.AddMessageAsync(message);
         }
     }
 }
