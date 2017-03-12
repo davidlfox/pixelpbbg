@@ -1,0 +1,25 @@
+﻿@model PixelApp.Views.Profile.Models.BadgesViewModel
+@{
+    ViewBag.Title = "Badges";
+}
+
+<h3>Badges</h3>
+<div class="row">
+    <div class="col-xs-4 col-sm-8 col-md-12">
+        @foreach (var type in Model.Badges.Select(x => x.BadgeType).Distinct())
+        {
+            foreach (var badge in Model.Badges.Where(x => x.BadgeType == type))
+            {
+                @Html.Partial("_Badge", badge)
+            }
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ html: true });
+        });
+    </script>
+}

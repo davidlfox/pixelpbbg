@@ -322,6 +322,7 @@
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
+    <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
     <Compile Include="Views\Profile\Models\ProfileViewModel.cs" />
     <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
@@ -393,7 +394,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\HomePage.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Badges.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\NameTerritory.cshtml" />
     <Content Include="Views\Territories\Create.cshtml" />
@@ -441,6 +442,8 @@
     <Content Include="Views\UserBadges\Details.cshtml" />
     <Content Include="Views\UserBadges\Edit.cshtml" />
     <Content Include="Views\UserBadges\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\_Badge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

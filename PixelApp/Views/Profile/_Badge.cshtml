@@ -1,0 +1,39 @@
+﻿@model PixelApp.Views.Profile.Models.BadgeSkinny
+
+<style type="text/css">
+    .badge-container {
+        display: inline;
+        position: relative;
+    }
+
+    .game-badge {
+        padding: 10px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 5px solid #5a5;
+    }
+
+        .game-badge img {
+            border-radius: 10px;
+        }
+
+        .game-badge.missing-badge {
+            border: 5px dashed #a33;
+            opacity: 0.8;
+        }
+
+    .level-badge {
+        position: absolute;
+        bottom: -26px;
+        right: 35px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="badge-container">
+    <img src="@Model.ImageUrl" alt="@Model.Name" data-toggle="tooltip"
+         class="game-badge @(Model.HasBadge ? string.Empty : "missing-badge")"
+         title="@string.Format("{0} ({1:n0})<br>{2}", Model.Name, Model.Level, Model.Description)" />
+    <span class="level-badge">@Model.Level</span>
+</div>
