@@ -486,7 +486,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 11,
                     BadgeType = BadgeTypes.WoodCount,
-                    Name = "Water Storage",
+                    Name = "Wood Storage",
                     Description = "Successfully store 100 Wood!",
                     ExperienceGain = 50,
                     Level = 100,
@@ -495,7 +495,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 12,
                     BadgeType = BadgeTypes.WoodCount,
-                    Name = "Water Storage",
+                    Name = "Wood Storage",
                     Description = "Successfully store 1,000 Wood!",
                     ExperienceGain = 350,
                     Level = 1000,
@@ -504,7 +504,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 13,
                     BadgeType = BadgeTypes.WoodCount,
-                    Name = "Water Storage",
+                    Name = "Wood Storage",
                     Description = "Successfully store 10,000 Wood!",
                     ExperienceGain = 2500,
                     Level = 10000,
@@ -513,7 +513,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 14,
                     BadgeType = BadgeTypes.WoodCount,
-                    Name = "Water Storage",
+                    Name = "Wood Storage",
                     Description = "Successfully store 100,000 Wood!",
                     ExperienceGain = 50,
                     Level = 100000,
@@ -522,7 +522,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 15,
                     BadgeType = BadgeTypes.FoodCount,
-                    Name = "Water Storage",
+                    Name = "Food Storage",
                     Description = "Successfully store 100 Food!",
                     ExperienceGain = 50,
                     Level = 100,
@@ -531,7 +531,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 16,
                     BadgeType = BadgeTypes.FoodCount,
-                    Name = "Water Storage",
+                    Name = "Food Storage",
                     Description = "Successfully store 1,000 Food!",
                     ExperienceGain = 350,
                     Level = 1000,
@@ -540,7 +540,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 17,
                     BadgeType = BadgeTypes.FoodCount,
-                    Name = "Water Storage",
+                    Name = "Food Storage",
                     Description = "Successfully store 10,000 Food!",
                     ExperienceGain = 2500,
                     Level = 10000,
@@ -549,7 +549,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 18,
                     BadgeType = BadgeTypes.FoodCount,
-                    Name = "Water Storage",
+                    Name = "Food Storage",
                     Description = "Successfully store 100,000 Food!",
                     ExperienceGain = 50,
                     Level = 100000,
@@ -558,7 +558,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 19,
                     BadgeType = BadgeTypes.StoneCount,
-                    Name = "Water Storage",
+                    Name = "Stone Storage",
                     Description = "Successfully store 100 Stone!",
                     ExperienceGain = 50,
                     Level = 100,
@@ -567,7 +567,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 20,
                     BadgeType = BadgeTypes.StoneCount,
-                    Name = "Water Storage",
+                    Name = "Stone Storage",
                     Description = "Successfully store 1,000 Stone!",
                     ExperienceGain = 350,
                     Level = 1000,
@@ -576,7 +576,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 21,
                     BadgeType = BadgeTypes.StoneCount,
-                    Name = "Water Storage",
+                    Name = "Stone Storage",
                     Description = "Successfully store 10,000 Stone!",
                     ExperienceGain = 2500,
                     Level = 10000,
@@ -585,7 +585,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 22,
                     BadgeType = BadgeTypes.StoneCount,
-                    Name = "Water Storage",
+                    Name = "Stone Storage",
                     Description = "Successfully store 100,000 Stone!",
                     ExperienceGain = 50,
                     Level = 100000,
@@ -594,7 +594,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 23,
                     BadgeType = BadgeTypes.OilCount,
-                    Name = "Water Storage",
+                    Name = "Oil Storage",
                     Description = "Successfully store 100 Oil!",
                     ExperienceGain = 50,
                     Level = 100,
@@ -603,7 +603,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 24,
                     BadgeType = BadgeTypes.OilCount,
-                    Name = "Water Storage",
+                    Name = "Oil Storage",
                     Description = "Successfully store 1,000 Oil!",
                     ExperienceGain = 350,
                     Level = 1000,
@@ -612,7 +612,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 25,
                     BadgeType = BadgeTypes.OilCount,
-                    Name = "Water Storage",
+                    Name = "Oil Storage",
                     Description = "Successfully store 10,000 Oil!",
                     ExperienceGain = 2500,
                     Level = 10000,
@@ -621,7 +621,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 26,
                     BadgeType = BadgeTypes.OilCount,
-                    Name = "Water Storage",
+                    Name = "Oil Storage",
                     Description = "Successfully store 100,000 Oil!",
                     ExperienceGain = 50,
                     Level = 100000,
@@ -630,7 +630,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 27,
                     BadgeType = BadgeTypes.IronCount,
-                    Name = "Water Storage",
+                    Name = "Iron Storage",
                     Description = "Successfully store 100 Iron!",
                     ExperienceGain = 50,
                     Level = 100,
@@ -639,7 +639,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 28,
                     BadgeType = BadgeTypes.IronCount,
-                    Name = "Water Storage",
+                    Name = "Iron Storage",
                     Description = "Successfully store 1,000 Iron!",
                     ExperienceGain = 350,
                     Level = 1000,
@@ -648,7 +648,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 29,
                     BadgeType = BadgeTypes.IronCount,
-                    Name = "Water Storage",
+                    Name = "Iron Storage",
                     Description = "Successfully store 10,000 Iron!",
                     ExperienceGain = 2500,
                     Level = 10000,
@@ -657,7 +657,7 @@ namespace PixelApp.Migrations
                 {
                     BadgeId = 30,
                     BadgeType = BadgeTypes.IronCount,
-                    Name = "Water Storage",
+                    Name = "Iron Storage",
                     Description = "Successfully store 100,000 Iron!",
                     ExperienceGain = 50,
                     Level = 100000,
