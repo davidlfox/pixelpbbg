@@ -144,6 +144,34 @@ namespace PixelApp.Controllers
             // todo: profanity check
 
             this.UserContext.Territory.Name = vm.Name;
+
+            // badge check (yeah, there's a badge for this)
+            if (!this.Context.UserBadges.Any(x => x.UserId == this.UserContext.Id 
+                && x.Badge.BadgeType == Pixel.Common.Data.BadgeTypes.TerritoryNamed))
+            {
+                var badge = this.Context.Badges.Where(x => x.BadgeType == Pixel.Common.Data.BadgeTypes.TerritoryNamed).FirstOrDefault();
+                if (badge != null)
+                {
+                    this.UserContext.Experience += badge.ExperienceGain;
+
+                    var userBadge = new UserBadge
+                    {
+                        BadgeId = badge.BadgeId,
+                        Created = DateTime.Now,
+                        UserId = this.UserContext.Id,
+                    };
+
+                    this.Context.UserBadges.Add(userBadge);
+
+                    var note = CommunicationService.CreateNotification(
+                       this.UserContext.Id,
+                       "You earned a badge!",
+                       $"You've been conferred a new badge for: {badge.Name}. You earned {badge.ExperienceGain} experience!!");
+
+                    this.Context.Notes.Add(note);
+                }
+            }
+
             this.Context.SaveChanges();
 
             return RedirectToAction("Index");
