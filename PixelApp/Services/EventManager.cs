@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using Pixel.Common.Data;
+using Pixel.Common.Cloud;
 
 namespace PixelApp.Services
 {
@@ -39,6 +40,7 @@ namespace PixelApp.Services
 
                     var civPop = territory.CivilianPopulation;
 
+
                     // add resources based on probability, allocation, intervals elapsed, and boosts
                     var boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Water)).Sum(x => x.BoostAmount);
                     user.Water += (int)((territory.WaterAllocation + boost) * civPop * hoursElapsed);
@@ -60,6 +62,10 @@ namespace PixelApp.Services
 
                     // reset update time to the most recent hour to account for partial intervals
                     territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
+
+                    // queue a message to check for badges
+                    var qm = new QueueManager();
+                    qm.QueueResourceCollection(user.Id, user.Water, user.Wood, user.Food, user.Stone, user.Oil, user.Iron);
                 }
 
                 // check territory population growth

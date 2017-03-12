@@ -52,19 +52,19 @@ namespace PixelApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> AddResourcesTest(ResourceTypes type, int quantity, int delayInSeconds)
-        {
-            // queue message with delay
-            var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new AddResourceMessage
-            {
-                Type = type,
-                Quantity = quantity,
-                TerritoryId = this.UserContext.TerritoryId.Value,
-            }));
-            await addResourceRequestQueue.AddMessageAsync(queueMessage, null, TimeSpan.FromSeconds(delayInSeconds), null, null);
+        //public async Task<ActionResult> AddResourcesTest(ResourceTypes type, int quantity, int delayInSeconds)
+        //{
+        //    // queue message with delay
+        //    var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(new AddResourceMessage
+        //    {
+        //        Type = type,
+        //        Quantity = quantity,
+        //        TerritoryId = this.UserContext.TerritoryId.Value,
+        //    }));
+        //    await addResourceRequestQueue.AddMessageAsync(queueMessage, null, TimeSpan.FromSeconds(delayInSeconds), null, null);
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
         public async Task<ActionResult> AddPopulationTest(int quantity, int delayInSeconds)
         {

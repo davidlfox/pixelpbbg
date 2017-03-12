@@ -16,9 +16,76 @@ namespace ResourceCollector
     {
         // This function will get triggered/executed when a new message is written 
         // on an Azure Queue called addresources.
-        public static void ProcessResourceMessage([QueueTrigger(QueueNames.ResourceQueue)] AddResourceMessage message, TextWriter log)
+        public static void ProcessResourceMessage([QueueTrigger(QueueNames.ResourceQueue)] AddResourceMessage message)
         {
-            // tbd
+            var db = new ApplicationDbContext();
+            var user = db.Users.Include(x => x.Badges).Single(x => x.Id == message.UserId);
+
+            var badges = db.Badges
+                .Where(x => x.BadgeType == BadgeTypes.WaterCount 
+                    || x.BadgeType == BadgeTypes.WoodCount
+                    || x.BadgeType == BadgeTypes.FoodCount
+                    || x.BadgeType == BadgeTypes.StoneCount
+                    || x.BadgeType == BadgeTypes.OilCount
+                    || x.BadgeType == BadgeTypes.IronCount
+                )
+                .ToList();
+
+            var commit = false;
+
+            foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.WaterCount))
+            {
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Water >= badge.Level)
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+            foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.WoodCount))
+            {
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Wood >= badge.Level)
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+            foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.FoodCount))
+            {
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Food >= badge.Level)
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+            foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.StoneCount))
+            {
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Stone >= badge.Level)
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+            foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.OilCount))
+            {
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Oil >= badge.Level)
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+            foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.IronCount))
+            {
+                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Iron >= badge.Level)
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+
+            if (commit)
+            {
+                db.SaveChanges();
+            }
         }
 
         public static void ProcessPopulationMessage([QueueTrigger(QueueNames.PopulationQueue)] AddPopulationMessage message)
@@ -111,25 +178,7 @@ namespace ResourceCollector
                 // if user doesn't have badge and they've met the level e.g. 10 zombie kills, give them the badge
                 if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && level >= badge.Level)
                 {
-                    user.Experience += badge.ExperienceGain;
-
-                    // todo: create badge service or something similar for this operation
-                    // create user badge
-                    var newBadge = new UserBadge
-                    {
-                        BadgeId = badge.BadgeId,
-                        UserId = user.Id,
-                        Created = DateTime.Now,
-                    };
-                    db.UserBadges.Add(newBadge);
-
-                    // create notification
-                    var note = CommunicationService.CreateNotification(
-                        user.Id,
-                        "You earned a badge!",
-                        $"You've been conferred a new badge for: {badge.Name}. You earned {badge.ExperienceGain} experience!!");
-
-                    db.Notes.Add(note);
+                    AddBadgeToContext(db, user, badge);
 
                     commit = true;
                 }
@@ -139,6 +188,29 @@ namespace ResourceCollector
             {
                 db.SaveChanges();
             }
+        }
+
+        private static void AddBadgeToContext(ApplicationDbContext db, ApplicationUser user, Badge badge)
+        {
+            user.Experience += badge.ExperienceGain;
+
+            // todo: create badge service or something similar for this operation
+            // create user badge
+            var newBadge = new UserBadge
+            {
+                BadgeId = badge.BadgeId,
+                UserId = user.Id,
+                Created = DateTime.Now,
+            };
+            db.UserBadges.Add(newBadge);
+
+            // create notification
+            var note = CommunicationService.CreateNotification(
+                user.Id,
+                "You earned a badge!",
+                $"You've been conferred a new badge for: {badge.Name}. You earned {badge.ExperienceGain} experience!!");
+
+            db.Notes.Add(note);
         }
 
         private static CloudTable GetGameEventTable()

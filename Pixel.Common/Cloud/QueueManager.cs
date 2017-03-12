@@ -20,17 +20,22 @@ namespace Pixel.Common.Cloud
             this.queueClient = storageAccount.CreateCloudQueueClient();
         }
 
-        [Obsolete("Resource collections are checked in real-time")]
-        public void QueueResourceCollection(int territoryId, int delayInMinutes = 60)
+        public void QueueResourceCollection(string userId, int water, int wood, int food, int stone, int oil, int iron)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.ResourceQueue);
             queue.CreateIfNotExists();
             var message = new CloudQueueMessage(JsonConvert.SerializeObject(new AddResourceMessage
             {
-                TerritoryId = territoryId,
+                UserId = userId,
+                Water = water,
+                Wood = wood,
+                Food = food,
+                Stone = stone,
+                Oil = oil,
+                Iron = iron,
             }));
 
-            queue.AddMessageAsync(message, null, TimeSpan.FromMinutes(delayInMinutes), null, null);
+            queue.AddMessageAsync(message);
         }
 
         [Obsolete("Population growth events are checked in real-time")]
