@@ -126,10 +126,12 @@ namespace ResourceCollector
 
             table.Execute(op);
 
+            var zombieFilter = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.ZombieFights);
+            var userFilter = TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId);
+            var filter = TableQuery.CombineFilters(zombieFilter, TableOperators.And, userFilter);
+
             // check counts for badges
-            var query = new TableQuery<ZombieFightEntity>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.ZombieFights))
-                .Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId));
+            var query = new TableQuery<ZombieFightEntity>().Where(filter);
 
             var fights = table.ExecuteQuery(query);
 
@@ -156,10 +158,12 @@ namespace ResourceCollector
 
             table.Execute(op);
 
+            var foodFilter = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.FoodForages);
+            var userFilter = TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId);
+            var filter = TableQuery.CombineFilters(foodFilter, TableOperators.And, userFilter);
+
             // check counts for badges
-            var query = new TableQuery<FoodForageEntity>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TablePartitionKeys.GameEvents.FoodForages))
-                .Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, message.UserId));
+            var query = new TableQuery<FoodForageEntity>().Where(filter);
 
             var forageCount = table.ExecuteQuery(query).Count();
 
