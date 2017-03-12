@@ -35,7 +35,7 @@ namespace ResourceCollector
 
             foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.WaterCount))
             {
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Water >= badge.Level)
+                if (message.Water >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
                     commit = true;
@@ -43,7 +43,7 @@ namespace ResourceCollector
             }
             foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.WoodCount))
             {
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Wood >= badge.Level)
+                if (message.Wood >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
                     commit = true;
@@ -51,7 +51,7 @@ namespace ResourceCollector
             }
             foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.FoodCount))
             {
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Food >= badge.Level)
+                if (message.Food >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
                     commit = true;
@@ -59,7 +59,7 @@ namespace ResourceCollector
             }
             foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.StoneCount))
             {
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Stone >= badge.Level)
+                if (message.Stone >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
                     commit = true;
@@ -67,7 +67,7 @@ namespace ResourceCollector
             }
             foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.OilCount))
             {
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Oil >= badge.Level)
+                if (message.Oil >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
                     commit = true;
@@ -75,7 +75,7 @@ namespace ResourceCollector
             }
             foreach (var badge in badges.Where(x => x.BadgeType == BadgeTypes.IronCount))
             {
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && message.Iron >= badge.Level)
+                if (message.Iron >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
                     commit = true;
@@ -166,6 +166,29 @@ namespace ResourceCollector
             AddBadges(forageCount, message.UserId, BadgeTypes.FoodForages);
         }
 
+        public static void ProcessResearchCompleted([QueueTrigger(QueueNames.ResearchCompleted)] ResearchCompletedMessage message)
+        {
+            var db = new ApplicationDbContext();
+            var user = db.Users.Include(x => x.Badges).Single(x => x.Id == message.UserId);
+            var researchCount = db.UserTechnologies.Count(x => x.UserId == message.UserId && x.StatusId == UserTechnologyStatusTypes.Researched);
+            var badges = db.Badges.Where(x => x.BadgeType == BadgeTypes.ResearchedSubjects);
+            var commit = false;
+
+            foreach (var badge in badges)
+            {
+                if(researchCount >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
+                {
+                    AddBadgeToContext(db, user, badge);
+                    commit = true;
+                }
+            }
+
+            if (commit)
+            {
+                db.SaveChanges();
+            }
+        }
+
         private static void AddBadges(int level, string userId, BadgeTypes type)
         {
             var db = new ApplicationDbContext();
@@ -176,7 +199,7 @@ namespace ResourceCollector
             foreach (var badge in badges)
             {
                 // if user doesn't have badge and they've met the level e.g. 10 zombie kills, give them the badge
-                if (!user.Badges.Any(x => x.BadgeId == badge.BadgeId) && level >= badge.Level)
+                if (level >= badge.Level && !user.Badges.Any(x => x.BadgeId == badge.BadgeId))
                 {
                     AddBadgeToContext(db, user, badge);
 

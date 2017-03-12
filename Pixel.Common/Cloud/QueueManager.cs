@@ -38,6 +38,18 @@ namespace Pixel.Common.Cloud
             queue.AddMessageAsync(message);
         }
 
+        public void QueueResearchCompleted(string userId)
+        {
+            var queue = this.queueClient.GetQueueReference(QueueNames.ResearchCompleted);
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage(JsonConvert.SerializeObject(new ResearchCompletedMessage
+            {
+                UserId = userId,
+            }));
+
+            queue.AddMessageAsync(message);
+        }
+
         [Obsolete("Population growth events are checked in real-time")]
         public void QueuePopulation(int territoryId, int delayInMinutes = 1440)
         {
