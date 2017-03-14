@@ -8,11 +8,11 @@ namespace Pixel.Common.Data
 {
     public enum ResourceTypes
     {
-        Water,
-        Wood,
-        Food,
-        Stone,
-        Oil,
-        Iron,
+        Water = 1,
+        Food = 2,
+        Wood = 3,
+        Stone = 4,
+        Oil = 5,
+        Iron = 6,
     }
 }

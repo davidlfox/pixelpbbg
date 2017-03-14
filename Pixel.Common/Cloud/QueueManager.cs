@@ -20,7 +20,7 @@ namespace Pixel.Common.Cloud
             this.queueClient = storageAccount.CreateCloudQueueClient();
         }
 
-        public void QueueResourceCollection(string userId, int water, int wood, int food, int stone, int oil, int iron)
+        public void QueueResourceCollection(string userId, int water, int food, int wood, int stone, int oil, int iron)
         {
             var queue = this.queueClient.GetQueueReference(QueueNames.ResourceQueue);
             queue.CreateIfNotExists();
@@ -28,8 +28,8 @@ namespace Pixel.Common.Cloud
             {
                 UserId = userId,
                 Water = water,
-                Wood = wood,
                 Food = food,
+                Wood = wood,
                 Stone = stone,
                 Oil = oil,
                 Iron = iron,

@@ -43,29 +43,35 @@ namespace PixelApp.Services
 
                     // add resources based on probability, allocation, intervals elapsed, and boosts
                     var boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Water)).Sum(x => x.BoostAmount);
-                    user.Water += (int)((territory.WaterAllocation + boost) * civPop * hoursElapsed);
-
-                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Wood)).Sum(x => x.BoostAmount);
-                    user.Wood += (int)(territory.WoodAllocation * civPop * hoursElapsed);
+                    var water = GetCoreResource(user, ResourceTypes.Water);
+                    water.Quantity += (int)((territory.WaterAllocation + boost) * civPop * hoursElapsed);
 
                     boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Food)).Sum(x => x.BoostAmount);
-                    user.Food += (int)(territory.FoodAllocation * civPop * hoursElapsed);
+                    var food = GetCoreResource(user, ResourceTypes.Food);
+                    food.Quantity += (int)(territory.FoodAllocation * civPop * hoursElapsed);
+
+                    boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Wood)).Sum(x => x.BoostAmount);
+                    var wood = GetCoreResource(user, ResourceTypes.Wood);
+                    wood.Quantity += (int)(territory.WoodAllocation * civPop * hoursElapsed);
 
                     boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Stone)).Sum(x => x.BoostAmount);
-                    user.Stone += (int)(territory.StoneAllocation * civPop * hoursElapsed);
+                    var stone = GetCoreResource(user, ResourceTypes.Stone);
+                    stone.Quantity += (int)(territory.StoneAllocation * civPop * hoursElapsed);
 
                     boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Oil)).Sum(x => x.BoostAmount);
-                    user.Oil += (int)(territory.OilAllocation * civPop * hoursElapsed);
+                    var oil = GetCoreResource(user, ResourceTypes.Oil);
+                    oil.Quantity += (int)(territory.OilAllocation * civPop * hoursElapsed);
 
                     boost = boosts.Where(x => x.BoostTypeId.Equals(BoostTypes.Iron)).Sum(x => x.BoostAmount);
-                    user.Iron += (int)(territory.IronAllocation * civPop * hoursElapsed);
+                    var iron = GetCoreResource(user, ResourceTypes.Iron);
+                    iron.Quantity += (int)(territory.IronAllocation * civPop * hoursElapsed);
 
                     // reset update time to the most recent hour to account for partial intervals
                     territory.LastResourceCollection = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
 
                     // queue a message to check for badges
                     var qm = new QueueManager();
-                    qm.QueueResourceCollection(user.Id, user.Water, user.Wood, user.Food, user.Stone, user.Oil, user.Iron);
+                    qm.QueueResourceCollection(user.Id, water.Quantity, food.Quantity, wood.Quantity, stone.Quantity, oil.Quantity, iron.Quantity);
                 }
 
                 // check territory population growth
@@ -186,6 +192,11 @@ namespace PixelApp.Services
                     db.AttackLogs.Add(log);
                 }
             }
+        }
+
+        private UserItem GetCoreResource(ApplicationUser user, ResourceTypes type)
+        {
+            return user.Items.Single(x => x.ItemId == (int)type);
         }
     }
 }

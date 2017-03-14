@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace PixelApp.Controllers
 {
@@ -33,7 +34,9 @@ namespace PixelApp.Controllers
             if (!string.IsNullOrWhiteSpace(userId))
             {
                 // load vitals
-                this.UserContext = this.Context.Users.Single(x => x.Id == userId);
+                this.UserContext = this.Context.Users
+                    .Include(x => x.Items)
+                    .Single(x => x.Id == userId);
 
                 // do timed updates
                 var em = new EventManager();

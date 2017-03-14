@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Pixel.Common.Cloud;
+using Pixel.Common.Data;
 using PixelApp.Models;
 using PixelApp.Services;
 using PixelApp.Views.Dashboard.Models;
@@ -24,12 +25,40 @@ namespace PixelApp.Controllers
             vm.TerritoryName = terr.Name;
             vm.OutskirtsAppeal = "Good";
 
-            vm.Resources.Add(new ResourceSkinny { Name = "Water", Count = this.UserContext.Water, Allocation = terr.WaterAllocation });
-            vm.Resources.Add(new ResourceSkinny { Name = "Wood", Count = this.UserContext.Wood, Allocation = terr.WoodAllocation });
-            vm.Resources.Add(new ResourceSkinny { Name = "Food", Count = this.UserContext.Food, Allocation = terr.FoodAllocation });
-            vm.Resources.Add(new ResourceSkinny { Name = "Stone", Count = this.UserContext.Stone, Allocation = terr.StoneAllocation });
-            vm.Resources.Add(new ResourceSkinny { Name = "Oil", Count = this.UserContext.Oil, Allocation = terr.OilAllocation });
-            vm.Resources.Add(new ResourceSkinny { Name = "Iron", Count = this.UserContext.Iron, Allocation = terr.IronAllocation });
+            vm.Resources.Add(new ResourceSkinny {
+                Name = "Water",
+                Count = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Water).Quantity,
+                Allocation = terr.WaterAllocation });
+            vm.Resources.Add(new ResourceSkinny
+            {
+                Name = "Food",
+                Count = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Food).Quantity,
+                Allocation = terr.FoodAllocation
+            });
+            vm.Resources.Add(new ResourceSkinny
+            {
+                Name = "Wood",
+                Count = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Wood).Quantity,
+                Allocation = terr.WoodAllocation
+            });
+            vm.Resources.Add(new ResourceSkinny
+            {
+                Name = "Stone",
+                Count = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Stone).Quantity,
+                Allocation = terr.StoneAllocation
+            });
+            vm.Resources.Add(new ResourceSkinny
+            {
+                Name = "Oil",
+                Count = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Oil).Quantity,
+                Allocation = terr.OilAllocation
+            });
+            vm.Resources.Add(new ResourceSkinny
+            {
+                Name = "Iron",
+                Count = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Iron).Quantity,
+                Allocation = terr.IronAllocation
+            });
 
             vm.CivilianPopulation = terr.CivilianPopulation;
             vm.TerritoryType = terr.Type;

@@ -35,11 +35,11 @@ namespace PixelApp.Migrations
             //
 
             SeedPermissions(context);
+            SeedItems(context);
             SeedUsers(context);
             TryToSetupAdmin(context);
             SeedTechnologies(context);
             SeedBadges(context);
-            SeedItems(context);
         }
 
         private static void SeedPermissions(ApplicationDbContext context)
@@ -92,13 +92,15 @@ namespace PixelApp.Migrations
                     MaxLife = 100,
                     Level = 1,
                     UserName = adminUserEmail,
-                    Water = 50,
-                    Wood = 50,
-                    Food = 50,
-                    Stone = 50,
-                    Oil = 50,
-                    Iron = 50,
                 };
+
+                user.Items = new List<UserItem>();
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Water, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Food, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Wood, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Stone, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Oil, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Iron, UserId = user.Id, Quantity = 50, });
 
                 var result = manager.Create(user, "123456");
                 // give all roles

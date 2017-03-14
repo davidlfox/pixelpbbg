@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Pixel.Common.Data;
 
 namespace PixelApp.Controllers
 {
@@ -80,16 +81,21 @@ namespace PixelApp.Controllers
                     Life = 100,
                     MaxLife = 100,
                     Level = 1,
-                    Water = 50,
-                    Wood = 50,
-                    Food = 50,
-                    Stone = 50,
-                    Oil = 50,
-                    Iron = 50,
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // start user off with 50 of each core item
+                    this.Context.UserItems.Add(new UserItem { ItemId = (int)ResourceTypes.Water, UserId = user.Id, Quantity = 50, });
+                    this.Context.UserItems.Add(new UserItem { ItemId = (int)ResourceTypes.Food, UserId = user.Id, Quantity = 50, });
+                    this.Context.UserItems.Add(new UserItem { ItemId = (int)ResourceTypes.Wood, UserId = user.Id, Quantity = 50, });
+                    this.Context.UserItems.Add(new UserItem { ItemId = (int)ResourceTypes.Stone, UserId = user.Id, Quantity = 50, });
+                    this.Context.UserItems.Add(new UserItem { ItemId = (int)ResourceTypes.Oil, UserId = user.Id, Quantity = 50, });
+                    this.Context.UserItems.Add(new UserItem { ItemId = (int)ResourceTypes.Iron, UserId = user.Id, Quantity = 50, });
+
+                    this.Context.SaveChanges();
+
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
