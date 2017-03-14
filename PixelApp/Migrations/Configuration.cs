@@ -39,6 +39,7 @@ namespace PixelApp.Migrations
             TryToSetupAdmin(context);
             SeedTechnologies(context);
             SeedBadges(context);
+            SeedItems(context);
         }
 
         private static void SeedPermissions(ApplicationDbContext context)
@@ -54,6 +55,7 @@ namespace PixelApp.Migrations
                 Permissions.CanEditNotes,
                 Permissions.CanTestController,
                 Permissions.CanEditBadges,
+                Permissions.CanEditItems,
             };
 
             foreach (var roleName in roles)
@@ -109,6 +111,7 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanEditNotes);
                 manager.AddToRole(user.Id, Permissions.CanTestController);
                 manager.AddToRole(user.Id, Permissions.CanEditBadges);
+                manager.AddToRole(user.Id, Permissions.CanEditItems);
 
                 var territory = new Territory();
                 Services.TerritoryFactory.InitializeTerritory(territory);
@@ -138,6 +141,7 @@ namespace PixelApp.Migrations
                     manager.AddToRole(adminUser.Id, Permissions.CanEditNotes);
                     manager.AddToRole(adminUser.Id, Permissions.CanTestController);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditBadges);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditItems);
                 }
             }
         }
@@ -698,6 +702,19 @@ namespace PixelApp.Migrations
                     ExperienceGain = 40,
                     Level = 1,
                 });
+        }
+
+        private void SeedItems(ApplicationDbContext context)
+        {
+            context.Items.AddOrUpdate(x => x.ItemId,
+                new Item { ItemId = 1, Name = "Water", Description = "Like, from the toilet.", IsCore = true, },
+                new Item { ItemId = 2, Name = "Food", Description = "Yeah, you need food too.", IsCore = true, },
+                new Item { ItemId = 3, Name = "Wood", Description = "Dead tree.", IsCore = true, },
+                new Item { ItemId = 4, Name = "Stone", Description = "Malfunctiong rock.", IsCore = true, },
+                new Item { ItemId = 5, Name = "Oil", Description = "Destroyer of sea life.", IsCore = true, },
+                new Item { ItemId = 6, Name = "Iron", Description = "The opposite of flaccid.", IsCore = true, }
+            );
+                
         }
 
     }
