@@ -766,8 +766,9 @@ namespace PixelApp.Migrations
                 new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
                 new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 1 },
                 new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 2 },
-                new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
-                new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 }
+                new ItemIngredient { ItemId = (int)ItemTypes.StonePickaxe, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
+                new ItemIngredient { ItemId = (int)ItemTypes.StonePickaxe, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 2 },
+                new ItemIngredient { ItemId = (int)ItemTypes.OilStorage, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 4 }
             );
         }
 
