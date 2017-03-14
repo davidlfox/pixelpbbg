@@ -13,7 +13,7 @@ namespace PixelApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703140126367_setup-items"; }
+            get { return "201703142133212_setup-items"; }
         }
         
         string IMigrationMetadata.Source

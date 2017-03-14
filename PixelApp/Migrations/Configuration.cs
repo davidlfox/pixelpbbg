@@ -708,6 +708,7 @@ namespace PixelApp.Migrations
 
         private void SeedItems(ApplicationDbContext context)
         {
+            // core resources
             context.Items.AddOrUpdate(x => x.ItemId,
                 new Item { ItemId = 1, Name = "Water", Description = "Like, from the toilet.", IsCore = true, },
                 new Item { ItemId = 2, Name = "Food", Description = "Yeah, you need food too.", IsCore = true, },
@@ -716,7 +717,58 @@ namespace PixelApp.Migrations
                 new Item { ItemId = 5, Name = "Oil", Description = "Destroyer of sea life.", IsCore = true, },
                 new Item { ItemId = 6, Name = "Iron", Description = "The opposite of flaccid.", IsCore = true, }
             );
-                
+
+            context.SaveChanges();
+
+            context.Items.AddOrUpdate(x => x.Name,
+                new Item
+                {
+                    Name = "Wooden Bucket",
+                    Description = "A wooden bucket to carry water",
+                    BoostType = BoostTypes.Water,
+                    MaxBoost = 1.0m,
+                },
+                new Item
+                {
+                    Name = "Icebox",
+                    Description = "Some kind of food storage",
+                    BoostType = BoostTypes.Food,
+                    MaxBoost = 0.5m,
+                },
+                new Item
+                {
+                    Name = "Basic Saw",
+                    Description = "You know, for killing trees",
+                    BoostType = BoostTypes.Wood,
+                    MaxBoost = 0.8m,
+                },
+                new Item
+                {
+                    Name = "Stone Pickaxe",
+                    Description = "The crudest tool for stone mining",
+                    BoostType = BoostTypes.Stone,
+                    MaxBoost = 0.8m,
+                },
+                new Item
+                {
+                    Name = "Oil storage",
+                    Description = "Simple oil storage",
+                    BoostType = BoostTypes.Oil,
+                    MaxBoost = 1.0m,
+                }
+            );
+
+
+            // add ingredients using itemid/ingredientitemid as key
+            context.ItemIngredients.AddOrUpdate(x => new { x.ItemId, x.IngredientItemId },
+                new ItemIngredient { ItemId = (int)ItemTypes.WoodenBucket, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 2 },
+                new ItemIngredient { ItemId = (int)ItemTypes.WoodenBucket, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 1 },
+                new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
+                new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 1 },
+                new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 2 },
+                new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
+                new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 }
+            );
         }
 
     }

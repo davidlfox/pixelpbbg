@@ -297,13 +297,13 @@
     <Compile Include="Migrations\201703120004444_badges.Designer.cs">
       <DependentUpon>201703120004444_badges.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703140126367_setup-items.cs" />
-    <Compile Include="Migrations\201703140126367_setup-items.Designer.cs">
-      <DependentUpon>201703140126367_setup-items.cs</DependentUpon>
+    <Compile Include="Migrations\201703142133212_setup-items.cs" />
+    <Compile Include="Migrations\201703142133212_setup-items.Designer.cs">
+      <DependentUpon>201703142133212_setup-items.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703140140273_copy-resources-to-items.cs" />
-    <Compile Include="Migrations\201703140140273_copy-resources-to-items.Designer.cs">
-      <DependentUpon>201703140140273_copy-resources-to-items.cs</DependentUpon>
+    <Compile Include="Migrations\201703142135226_copy-resources-to-items.cs" />
+    <Compile Include="Migrations\201703142135226_copy-resources-to-items.Designer.cs">
+      <DependentUpon>201703142135226_copy-resources-to-items.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -542,11 +542,11 @@
     <EmbeddedResource Include="Migrations\201703120004444_badges.resx">
       <DependentUpon>201703120004444_badges.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703140126367_setup-items.resx">
-      <DependentUpon>201703140126367_setup-items.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703142133212_setup-items.resx">
+      <DependentUpon>201703142133212_setup-items.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703140140273_copy-resources-to-items.resx">
-      <DependentUpon>201703140140273_copy-resources-to-items.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703142135226_copy-resources-to-items.resx">
+      <DependentUpon>201703142135226_copy-resources-to-items.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

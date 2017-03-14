@@ -13,7 +13,7 @@ namespace PixelApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703140140273_copy-resources-to-items"; }
+            get { return "201703142135226_copy-resources-to-items"; }
         }
         
         string IMigrationMetadata.Source

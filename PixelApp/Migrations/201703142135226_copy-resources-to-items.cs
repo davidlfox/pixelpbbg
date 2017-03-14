@@ -21,10 +21,10 @@ namespace PixelApp.Migrations
 
             db.SaveChanges();
         }
-        
+
         public override void Down()
         {
-            
+            Sql("truncate table useritems");
         }
     }
 }

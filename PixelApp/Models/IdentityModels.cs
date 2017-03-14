@@ -131,11 +131,6 @@ namespace PixelApp.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ItemIngredient>()
-                .HasRequired(c => c.Item)
-                .WithMany()
-                .HasForeignKey(x => x.ItemId);
-
-            modelBuilder.Entity<ItemIngredient>()
                 .HasRequired(x => x.IngredientItem)
                 .WithMany()
                 .HasForeignKey(x => x.IngredientItemId);

@@ -8,19 +8,6 @@ namespace PixelApp.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Items",
-                c => new
-                    {
-                        ItemId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        Description = c.String(nullable: false),
-                        IsCore = c.Boolean(nullable: false),
-                        MaxBoost = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        BoostType = c.Byte(nullable: false),
-                    })
-                .PrimaryKey(t => t.ItemId);
-            
-            CreateTable(
                 "dbo.UserItems",
                 c => new
                     {
@@ -34,7 +21,20 @@ namespace PixelApp.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId)
                 .Index(t => t.ItemId);
-
+            
+            CreateTable(
+                "dbo.Items",
+                c => new
+                    {
+                        ItemId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Description = c.String(nullable: false),
+                        IsCore = c.Boolean(nullable: false),
+                        MaxBoost = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        BoostType = c.Byte(nullable: false),
+                    })
+                .PrimaryKey(t => t.ItemId);
+            
             CreateTable(
                 "dbo.ItemIngredients",
                 c => new
@@ -56,10 +56,8 @@ namespace PixelApp.Migrations
         {
             DropForeignKey("dbo.UserItems", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.UserItems", "ItemId", "dbo.Items");
-            DropForeignKey("dbo.ItemIngredients", "Item_ItemId", "dbo.Items");
             DropForeignKey("dbo.ItemIngredients", "ItemId", "dbo.Items");
             DropForeignKey("dbo.ItemIngredients", "IngredientItemId", "dbo.Items");
-            DropIndex("dbo.ItemIngredients", new[] { "Item_ItemId" });
             DropIndex("dbo.ItemIngredients", new[] { "IngredientItemId" });
             DropIndex("dbo.ItemIngredients", new[] { "ItemId" });
             DropIndex("dbo.UserItems", new[] { "ItemId" });
