@@ -1,4 +1,4 @@
-﻿
+﻿@model PixelApp.Views.Workbench.Models.WorkbenchIndexViewModel
 @{ 
     var defaultIngredientUrl = "//fillmurray.com/100/100";
 }
@@ -23,12 +23,27 @@
 
 <h2>Workbench</h2>
 
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>@Model.SuccessMessage</strong>
+    </div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>@Model.ErrorMessage</strong>
+    </div>
+}
+
 <form action="/workbench/craft" method="post">
     <div class="row">
         <div class="col-xs-4">
             <div class="form-group">
                 <select name="ItemId" class="form-control"
-                        data-bind="options: selectitems, optionsText: 'name', optionsCaption: 'Select an item', value: selected, event: { change: itemSelected }">
+                        data-bind="options: selectitems, optionsText: 'name', optionsValue: 'value', optionsCaption: 'Select an item', value: selected, event: { change: itemSelected }">
                 </select>
             </div>
         </div>
@@ -93,7 +108,7 @@
             // change ingredients when selecting an item
             self.itemSelected = function () {
                 var selectedItem = self.selected();
-                var item = self.items().filter(function (item) { return item.ItemId == selectedItem.value; })[0];
+                var item = self.items().filter(function (item) { return item.ItemId == selectedItem; })[0];
                 self.description(item.Description);
                 self.canafford(item.CanAffordQuantity);
                 var ingredients = item.Ingredients;

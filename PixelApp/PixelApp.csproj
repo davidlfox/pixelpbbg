@@ -344,6 +344,8 @@
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
     <Compile Include="Views\Research\Models\TechDetailViewModel.cs" />
+    <Compile Include="Views\Workbench\Models\WorkbenchCraftViewModel.cs" />
+    <Compile Include="Views\Workbench\Models\WorkbenchIndexViewModel.cs" />
     <Compile Include="Views\Workbench\Models\WorkbenchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
