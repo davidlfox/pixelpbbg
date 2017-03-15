@@ -202,11 +202,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttackLogsController.cs" />
+    <Compile Include="Controllers\BadgesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailboxController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MOTDController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ResearchController.cs" />
@@ -214,6 +219,7 @@
     <Compile Include="Controllers\TerritoriesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TradesController.cs" />
+    <Compile Include="Controllers\UserBadgesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,26 +267,49 @@
     <Compile Include="Migrations\201702271334458_trades.Designer.cs">
       <DependentUpon>201702271334458_trades.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Migrations\201703011638159_UserTechnology.cs" />
-    <Compile Include="Migrations\201703011638159_UserTechnology.Designer.cs">
-      <DependentUpon>201703011638159_UserTechnology.cs</DependentUpon>
-=======
     <Compile Include="Migrations\201703011857508_last-login-date.cs" />
     <Compile Include="Migrations\201703011857508_last-login-date.Designer.cs">
       <DependentUpon>201703011857508_last-login-date.cs</DependentUpon>
->>>>>>> 31ca5a5d5731c2df118b15ad00499edeaaeb6682
+    </Compile>
+    <Compile Include="Migrations\201703031707015_user-technologies.cs" />
+    <Compile Include="Migrations\201703031707015_user-technologies.Designer.cs">
+      <DependentUpon>201703031707015_user-technologies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703040109207_system-notifications.cs" />
+    <Compile Include="Migrations\201703040109207_system-notifications.Designer.cs">
+      <DependentUpon>201703040109207_system-notifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703041553460_moved-researchdys.cs" />
+    <Compile Include="Migrations\201703041553460_moved-researchdys.Designer.cs">
+      <DependentUpon>201703041553460_moved-researchdys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060134055_tech-prereq.cs" />
+    <Compile Include="Migrations\201703060134055_tech-prereq.Designer.cs">
+      <DependentUpon>201703060134055_tech-prereq.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703110228107_event-timestamps.cs" />
+    <Compile Include="Migrations\201703110228107_event-timestamps.Designer.cs">
+      <DependentUpon>201703110228107_event-timestamps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703120004444_badges.cs" />
+    <Compile Include="Migrations\201703120004444_badges.Designer.cs">
+      <DependentUpon>201703120004444_badges.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
+    <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
     <Compile Include="Models\Trade.cs" />
+    <Compile Include="Models\UserBadges.cs" />
     <Compile Include="Models\UserTechnology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CommunicationService.cs" />
+    <Compile Include="Services\EventManager.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\StatManager.cs" />
     <Compile Include="Services\TechnologyService.cs" />
@@ -291,10 +320,18 @@
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
+    <Compile Include="Views\Home\Models\UsersViewModel.cs" />
+    <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
+    <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
+    <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
+    <Compile Include="Views\Profile\Models\ProfileViewModel.cs" />
     <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
+    <Compile Include="Views\Research\Models\TechDetailViewModel.cs" />
+    <Compile Include="Views\Map\Models\MapViewModel.cs" />
+    <Compile Include="Views\Map\Models\TerritorySkinny.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -336,8 +373,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -362,7 +397,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\HomePage.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Badges.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\NameTerritory.cshtml" />
     <Content Include="Views\Territories\Create.cshtml" />
@@ -389,6 +424,33 @@
     <Content Include="Views\Permissions\Index.cshtml" />
     <Content Include="Views\Permissions\UserDetail.cshtml" />
     <Content Include="Views\Account\ReconfirmEmail.cshtml" />
+    <Content Include="Views\MOTD\Index.cshtml" />
+    <Content Include="Views\MOTD\Create.cshtml" />
+    <Content Include="Views\Notes\Create.cshtml" />
+    <Content Include="Views\Notes\Delete.cshtml" />
+    <Content Include="Views\Notes\Details.cshtml" />
+    <Content Include="Views\Notes\Edit.cshtml" />
+    <Content Include="Views\Notes\Index.cshtml" />
+    <Content Include="Views\Mailbox\Index.cshtml" />
+    <Content Include="Views\Mailbox\View.cshtml" />
+    <Content Include="Views\Home\Users.cshtml" />
+    <Content Include="Views\Research\TechDetail.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Map\Index.cshtml" />
+=======
+    <Content Include="Views\Badges\Create.cshtml" />
+    <Content Include="Views\Badges\Delete.cshtml" />
+    <Content Include="Views\Badges\Details.cshtml" />
+    <Content Include="Views\Badges\Edit.cshtml" />
+    <Content Include="Views\Badges\Index.cshtml" />
+    <Content Include="Views\UserBadges\Create.cshtml" />
+    <Content Include="Views\UserBadges\Delete.cshtml" />
+    <Content Include="Views\UserBadges\Details.cshtml" />
+    <Content Include="Views\UserBadges\Edit.cshtml" />
+    <Content Include="Views\UserBadges\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\_Badge.cshtml" />
+>>>>>>> dev
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -437,13 +499,26 @@
     <EmbeddedResource Include="Migrations\201702271334458_trades.resx">
       <DependentUpon>201702271334458_trades.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\201703011638159_UserTechnology.resx">
-      <DependentUpon>201703011638159_UserTechnology.cs</DependentUpon>
-=======
     <EmbeddedResource Include="Migrations\201703011857508_last-login-date.resx">
       <DependentUpon>201703011857508_last-login-date.cs</DependentUpon>
->>>>>>> 31ca5a5d5731c2df118b15ad00499edeaaeb6682
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703031707015_user-technologies.resx">
+      <DependentUpon>201703031707015_user-technologies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703040109207_system-notifications.resx">
+      <DependentUpon>201703040109207_system-notifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703041553460_moved-researchdys.resx">
+      <DependentUpon>201703041553460_moved-researchdys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060134055_tech-prereq.resx">
+      <DependentUpon>201703060134055_tech-prereq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703110228107_event-timestamps.resx">
+      <DependentUpon>201703110228107_event-timestamps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703120004444_badges.resx">
+      <DependentUpon>201703120004444_badges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -95,6 +95,11 @@ namespace PixelApp.Models
         /// </summary>
         public ICollection<Note> Notifications { get; set; }
 
+        /// <summary>
+        /// Related UserBage records
+        /// </summary>
+        public ICollection<UserBadge> Badges { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -129,5 +134,9 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.UserTechnology> UserTechnologies { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.Note> Notes { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.Badge> Badges { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.UserBadge> UserBadges { get; set; }
     }
 }

@@ -1,7 +1,48 @@
-﻿
+﻿@model PixelApp.Views.Profile.Models.ProfileViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Profile";
+    var assetPath = "//storageasagvk5xvrja2.blob.core.windows.net/assets";
 }
+
+<style type="text/css">
+    .avatar {
+        width: 190px;
+    }
+</style>
 
 <h2>Profile</h2>
 
+<div class="row">
+    <div class="col-xs-12 col-md-2">
+        <img class="avatar" src="@assetPath/defaultprofile.png" alt="@ViewBag.Username" />
+    </div>
+    <div class="col-xs-12 col-md-10">
+        @if (Model.Badges.Count > 0)
+        {
+            <div class="alert alert-warning">
+                <h4>Recent Badges @Html.ActionLink("See all badges", "Badges")</h4>
+                @foreach (var badge in Model.Badges)
+                {
+                    @Html.Partial("_Badge", badge)
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <h3>Recent Badges</h3>
+                <strong>You haven't earned any badges.</strong>
+                @Html.ActionLink("Check out the list of badges you can earn!", "Badges")
+            </div>
+
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ html: true });
+        });
+    </script>
+}

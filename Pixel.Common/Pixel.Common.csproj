@@ -77,6 +77,7 @@
     <Compile Include="Cloud\AddResourceMessage.cs" />
     <Compile Include="Cloud\ExperienceMessage.cs" />
     <Compile Include="Cloud\FoodForageEntity.cs" />
+    <Compile Include="Cloud\ResearchCompletedMessage.cs" />
     <Compile Include="Cloud\TablePartitionKeys.cs" />
     <Compile Include="Cloud\ZombieFightEntity.cs" />
     <Compile Include="Cloud\MessageOfTheDayEntity.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Cloud\QueueNames.cs" />
     <Compile Include="Cloud\FoodForageMessage.cs" />
     <Compile Include="Cloud\ZombieFightMessage.cs" />
+    <Compile Include="Data\BadgeTypes.cs" />
     <Compile Include="Data\BoostTypes.cs" />
     <Compile Include="Data\ResourceTypes.cs" />
     <Compile Include="Data\TechnologyTypes.cs" />

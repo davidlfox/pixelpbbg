@@ -1,4 +1,5 @@
-﻿using Pixel.Common.Models;
+﻿using Pixel.Common.Cloud;
+using Pixel.Common.Models;
 using PixelApp.Models;
 using System;
 using System.Collections.Generic;
@@ -129,6 +130,9 @@ namespace PixelApp.Services
                         $"You finished researching {tech.Name} and gained {tech.BoostAmount:P1} {tech.BoostTypeId}");
 
                     context.Notes.Add(note);
+
+                    var qm = new QueueManager();
+                    qm.QueueResearchCompleted(userId);
 
                     return null;
                 }

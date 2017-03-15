@@ -202,6 +202,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttackLogsController.cs" />
+    <Compile Include="Controllers\BadgesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Controllers\TerritoriesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TradesController.cs" />
+    <Compile Include="Controllers\UserBadgesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -289,15 +291,21 @@
     <Compile Include="Migrations\201703110228107_event-timestamps.Designer.cs">
       <DependentUpon>201703110228107_event-timestamps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703120004444_badges.cs" />
+    <Compile Include="Migrations\201703120004444_badges.Designer.cs">
+      <DependentUpon>201703120004444_badges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
+    <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
     <Compile Include="Models\Trade.cs" />
+    <Compile Include="Models\UserBadges.cs" />
     <Compile Include="Models\UserTechnology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommunicationService.cs" />
@@ -315,6 +323,8 @@
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
+    <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
+    <Compile Include="Views\Profile\Models\ProfileViewModel.cs" />
     <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
     <Compile Include="Views\Find\Models\FindZombiesViewModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
@@ -387,7 +397,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\HomePage.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Badges.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\NameTerritory.cshtml" />
     <Content Include="Views\Territories\Create.cshtml" />
@@ -426,6 +436,18 @@
     <Content Include="Views\Home\Users.cshtml" />
     <Content Include="Views\Research\TechDetail.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Badges\Create.cshtml" />
+    <Content Include="Views\Badges\Delete.cshtml" />
+    <Content Include="Views\Badges\Details.cshtml" />
+    <Content Include="Views\Badges\Edit.cshtml" />
+    <Content Include="Views\Badges\Index.cshtml" />
+    <Content Include="Views\UserBadges\Create.cshtml" />
+    <Content Include="Views\UserBadges\Delete.cshtml" />
+    <Content Include="Views\UserBadges\Details.cshtml" />
+    <Content Include="Views\UserBadges\Edit.cshtml" />
+    <Content Include="Views\UserBadges\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\_Badge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -491,6 +513,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703110228107_event-timestamps.resx">
       <DependentUpon>201703110228107_event-timestamps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703120004444_badges.resx">
+      <DependentUpon>201703120004444_badges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

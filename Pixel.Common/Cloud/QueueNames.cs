@@ -14,5 +14,6 @@ namespace Pixel.Common.Cloud
         public const string Experience = "experience";
         public const string ZombieFights = "zombiefights";
         public const string FoodForage = "foodforage";
+        public const string ResearchCompleted = "researchcompleted";
     }
 }
