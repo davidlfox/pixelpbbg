@@ -222,6 +222,7 @@
     <Compile Include="Controllers\TradesController.cs" />
     <Compile Include="Controllers\UserBadgesController.cs" />
     <Compile Include="Controllers\UserItemsController.cs" />
+    <Compile Include="Controllers\WorkbenchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -343,6 +344,7 @@
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
     <Compile Include="Views\Research\Models\TechDetailViewModel.cs" />
+    <Compile Include="Views\Workbench\Models\WorkbenchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -473,6 +475,7 @@
     <Content Include="Views\ItemIngredients\Details.cshtml" />
     <Content Include="Views\ItemIngredients\Edit.cshtml" />
     <Content Include="Views\ItemIngredients\Index.cshtml" />
+    <Content Include="Views\Workbench\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
