@@ -110,7 +110,7 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanTestController);
                 manager.AddToRole(user.Id, Permissions.CanEditBadges);
 
-                var territory = new Territory();
+                var territory = Services.TerritoryFactory.CreateTerritory(0,0);
                 Services.TerritoryFactory.InitializeTerritory(territory);
                 territory.Name = "me@a.com's territory";
                 user.Territory = territory;
