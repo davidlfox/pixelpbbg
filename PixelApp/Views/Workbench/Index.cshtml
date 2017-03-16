@@ -19,6 +19,11 @@
     .ingredient-slot img {
 
     }
+
+    .item-description {
+        padding: 5px;
+        border: 1px dashed;
+    }
 </style>
 
 <h2>Workbench</h2>
@@ -50,9 +55,11 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <h3 data-bind="html: description"></h3>
+            <h3 class="item-description" data-bind="html: descriptiontext"></h3>
+            <span class="text-muted" data-bind="html: boosttext"></span>
         </div>
     </div>
+    <div class="row">&nbsp;</div>
     <div class="row" data-bind="foreach: ingredients">
         <div class="col-xs-12 col-sm-3">
             <div class="ingredient-slot">
@@ -66,7 +73,7 @@
     </div>
     <div class="row">&nbsp;</div>
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-sm-12 col-md-6">
             <div class="alert alert-warning">
                 <div class="form-group">
                     <input type="number" name="Quantity" class="quantity form-control" data-bind="value: canafford" />
@@ -98,19 +105,26 @@
             var self = this;
 
             self.selected = ko.observable(0);
-            self.description = ko.observable('&nbsp;');
+            self.description = ko.observable('');
+            self.boosttype = ko.observable('');
+            self.maxboost = ko.observable(0);
             self.canafford = ko.observable(0);
             self.civpop = ko.observable(0);
             self.items = ko.observableArray([]);
             self.selectitems = ko.observableArray([]);
             self.ingredients = ko.observableArray(defaultIngredients);
 
+            self.isitemselected = ko.observable(false);
+
             // change ingredients when selecting an item
             self.itemSelected = function () {
                 var selectedItem = self.selected();
                 var item = self.items().filter(function (item) { return item.ItemId == selectedItem; })[0];
                 self.description(item.Description);
+                self.boosttype(item.BoostType);
+                self.maxboost(item.MaxBoost);
                 self.canafford(item.CanAffordQuantity);
+                self.isitemselected(true);
                 var ingredients = item.Ingredients;
                 self.ingredients.removeAll();
                 for (var i = 0; i < 4; i++) {
@@ -122,6 +136,22 @@
                     }
                 }
             };
+
+            self.descriptiontext = ko.computed(function () {
+                if (self.isitemselected()) {
+                    return self.description();
+                } else {
+                    return '{Item Description}';
+                }
+            });
+
+            self.boosttext = ko.computed(function () {
+                if (self.isitemselected()) {
+                    return self.maxboost() + '% ' + self.boosttype();
+                } else {
+                    return '{Boost Type}';
+                }
+            });
         };
 
         // item model

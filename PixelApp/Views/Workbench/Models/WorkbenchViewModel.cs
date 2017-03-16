@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Web.Mvc;
+using Pixel.Common.Data;
 
 namespace PixelApp.Views.Workbench.Models
 {
@@ -27,10 +28,13 @@ namespace PixelApp.Views.Workbench.Models
             this.Items = db.Items
                 .Include(x => x.Required)
                 .Where(x => x.IsCore.Equals(false)) // no point in crafting core items
+                .ToList()
                 .Select(x => new ItemSkinny
                 {
                     Name = x.Name,
                     Description = x.Description,
+                    BoostType = x.BoostType.ToString(),
+                    MaxBoost = x.MaxBoost,
                     ItemId = x.ItemId,
                     Ingredients = x.Required.Select(y => new ItemIngredientSkinny
                     {
@@ -66,6 +70,8 @@ namespace PixelApp.Views.Workbench.Models
         public int ItemId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string BoostType { get; set; }
+        public decimal MaxBoost { get; set; }
         public int CanAffordQuantity { get; set; }
         public List<ItemIngredientSkinny> Ingredients { get; set; }
     }
