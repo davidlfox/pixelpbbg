@@ -1,6 +1,6 @@
 ﻿@model PixelApp.Views.Map.Models.MapViewModel
 @{
-    ViewBag.Title = "Local Territory Map";
+    ViewBag.Title = "Territory Map";
     var assetPath = "//storageasagvk5xvrja2.blob.core.windows.net/assets/";
     var size = (40 / ((decimal)Model.Reach * 2) + 1);
 }
@@ -51,48 +51,7 @@
     </script>
 }
 
-<h2>Territory Map</h2>
-
-@*<div class="row">
-    <div class="well well-lg nomarginnopadding clearfix map-canvas">
-        <div class="col-xs-1">&nbsp;</div>
-        <div class="col-xs-11" style="padding-top:30px; padding-bottom:30px;">
-            @for (int x = (Model.X - 5); x <= (Model.X + 5); x++)
-            {
-                <div class="col-xs-1 nomarginnopadding">
-                    @for (int y = (Model.Y + 5); y >= (Model.Y - 5); y--)
-                    {
-                        var pixel = Model.Territories.Where(z => z.X.Equals(x) && z.Y.Equals(y)).FirstOrDefault();
-                        if (pixel != null)
-                        {
-                            <div class="territory @(pixel.X == Model.X && pixel.Y == Model.Y ? "primary" : "")" data-toggle="tooltip" title="@pixel.Name @pixel.UserName">
-                                <img class="type" style="width:100%; height:100%;" src="@($"{assetPath}{pixel.Type.ToString().ToLower()}.png")" alt="@pixel.Type" />
-                            </div>
-                        }
-                        else
-                        {
-                            if (Model.IsTerritorySelectionMode && Model.Territories.Where(a =>
-                                (a.X + 1).Equals(x) && a.Y.Equals(y)
-                                || (a.X - 1).Equals(x) && a.Y.Equals(y)
-                                || a.X.Equals(x) && (a.Y + 1).Equals(y)
-                                || a.X.Equals(x) && (a.Y - 1).Equals(y)
-                            ).Any())
-                            {
-                                <div class="territory available" data-toggle="tooltip" title="This territory is available.">&nbsp;</div>
-                            }
-                            else
-                            {
-                                <div class="territory unavavilable">&nbsp;</div>
-                            }
-                        }
-                    }
-                </div>
-            }
-        </div>
-    </div>
-
-</div>*@
-
+<h2>@(Model.IsTerritorySelectionMode ? "Please select an available Territory" : "Territory Map")</h2>
 <div class="row">
     <div class="well well-lg map-canvas text-center">
         @for (int y = (Model.Y + Model.Reach); y >= (Model.Y - Model.Reach); y--)
@@ -115,7 +74,7 @@
                             || a.X.Equals(x) && (a.Y + 1).Equals(y)
                             || a.X.Equals(x) && (a.Y - 1).Equals(y)).Any())
                         {
-                            <div class="territory available" data-toggle="tooltip" title="This territory is available."></div>
+                            <a href="@Url.Action("SelectTerritory", "Map", new { x = x, y = y })"><div class="territory available" data-toggle="tooltip" title="This territory is available."></div></a>
                         }
                         else
                         {

@@ -29,7 +29,7 @@ namespace PixelApp.Controllers
             else
             {
                 var ts = new TerritoryService();
-                var fullMapOptions = ts.GetFullMapOptions();
+                mapOptions = ts.GetFullMapOptions();
             }
 
             vm = GenMapViewModel(mapOptions);
@@ -62,6 +62,18 @@ namespace PixelApp.Controllers
                 }).ToList();
 
             return result;
+        }
+
+        public ActionResult SelectTerritory(int x, int y)
+        {
+            var territory = TerritoryFactory.CreateTerritory(x, y);
+            territory.Players.Add(this.UserContext);
+            this.Context.Territories.Add(territory);
+
+            TerritoryFactory.InitializeTerritory(territory);
+            this.Context.SaveChanges();
+
+            return RedirectToAction("NameTerritory", "Dashboard");
         }
     }
 }

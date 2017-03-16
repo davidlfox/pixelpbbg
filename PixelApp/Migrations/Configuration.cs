@@ -130,18 +130,18 @@ namespace PixelApp.Migrations
                 CreateRandomUser(6, context, manager, 0, 2);
         }
 
-        private void CreateRandomUser(int seed, ApplicationDbContext context, UserManager<ApplicationUser> manager, int? xCoord = null, int? yCoord = null)
+        private void CreateRandomUser(int seed, ApplicationDbContext context, UserManager<ApplicationUser> manager, int xCoord, int yCoord)
         {
             var user = new ApplicationUser()
             {
-                Email = string.Format("{0}@testing.com", seed),
+                Email = string.Format("{0}@a.com", seed),
                 EmailConfirmed = true,
                 Energy = 100,
                 MaxEnergy = 100,
                 Life = 100,
                 MaxLife = 100,
                 Level = 1,
-                UserName = string.Format("{0}@testing.com", seed),
+                UserName = string.Format("{0}@a.com", seed),
                 Water = 50,
                 Wood = 50,
                 Food = 50,
@@ -151,15 +151,10 @@ namespace PixelApp.Migrations
             };
             manager.Create(user, string.Format("{0}-123456", seed));
 
-            var territory = Services.TerritoryFactory.CreateTerritory();
+            var territory = Services.TerritoryFactory.CreateTerritory(xCoord, yCoord);
             Services.TerritoryFactory.InitializeTerritory(territory);
             territory.Name = string.Format("{0}'s territory", user.UserName);
             user.Territory = territory;
-            if(xCoord.HasValue && yCoord.HasValue)
-            {
-                territory.X = xCoord.Value;
-                territory.Y = yCoord.Value;
-            }
             context.Territories.AddOrUpdate(x => x.Name, territory);
         }
 

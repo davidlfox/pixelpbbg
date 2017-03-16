@@ -41,10 +41,11 @@ namespace PixelApp.Controllers
 
                 // force territory selection/naming
                 if (!this.UserContext.TerritoryId.HasValue 
-                    && filterContext.ActionDescriptor.ActionName != "NameTerritory"
-                    && !(filterContext.Controller is HomeController))
+                    && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "Index")
+                    && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "SelectTerritory"))
                 {
-                    filterContext.Result = RedirectToAction("NameTerritory", "Dashboard");
+
+                    filterContext.Result = RedirectToAction("Index", "Map", new { sm = true });
                 }
             }
 
