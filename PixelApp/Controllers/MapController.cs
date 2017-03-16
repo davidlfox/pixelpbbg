@@ -2,33 +2,56 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
+using PixelApp.Services;
+using static PixelApp.Services.TerritoryService;
+using System;
 
 namespace PixelApp.Controllers
 {
     [Authorize]
     public class MapController : BaseController
     {
-        public ActionResult Index()
+        /// <summary>
+        /// Map view for regular map display and optional territory selection
+        /// </summary>
+        /// <param name="sm">Is selection mode on?</param>
+        /// <returns></returns>
+        public ActionResult Index(int? size = null, bool sm = false)
         {
-            var vm = GenMapViewModel();
+            var vm = new MapViewModel();
+            var mapOptions = new MapOptions();
+            if (this.UserContext.Territory != null)
+            {
+                mapOptions.X = this.UserContext.Territory.X;
+                mapOptions.Y = this.UserContext.Territory.Y;
+                mapOptions.Size = size ?? 11;
+            }
+            else
+            {
+                var ts = new TerritoryService();
+                var fullMapOptions = ts.GetFullMapOptions();
+            }
+
+            vm = GenMapViewModel(mapOptions);
+            vm.IsTerritorySelectionMode = sm;
             return View(vm);
         }
 
-        public MapViewModel GenMapViewModel()
+        public MapViewModel GenMapViewModel(MapOptions options)
         {
-            var result = this.Context.Users.Where(x => x.Id.Equals(this.UserContext.Id))
-                .Select(x => new MapViewModel
-                {
-                    X = x.Territory.X,
-                    Y = x.Territory.Y
-                }).FirstOrDefault();
+            var result = new MapViewModel();
+            result.X = options.X;
+            result.Y = options.Y;
+
+            var reach = (int)Math.Floor(options.Size / 2.0);
+            result.Reach = reach;
 
             result.Territories =
             this.Context.Territories.Include(x => x.Players).Where(x =>
-                x.X > (result.X - 6)
-                && x.X < (result.X + 6)
-                && x.Y > (result.Y - 6)
-                && x.Y < (result.Y + 6)).ToList()
+                x.X > (options.X - reach)
+                && x.X < (options.X + reach)
+                && x.Y > (options.Y - reach)
+                && x.Y < (options.Y + reach)).ToList()
                 .Select(x => new TerritorySkinny
                 {
                     X = x.X,
@@ -37,6 +60,7 @@ namespace PixelApp.Controllers
                     UserName = x.Players.FirstOrDefault().UserName,
                     Type = x.Type
                 }).ToList();
+
             return result;
         }
     }

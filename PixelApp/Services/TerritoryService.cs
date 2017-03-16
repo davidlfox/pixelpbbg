@@ -74,5 +74,27 @@ namespace PixelApp.Services
             terr.OilAllocation = oil / 100m;
             terr.IronAllocation = iron / 100m;
         }
+
+        public MapOptions GetFullMapOptions()
+        {
+            var result = new MapOptions();
+            var minX = context.Territories.Min(x => x.X);
+            var maxX = context.Territories.Max(x => x.X);
+            var minY = context.Territories.Min(x => x.Y);
+            var maxY = context.Territories.Max(x => x.Y);
+
+            result.Size = Math.Max(maxX - minX, maxY - minY) + 4;
+            result.X = maxX - ((maxX - minX) / 2);
+            result.Y = maxY - ((maxY - minY) / 2);
+
+            return result;
+        }
+
+        public class MapOptions
+        {
+            public int Size { get; set; }
+            public int X { get; set; }
+            public int Y { get; set; }
+        }
     }
 }
