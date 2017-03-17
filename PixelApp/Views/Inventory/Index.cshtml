@@ -1,0 +1,66 @@
+﻿@model PixelApp.Views.Inventory.Models.InventoryIndexViewModel
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<style type="text/css">
+    i.maxed {
+        color: gold;
+    }
+</style>
+
+<h2>Inventory</h2>
+
+<div class="alert alert-info">
+    <h4>How do boosts work?</h4>
+    Boosts help various aspects of the game. When collecting resources, <strong>we will automagically 
+    calculate your best items to help you first</strong>. For example, if you have 10 people allocated 
+    to collecting water, 10 Wooden Buckets, and 5 Water Rollers (the better item,) then we will use 
+    your 5 Water Rollers first, <em>then 5 of your Wooden Buckets</em> to generate the best boost possible.
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>Item</th>
+        <th>Owned </th>
+        <th>
+            Max Boost 
+            <i class="fa fa-question-circle" data-toggle="tooltip" title="Maximum boost when 100% of your allocated population can use these"></i>
+        </th>
+        <th>Boost Type</th>
+        <th>
+            Effect 
+            <i class="fa fa-question-circle" data-toggle="tooltip" title="Percentage of your allocated population that can use these"></i>
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        var allocation = Model.Allocations.Single(x => x.Key.ToString() == item.BoostType).Value;
+        var people = allocation * Model.CivilianPopulation;
+        var populationEffect = Math.Min(item.Quantity / people, 1m);
+
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Quantity</td>
+            <td>@($"{item.MaxBoost:P0}")</td>
+            <td>@item.BoostType</td>
+            <td>
+                @($"{populationEffect:P0}")
+                @if (item.Quantity >= people)
+                {
+                    <i class="fa fa-star maxed"></i>
+                }
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    }
+</table>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ html: true });
+        });
+    </script>
+}

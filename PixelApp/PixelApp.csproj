@@ -207,6 +207,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemIngredientsController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MailboxController.cs" />
@@ -335,6 +336,7 @@
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
+    <Compile Include="Views\Inventory\Models\InventoryIndexViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
     <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
@@ -478,6 +480,7 @@
     <Content Include="Views\ItemIngredients\Edit.cshtml" />
     <Content Include="Views\ItemIngredients\Index.cshtml" />
     <Content Include="Views\Workbench\Index.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
