@@ -8,14 +8,14 @@ namespace Pixel.Common.Data
 {
     public enum BoostTypes : byte
     {
-        Water,
-        Wood,
-        Food,
-        Stone,
-        Oil,
-        Iron,
-        Offense,
-        Defense,
-        Population,
+        Water = 1,
+        Food = 2,
+        Wood = 3,
+        Stone = 4,
+        Oil = 5,
+        Iron = 6,
+        Offense = 7,
+        Defense = 8,
+        Population = 9,
     }
 }

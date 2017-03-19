@@ -755,6 +755,41 @@ namespace PixelApp.Migrations
                     Description = "Simple oil storage",
                     BoostType = BoostTypes.Oil,
                     MaxBoost = 1.0m,
+                },
+                new Item
+                {
+                    Name = "Water Roller",
+                    Description = "Something like a wheelbarrow for collecting water",
+                    BoostType = BoostTypes.Water,
+                    MaxBoost = 1.5m,
+                },
+                new Item
+                {
+                    Name = "Large Icebox",
+                    Description = "An unoriginally larger version of an icebox",
+                    BoostType = BoostTypes.Food,
+                    MaxBoost = 1.0m,
+                },
+                new Item
+                {
+                    Name = "Crosscut Saw",
+                    Description = "A more efficient saw",
+                    BoostType = BoostTypes.Wood,
+                    MaxBoost = 1.3m,
+                },
+                new Item
+                {
+                    Name = "Railroad Pickaxe",
+                    Description = "A pickaxe with a larger handle",
+                    BoostType = BoostTypes.Stone,
+                    MaxBoost = 1.2m,
+                },
+                new Item
+                {
+                    Name = "Above Ground Tank",
+                    Description = "A larger oil tank",
+                    BoostType = BoostTypes.Oil,
+                    MaxBoost = 1.3m,
                 }
             );
 
@@ -763,12 +798,32 @@ namespace PixelApp.Migrations
             context.ItemIngredients.AddOrUpdate(x => new { x.ItemId, x.IngredientItemId },
                 new ItemIngredient { ItemId = (int)ItemTypes.WoodenBucket, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 2 },
                 new ItemIngredient { ItemId = (int)ItemTypes.WoodenBucket, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 1 },
+
                 new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
+
                 new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 1 },
                 new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 2 },
+
                 new ItemIngredient { ItemId = (int)ItemTypes.StonePickaxe, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
                 new ItemIngredient { ItemId = (int)ItemTypes.StonePickaxe, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 2 },
-                new ItemIngredient { ItemId = (int)ItemTypes.OilStorage, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 4 }
+
+                new ItemIngredient { ItemId = (int)ItemTypes.OilStorage, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 4 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.WaterRoller, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 15 },
+                new ItemIngredient { ItemId = (int)ItemTypes.WaterRoller, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 10 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.LargeIcebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 25 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.CrosscutSaw, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 9 },
+                new ItemIngredient { ItemId = (int)ItemTypes.CrosscutSaw, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 20 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.RailroadPickaxe, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 20 },
+                new ItemIngredient { ItemId = (int)ItemTypes.RailroadPickaxe, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 14 },
+                new ItemIngredient { ItemId = (int)ItemTypes.RailroadPickaxe, IngredientItemId = (int)ResourceTypes.Oil, Quantity = 5 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.AboveGroundTank, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 25 },
+                new ItemIngredient { ItemId = (int)ItemTypes.AboveGroundTank, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 10 },
+                new ItemIngredient { ItemId = (int)ItemTypes.AboveGroundTank, IngredientItemId = (int)ResourceTypes.Iron, Quantity = 10 }
             );
         }
 
