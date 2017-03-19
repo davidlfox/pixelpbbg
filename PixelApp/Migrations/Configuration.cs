@@ -726,70 +726,70 @@ namespace PixelApp.Migrations
                     Name = "Wooden Bucket",
                     Description = "A wooden bucket to carry water",
                     BoostType = BoostTypes.Water,
-                    MaxBoost = 1.0m,
+                    MaxBoost = 2.0m,
                 },
                 new Item
                 {
                     Name = "Icebox",
                     Description = "Some kind of food storage",
                     BoostType = BoostTypes.Food,
-                    MaxBoost = 0.5m,
+                    MaxBoost = 2.0m,
                 },
                 new Item
                 {
                     Name = "Basic Saw",
                     Description = "You know, for killing trees",
                     BoostType = BoostTypes.Wood,
-                    MaxBoost = 0.8m,
+                    MaxBoost = 2.0m,
                 },
                 new Item
                 {
                     Name = "Stone Pickaxe",
                     Description = "The crudest tool for stone mining",
                     BoostType = BoostTypes.Stone,
-                    MaxBoost = 0.8m,
+                    MaxBoost = 2.0m,
                 },
                 new Item
                 {
                     Name = "Oil storage",
                     Description = "Simple oil storage",
                     BoostType = BoostTypes.Oil,
-                    MaxBoost = 1.0m,
+                    MaxBoost = 2.0m,
                 },
                 new Item
                 {
                     Name = "Water Roller",
                     Description = "Something like a wheelbarrow for collecting water",
                     BoostType = BoostTypes.Water,
-                    MaxBoost = 1.5m,
+                    MaxBoost = 4.5m,
                 },
                 new Item
                 {
                     Name = "Large Icebox",
                     Description = "An unoriginally larger version of an icebox",
                     BoostType = BoostTypes.Food,
-                    MaxBoost = 1.0m,
+                    MaxBoost = 4.5m,
                 },
                 new Item
                 {
                     Name = "Crosscut Saw",
                     Description = "A more efficient saw",
                     BoostType = BoostTypes.Wood,
-                    MaxBoost = 1.3m,
+                    MaxBoost = 4.5m,
                 },
                 new Item
                 {
                     Name = "Railroad Pickaxe",
                     Description = "A pickaxe with a larger handle",
                     BoostType = BoostTypes.Stone,
-                    MaxBoost = 1.2m,
+                    MaxBoost = 4.5m,
                 },
                 new Item
                 {
                     Name = "Above Ground Tank",
                     Description = "A larger oil tank",
                     BoostType = BoostTypes.Oil,
-                    MaxBoost = 1.3m,
+                    MaxBoost = 4.5m,
                 }
             );
 
