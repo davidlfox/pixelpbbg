@@ -46,7 +46,7 @@
             <td>@($"{(item.MaxBoost / 100):P2}")</td>
             <td>@item.BoostType</td>
             <td>
-                @($"{(populationEffect / 100):P2}")
+                @($"{(populationEffect):P2}")
                 @if (item.Quantity >= people)
                 {
                     <i class="fa fa-star maxed"></i>
