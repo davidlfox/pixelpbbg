@@ -40,6 +40,10 @@
     .save-resource-allocation {
         margin-top: 15px;
     }
+
+    .map-link{
+        margin:15px;
+    }
 </style>
 
 @if (!string.IsNullOrWhiteSpace(Model.MOTD.Message))
@@ -137,60 +141,63 @@
     </div>
 </div>
 <div class="row">&nbsp;</div>
-<div class="row">
-    <div class="col-sm-6">
-        <p>Todo: link to map</p>
-    </div>
-    <div class="col-sm-6">
-        <h4>Daily Task: <strong>@Model.DailyTask</strong></h4>
-        <p>Time to completion: todo</p>
-    </div>
+<div class="row section-info text-center col-xs-12">
+    <h4 class="col-xs-4 map-link">Territory Map</h4>
+    <a class="btn btn-primary col-xs-4 map-link" href="@Url.Action("Index", "Map")">Local View</a>
+    <a class="btn btn-primary col-xs-4 map-link" href="@Url.Action("Index", "Map", new { size = 25 })">Macro View</a>
 </div>
+<div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Daily Task: <strong>@Model.DailyTask</strong></h4>
+            <p>Time to completion: todo</p>
+        </div>
+    </div>
 
-@section scripts {
-    <script type="text/javascript">
-        $(function () {
-            $('.save-resource-allocation').on('click', function (e) {
-                var sum = 0;
-                $('.resource-info .allocation').each(function () {
-                    sum += Number($(this).val());
-                });
-                if (sum > 100) {
-                    toastr.error('Allocation percentages must total 100% or less');
-                } else {
-                    data = {
-                        WaterAllocation: $('.allocation-water').val(),
-                        WoodAllocation: $('.allocation-wood').val(),
-                        FoodAllocation: $('.allocation-food').val(),
-                        StoneAllocation: $('.allocation-stone').val(),
-                        OilAllocation: $('.allocation-oil').val(),
-                        IronAllocation: $('.allocation-iron').val(),
-                    };
-                    $.ajax({
-                        type: 'post',
-                        url: '/dashboard/updateresourceallocations',
-                        data: data,
-                        success: function (data) {
-                            if (data.success) {
-                                toastr.success('Your resource allocations have been saved, and they will be used for future resource gains.');
-                            } else {
-                                toastError(data.message);
+    @section scripts {
+        <script type="text/javascript">
+            $(function () {
+                $('.save-resource-allocation').on('click', function (e) {
+                    var sum = 0;
+                    $('.resource-info .allocation').each(function () {
+                        sum += Number($(this).val());
+                    });
+                    if (sum > 100) {
+                        toastr.error('Allocation percentages must total 100% or less');
+                    } else {
+                        data = {
+                            WaterAllocation: $('.allocation-water').val(),
+                            WoodAllocation: $('.allocation-wood').val(),
+                            FoodAllocation: $('.allocation-food').val(),
+                            StoneAllocation: $('.allocation-stone').val(),
+                            OilAllocation: $('.allocation-oil').val(),
+                            IronAllocation: $('.allocation-iron').val(),
+                        };
+                        $.ajax({
+                            type: 'post',
+                            url: '/dashboard/updateresourceallocations',
+                            data: data,
+                            success: function (data) {
+                                if (data.success) {
+                                    toastr.success('Your resource allocations have been saved, and they will be used for future resource gains.');
+                                } else {
+                                    toastError(data.message);
+                                }
+                            },
+                            error: function (error) {
+                                toastError('There was a problem saving your resource allocations. Please try again later.');
                             }
-                        },
-                        error: function (error) {
-                            toastError('There was a problem saving your resource allocations. Please try again later.');
-                        }
-                    })
+                        })
+                    }
+                });
+
+                function toastError(message) {
+                    if (message.length) {
+                        toastr.error(message);
+                    } else {
+                        toastr.error('There was a problem. Please try again later.');
+                    }
                 }
             });
-
-            function toastError(message) {
-                if (message.length) {
-                    toastr.error(message);
-                } else {
-                    toastr.error('There was a problem. Please try again later.');
-                }
-            }
-        });
-    </script>
-}
+        </script>
+    }
