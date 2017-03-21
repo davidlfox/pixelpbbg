@@ -35,6 +35,7 @@ namespace PixelApp.Migrations
             //
 
             SeedPermissions(context);
+            SeedItems(context);
             SeedUsers(context);
             TryToSetupAdmin(context);
             SeedTechnologies(context);
@@ -54,6 +55,7 @@ namespace PixelApp.Migrations
                 Permissions.CanEditNotes,
                 Permissions.CanTestController,
                 Permissions.CanEditBadges,
+                Permissions.CanEditItems,
             };
 
             foreach (var roleName in roles)
@@ -90,13 +92,15 @@ namespace PixelApp.Migrations
                     MaxLife = 100,
                     Level = 1,
                     UserName = adminUserEmail,
-                    Water = 50,
-                    Wood = 50,
-                    Food = 50,
-                    Stone = 50,
-                    Oil = 50,
-                    Iron = 50,
                 };
+
+                user.Items = new List<UserItem>();
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Water, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Food, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Wood, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Stone, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Oil, UserId = user.Id, Quantity = 50, });
+                user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Iron, UserId = user.Id, Quantity = 50, });
 
                 var result = manager.Create(user, "123456");
                 // give all roles
@@ -109,6 +113,7 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanEditNotes);
                 manager.AddToRole(user.Id, Permissions.CanTestController);
                 manager.AddToRole(user.Id, Permissions.CanEditBadges);
+                manager.AddToRole(user.Id, Permissions.CanEditItems);
 
                 var territory = Services.TerritoryFactory.CreateTerritory(0,0);
                 Services.TerritoryFactory.InitializeTerritory(territory);
@@ -179,6 +184,7 @@ namespace PixelApp.Migrations
                     manager.AddToRole(adminUser.Id, Permissions.CanEditNotes);
                     manager.AddToRole(adminUser.Id, Permissions.CanTestController);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditBadges);
+                    manager.AddToRole(adminUser.Id, Permissions.CanEditItems);
                 }
             }
         }
@@ -739,6 +745,127 @@ namespace PixelApp.Migrations
                     ExperienceGain = 40,
                     Level = 1,
                 });
+        }
+
+        private void SeedItems(ApplicationDbContext context)
+        {
+            // core resources
+            context.Items.AddOrUpdate(x => x.ItemId,
+                new Item { ItemId = 1, Name = "Water", Description = "Like, from the toilet.", IsCore = true, },
+                new Item { ItemId = 2, Name = "Food", Description = "Yeah, you need food too.", IsCore = true, },
+                new Item { ItemId = 3, Name = "Wood", Description = "Dead tree.", IsCore = true, },
+                new Item { ItemId = 4, Name = "Stone", Description = "Malfunctiong rock.", IsCore = true, },
+                new Item { ItemId = 5, Name = "Oil", Description = "Destroyer of sea life.", IsCore = true, },
+                new Item { ItemId = 6, Name = "Iron", Description = "The opposite of flaccid.", IsCore = true, }
+            );
+
+            context.SaveChanges();
+
+            context.Items.AddOrUpdate(x => x.Name,
+                new Item
+                {
+                    Name = "Wooden Bucket",
+                    Description = "A wooden bucket to carry water",
+                    BoostType = BoostTypes.Water,
+                    MaxBoost = 2.0m,
+                },
+                new Item
+                {
+                    Name = "Icebox",
+                    Description = "Some kind of food storage",
+                    BoostType = BoostTypes.Food,
+                    MaxBoost = 2.0m,
+                },
+                new Item
+                {
+                    Name = "Basic Saw",
+                    Description = "You know, for killing trees",
+                    BoostType = BoostTypes.Wood,
+                    MaxBoost = 2.0m,
+                },
+                new Item
+                {
+                    Name = "Stone Pickaxe",
+                    Description = "The crudest tool for stone mining",
+                    BoostType = BoostTypes.Stone,
+                    MaxBoost = 2.0m,
+                },
+                new Item
+                {
+                    Name = "Oil storage",
+                    Description = "Simple oil storage",
+                    BoostType = BoostTypes.Oil,
+                    MaxBoost = 2.0m,
+                },
+                new Item
+                {
+                    Name = "Water Roller",
+                    Description = "Something like a wheelbarrow for collecting water",
+                    BoostType = BoostTypes.Water,
+                    MaxBoost = 4.5m,
+                },
+                new Item
+                {
+                    Name = "Large Icebox",
+                    Description = "An unoriginally larger version of an icebox",
+                    BoostType = BoostTypes.Food,
+                    MaxBoost = 4.5m,
+                },
+                new Item
+                {
+                    Name = "Crosscut Saw",
+                    Description = "A more efficient saw",
+                    BoostType = BoostTypes.Wood,
+                    MaxBoost = 4.5m,
+                },
+                new Item
+                {
+                    Name = "Railroad Pickaxe",
+                    Description = "A pickaxe with a larger handle",
+                    BoostType = BoostTypes.Stone,
+                    MaxBoost = 4.5m,
+                },
+                new Item
+                {
+                    Name = "Above Ground Tank",
+                    Description = "A larger oil tank",
+                    BoostType = BoostTypes.Oil,
+                    MaxBoost = 4.5m,
+                }
+            );
+
+
+            // add ingredients using itemid/ingredientitemid as key
+            context.ItemIngredients.AddOrUpdate(x => new { x.ItemId, x.IngredientItemId },
+                new ItemIngredient { ItemId = (int)ItemTypes.WoodenBucket, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 2 },
+                new ItemIngredient { ItemId = (int)ItemTypes.WoodenBucket, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 1 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.Icebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 1 },
+                new ItemIngredient { ItemId = (int)ItemTypes.BasicSaw, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 2 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.StonePickaxe, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 3 },
+                new ItemIngredient { ItemId = (int)ItemTypes.StonePickaxe, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 2 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.OilStorage, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 4 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.WaterRoller, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 15 },
+                new ItemIngredient { ItemId = (int)ItemTypes.WaterRoller, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 10 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.LargeIcebox, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 25 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.CrosscutSaw, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 9 },
+                new ItemIngredient { ItemId = (int)ItemTypes.CrosscutSaw, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 20 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.RailroadPickaxe, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 20 },
+                new ItemIngredient { ItemId = (int)ItemTypes.RailroadPickaxe, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 14 },
+                new ItemIngredient { ItemId = (int)ItemTypes.RailroadPickaxe, IngredientItemId = (int)ResourceTypes.Oil, Quantity = 5 },
+
+                new ItemIngredient { ItemId = (int)ItemTypes.AboveGroundTank, IngredientItemId = (int)ResourceTypes.Stone, Quantity = 25 },
+                new ItemIngredient { ItemId = (int)ItemTypes.AboveGroundTank, IngredientItemId = (int)ResourceTypes.Wood, Quantity = 10 },
+                new ItemIngredient { ItemId = (int)ItemTypes.AboveGroundTank, IngredientItemId = (int)ResourceTypes.Iron, Quantity = 10 }
+            );
         }
 
     }

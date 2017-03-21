@@ -117,7 +117,8 @@ namespace PixelApp.Controllers
                         var qty = level * (rand.Next(0, 4) + 2);
                         vm.IsSuccess = true;
                         vm.Message = $"You spent {energyRequired} energy, and found {qty} food!";
-                        this.UserContext.Food += qty;
+                        var food = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Food);
+                        food.Quantity += qty;
 
                         // todo: config
                         this.UserContext.Experience += 2;

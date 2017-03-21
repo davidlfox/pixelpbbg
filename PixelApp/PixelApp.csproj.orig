@@ -207,6 +207,9 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\ItemIngredientsController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MailboxController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapController.cs" />
@@ -220,6 +223,8 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TradesController.cs" />
     <Compile Include="Controllers\UserBadgesController.cs" />
+    <Compile Include="Controllers\UserItemsController.cs" />
+    <Compile Include="Controllers\WorkbenchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -295,17 +300,28 @@
     <Compile Include="Migrations\201703120004444_badges.Designer.cs">
       <DependentUpon>201703120004444_badges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703142133212_setup-items.cs" />
+    <Compile Include="Migrations\201703142133212_setup-items.Designer.cs">
+      <DependentUpon>201703142133212_setup-items.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703142135226_copy-resources-to-items.cs" />
+    <Compile Include="Migrations\201703142135226_copy-resources-to-items.Designer.cs">
+      <DependentUpon>201703142135226_copy-resources-to-items.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
     <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\ItemIngredient.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
     <Compile Include="Models\Trade.cs" />
     <Compile Include="Models\UserBadges.cs" />
+    <Compile Include="Models\UserItem.cs" />
     <Compile Include="Models\UserTechnology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommunicationService.cs" />
@@ -321,6 +337,7 @@
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
+    <Compile Include="Views\Inventory\Models\InventoryIndexViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
     <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
@@ -330,8 +347,14 @@
     <Compile Include="Views\Permissions\Models\PermissionsUserModel.cs" />
     <Compile Include="Views\Permissions\Models\PermissionsViewModel.cs" />
     <Compile Include="Views\Research\Models\TechDetailViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="Views\Map\Models\MapViewModel.cs" />
     <Compile Include="Views\Map\Models\TerritorySkinny.cs" />
+=======
+    <Compile Include="Views\Workbench\Models\WorkbenchCraftViewModel.cs" />
+    <Compile Include="Views\Workbench\Models\WorkbenchIndexViewModel.cs" />
+    <Compile Include="Views\Workbench\Models\WorkbenchViewModel.cs" />
+>>>>>>> dev
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -435,9 +458,7 @@
     <Content Include="Views\Mailbox\View.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
     <Content Include="Views\Research\TechDetail.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Map\Index.cshtml" />
-=======
     <Content Include="Views\Badges\Create.cshtml" />
     <Content Include="Views\Badges\Delete.cshtml" />
     <Content Include="Views\Badges\Details.cshtml" />
@@ -450,7 +471,23 @@
     <Content Include="Views\UserBadges\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\_Badge.cshtml" />
->>>>>>> dev
+    <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Items\Delete.cshtml" />
+    <Content Include="Views\Items\Details.cshtml" />
+    <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\UserItems\Create.cshtml" />
+    <Content Include="Views\UserItems\Delete.cshtml" />
+    <Content Include="Views\UserItems\Details.cshtml" />
+    <Content Include="Views\UserItems\Edit.cshtml" />
+    <Content Include="Views\UserItems\Index.cshtml" />
+    <Content Include="Views\ItemIngredients\Create.cshtml" />
+    <Content Include="Views\ItemIngredients\Delete.cshtml" />
+    <Content Include="Views\ItemIngredients\Details.cshtml" />
+    <Content Include="Views\ItemIngredients\Edit.cshtml" />
+    <Content Include="Views\ItemIngredients\Index.cshtml" />
+    <Content Include="Views\Workbench\Index.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -519,6 +556,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703120004444_badges.resx">
       <DependentUpon>201703120004444_badges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703142133212_setup-items.resx">
+      <DependentUpon>201703142133212_setup-items.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703142135226_copy-resources-to-items.resx">
+      <DependentUpon>201703142135226_copy-resources-to-items.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

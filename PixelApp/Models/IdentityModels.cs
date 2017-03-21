@@ -100,6 +100,11 @@ namespace PixelApp.Models
         /// </summary>
         public ICollection<UserBadge> Badges { get; set; }
 
+        /// <summary>
+        /// Collection of items
+        /// </summary>
+        public ICollection<UserItem> Items { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -123,6 +128,16 @@ namespace PixelApp.Models
             return new ApplicationDbContext();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ItemIngredient>()
+                .HasRequired(x => x.IngredientItem)
+                .WithMany()
+                .HasForeignKey(x => x.IngredientItemId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public System.Data.Entity.DbSet<PixelApp.Models.Territory> Territories { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.Technology> Technologies { get; set; }
@@ -138,5 +153,11 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.Badge> Badges { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.UserBadge> UserBadges { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.Item> Items { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.UserItem> UserItems { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.ItemIngredient> ItemIngredients { get; set; }
     }
 }

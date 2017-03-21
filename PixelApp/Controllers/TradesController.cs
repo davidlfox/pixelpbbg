@@ -57,73 +57,16 @@ namespace PixelApp.Controllers
                 var quantityError = "You don't have that much to offer";
                 // validate user has the offered resources
                 // todo: this sucks, having to explicitly check different attributes. should resources be a collection on the user??
-                switch (trade.TypeOffered)
+                var itemOffered = this.UserContext.Items.Single(x => x.ItemId == (int)trade.TypeOffered);
+                if (itemOffered.Quantity < trade.QuantityOffered)
                 {
-                    case Pixel.Common.Data.ResourceTypes.Water:
-                        if (this.UserContext.Water < trade.QuantityOffered)
-                        {
-                            ModelState.AddModelError(string.Empty, quantityError);
-                        }
-                        break;
-                    case Pixel.Common.Data.ResourceTypes.Wood:
-                        if (this.UserContext.Wood < trade.QuantityOffered)
-                        {
-                            ModelState.AddModelError(string.Empty, quantityError);
-                        }
-                        break;
-                    case Pixel.Common.Data.ResourceTypes.Food:
-                        if (this.UserContext.Food < trade.QuantityOffered)
-                        {
-                            ModelState.AddModelError(string.Empty, quantityError);
-                        }
-                        break;
-                    case Pixel.Common.Data.ResourceTypes.Stone:
-                        if (this.UserContext.Stone < trade.QuantityOffered)
-                        {
-                            ModelState.AddModelError(string.Empty, quantityError);
-                        }
-                        break;
-                    case Pixel.Common.Data.ResourceTypes.Oil:
-                        if (this.UserContext.Oil < trade.QuantityOffered)
-                        {
-                            ModelState.AddModelError(string.Empty, quantityError);
-                        }
-                        break;
-                    case Pixel.Common.Data.ResourceTypes.Iron:
-                        if (this.UserContext.Iron < trade.QuantityOffered)
-                        {
-                            ModelState.AddModelError(string.Empty, quantityError);
-                        }
-                        break;
-                    default:
-                        ModelState.AddModelError(string.Empty, "The trade offer must include a type of resource");
-                        break;
+                    ModelState.AddModelError(string.Empty, quantityError);
                 }
 
                 if (ModelState.IsValid)
                 {
                     // reduce resources by offer amount
-                    switch (trade.TypeOffered)
-                    {
-                        case Pixel.Common.Data.ResourceTypes.Water:
-                            this.UserContext.Water -= trade.QuantityOffered;
-                            break;
-                        case Pixel.Common.Data.ResourceTypes.Wood:
-                            this.UserContext.Wood -= trade.QuantityOffered;
-                            break;
-                        case Pixel.Common.Data.ResourceTypes.Food:
-                            this.UserContext.Food -= trade.QuantityOffered;
-                            break;
-                        case Pixel.Common.Data.ResourceTypes.Stone:
-                            this.UserContext.Stone -= trade.QuantityOffered;
-                            break;
-                        case Pixel.Common.Data.ResourceTypes.Oil:
-                            this.UserContext.Oil -= trade.QuantityOffered;
-                            break;
-                        case Pixel.Common.Data.ResourceTypes.Iron:
-                            this.UserContext.Iron -= trade.QuantityOffered;
-                            break;
-                    }
+                    itemOffered.Quantity -= trade.QuantityOffered;
 
                     this.Context.Trades.Add(trade);
                     await this.Context.SaveChangesAsync();
@@ -157,110 +100,28 @@ namespace PixelApp.Controllers
 
             // validate accepting user has resources, then take them away, give them to the initiating trader
             // todo: notify initiating user that trade has been accepted
-            switch (trade.TypeAsked)
+
+            var itemAsked = this.UserContext.Items.Single(x => x.ItemId == (int)trade.TypeAsked);
+            if (itemAsked.Quantity < trade.QuantityAsked)
             {
-                case Pixel.Common.Data.ResourceTypes.Water:
-                    if (this.UserContext.Water < trade.QuantityAsked)
-                    {
-                        return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
-                    }
-                    else
-                    {
-                        trade.IsActive = false;
-                        // take away ask from accepting trader
-                        this.UserContext.Water -= trade.QuantityAsked;
-                        // give ask to initiating trader
-                        trade.Owner.Water += trade.QuantityAsked;
-                    }
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Wood:
-                    if (this.UserContext.Wood < trade.QuantityAsked)
-                    {
-                        return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
-                    }
-                    else
-                    {
-                        trade.IsActive = false;
-                        this.UserContext.Wood -= trade.QuantityAsked;
-                        trade.Owner.Wood += trade.QuantityAsked;
-                    }
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Food:
-                    if (this.UserContext.Food < trade.QuantityAsked)
-                    {
-                        return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
-                    }
-                    else
-                    {
-                        trade.IsActive = false;
-                        this.UserContext.Food -= trade.QuantityAsked;
-                        trade.Owner.Food += trade.QuantityAsked;
-                    }
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Stone:
-                    if (this.UserContext.Stone < trade.QuantityAsked)
-                    {
-                        return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
-                    }
-                    else
-                    {
-                        trade.IsActive = false;
-                        this.UserContext.Stone -= trade.QuantityAsked;
-                        trade.Owner.Stone += trade.QuantityAsked;
-                    }
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Oil:
-                    if (this.UserContext.Oil < trade.QuantityAsked)
-                    {
-                        return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
-                    }
-                    else
-                    {
-                        trade.IsActive = false;
-                        this.UserContext.Oil -= trade.QuantityAsked;
-                        trade.Owner.Oil += trade.QuantityAsked;
-                    }
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Iron:
-                    if (this.UserContext.Iron < trade.QuantityAsked)
-                    {
-                        return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
-                    }
-                    else
-                    {
-                        trade.IsActive = false;
-                        this.UserContext.Iron -= trade.QuantityAsked;
-                        trade.Owner.Iron += trade.QuantityAsked;
-                    }
-                    break;
-                default:
-                    break;
+                return RedirectToAction("Index", new { iserror = true, message = tradeErrorMessage });
+            }
+            else
+            {
+                trade.IsActive = false;
+                // take away ask from accepting trader
+                itemAsked.Quantity -= trade.QuantityAsked;
+                // give ask to initiating trader
+                var tradeOwner = this.Context.Users
+                    .Include(x => x.Items)
+                    .Single(x => x.Id == trade.OwnerId);
+                var tradeOwnerItem = tradeOwner.Items.Single(x => x.ItemId == (int)trade.TypeAsked);
+                tradeOwnerItem.Quantity += trade.QuantityAsked;
             }
 
             // at this point, the ask has been satisfied. give offer quantity to this user
-            switch (trade.TypeOffered)
-            {
-                case Pixel.Common.Data.ResourceTypes.Water:
-                    this.UserContext.Water += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Wood:
-                    this.UserContext.Wood += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Food:
-                    this.UserContext.Food += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Stone:
-                    this.UserContext.Stone += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Oil:
-                    this.UserContext.Oil += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Iron:
-                    this.UserContext.Iron += trade.QuantityOffered;
-                    break;
-                default:
-                    break;
-            }
+            var acceptingUserItem = this.UserContext.Items.Single(x => x.ItemId == (int)trade.TypeOffered);
+            acceptingUserItem.Quantity += trade.QuantityOffered;
 
             trade.TradedToUserId = this.UserContext.Id;
 
@@ -309,29 +170,8 @@ namespace PixelApp.Controllers
             trade.IsActive = false;
 
             // give resources back to the user
-            switch (trade.TypeOffered)
-            {
-                case Pixel.Common.Data.ResourceTypes.Water:
-                    this.UserContext.Water += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Wood:
-                    this.UserContext.Wood += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Food:
-                    this.UserContext.Food += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Stone:
-                    this.UserContext.Stone += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Oil:
-                    this.UserContext.Oil += trade.QuantityOffered;
-                    break;
-                case Pixel.Common.Data.ResourceTypes.Iron:
-                    this.UserContext.Iron += trade.QuantityOffered;
-                    break;
-                default:
-                    break;
-            }
+            var item = this.UserContext.Items.Single(x => x.ItemId == (int)trade.TypeOffered);
+            item.Quantity += trade.QuantityOffered;
 
             await this.Context.SaveChangesAsync();
             return RedirectToAction("Index");

@@ -89,6 +89,7 @@
     <Compile Include="Cloud\ZombieFightMessage.cs" />
     <Compile Include="Data\BadgeTypes.cs" />
     <Compile Include="Data\BoostTypes.cs" />
+    <Compile Include="Data\ItemTypes.cs" />
     <Compile Include="Data\ResourceTypes.cs" />
     <Compile Include="Data\TechnologyTypes.cs" />
     <Compile Include="Data\TerritoryTypes.cs" />

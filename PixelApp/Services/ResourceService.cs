@@ -31,36 +31,9 @@ namespace PixelApp.Services
                 var res = list.ElementAt(resIndex);
 
                 // if win, normal gains, if lose, normal losses, if die, 2x losses
-                if (res.Key == ResourceTypes.Water)
-                {
-                    quantity = GetQuantity(user.Water, isWin, isDie, 0);
-                    user.Water += quantity;
-                }
-                if (res.Key == ResourceTypes.Wood)
-                {
-                    quantity = GetQuantity(user.Wood, isWin, isDie, 0);
-                    user.Wood += quantity;
-                }
-                if (res.Key == ResourceTypes.Food)
-                {
-                    quantity = GetQuantity(user.Food, isWin, isDie, 0);
-                    user.Food += quantity;
-                }
-                if (res.Key == ResourceTypes.Stone)
-                {
-                    quantity = GetQuantity(user.Stone, isWin, isDie, 0);
-                    user.Stone += quantity;
-                }
-                if (res.Key == ResourceTypes.Oil)
-                {
-                    quantity = GetQuantity(user.Oil, isWin, isDie, 0);
-                    user.Oil += quantity;
-                }
-                if (res.Key == ResourceTypes.Iron)
-                {
-                    quantity = GetQuantity(user.Iron, isWin, isDie, 0);
-                    user.Iron += quantity;
-                }
+                quantity = GetQuantity(res.Value, isWin, isDie, 0);
+                var item = user.Items.Single(x => x.ItemId == (int)res.Key);
+                item.Quantity += quantity;
 
                 return string.Format("You {0} {1} {2}.", isWin ? "found" : "lost", Math.Abs(quantity), res.Key);
             }
@@ -74,32 +47,17 @@ namespace PixelApp.Services
         public static Dictionary<ResourceTypes, int> GetNonZeroUserResources(ApplicationUser user)
         {
             var list = new Dictionary<ResourceTypes, int>();
-            if (user.Water > 0)
-            {
-                list.Add(ResourceTypes.Water, user.Water);
-            }
-            if (user.Wood > 0)
-            {
-                list.Add(ResourceTypes.Wood, user.Wood);
-            }
-            if (user.Food > 0)
-            {
-                list.Add(ResourceTypes.Food, user.Food);
-            }
-            if (user.Stone > 0)
-            {
-                list.Add(ResourceTypes.Stone, user.Stone);
-            }
-            if (user.Oil > 0)
-            {
-                list.Add(ResourceTypes.Oil, user.Oil);
-            }
-            if (user.Iron > 0)
-            {
-                list.Add(ResourceTypes.Iron, user.Iron);
-            }
 
-            return list;
+            // probably a .ToDictionary way to do this
+            return user.Items.Where(x => x.Item.IsCore.Equals(true) && x.Quantity > 0)
+                .ToDictionary(x => (ResourceTypes)x.ItemId, x => x.Quantity);
+            
+            //foreach (var item in items)
+            //{
+            //    list.Add((ResourceTypes)item.ItemId, item.Quantity);
+            //}
+                
+            //return list;
         }
 
         public static int GetQuantity(int userQty, bool isWin, bool isDie, double deltaPercentage)
