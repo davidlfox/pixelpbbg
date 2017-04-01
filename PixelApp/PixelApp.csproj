@@ -214,6 +214,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MOTDController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ResearchController.cs" />
@@ -307,6 +308,10 @@
     <Compile Include="Migrations\201703142135226_copy-resources-to-items.Designer.cs">
       <DependentUpon>201703142135226_copy-resources-to-items.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704011532565_paypal.cs" />
+    <Compile Include="Migrations\201704011532565_paypal.Designer.cs">
+      <DependentUpon>201704011532565_paypal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -316,6 +321,7 @@
     <Compile Include="Models\ItemIngredient.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\PaypalTransaction.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\Territory.cs" />
     <Compile Include="Models\Trade.cs" />
@@ -339,6 +345,7 @@
     <Compile Include="Views\Inventory\Models\InventoryIndexViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
+    <Compile Include="Views\Paypal\Models\PaypalViewModel.cs" />
     <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
     <Compile Include="Views\Profile\Models\ProfileViewModel.cs" />
     <Compile Include="Views\Research\Models\ResearchViewModel.cs" />
@@ -481,6 +488,8 @@
     <Content Include="Views\ItemIngredients\Index.cshtml" />
     <Content Include="Views\Workbench\Index.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Paypal\Thanks.cshtml" />
+    <Content Include="Views\Paypal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -555,6 +564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703142135226_copy-resources-to-items.resx">
       <DependentUpon>201703142135226_copy-resources-to-items.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704011532565_paypal.resx">
+      <DependentUpon>201704011532565_paypal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

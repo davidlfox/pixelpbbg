@@ -79,6 +79,11 @@ namespace PixelApp.Models
         public int Iron { get; set; }
 
         /// <summary>
+        /// Boost hours purchased via paypal
+        /// </summary>
+        public int? HourlyResourceBoosts { get; set; }
+
+        /// <summary>
         /// The player's home territory
         /// </summary>
         [ForeignKey("Territory")]
@@ -104,6 +109,11 @@ namespace PixelApp.Models
         /// Collection of items
         /// </summary>
         public ICollection<UserItem> Items { get; set; }
+
+        /// <summary>
+        /// Collection of paypal transactions
+        /// </summary>
+        public ICollection<PaypalTransaction> PaypalTransactions { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -159,5 +169,7 @@ namespace PixelApp.Models
         public System.Data.Entity.DbSet<PixelApp.Models.UserItem> UserItems { get; set; }
 
         public System.Data.Entity.DbSet<PixelApp.Models.ItemIngredient> ItemIngredients { get; set; }
+
+        public System.Data.Entity.DbSet<PixelApp.Models.PaypalTransaction> PaypalTransactions { get; set; }
     }
 }
