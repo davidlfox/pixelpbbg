@@ -118,6 +118,7 @@ namespace PixelApp.Migrations
                 var territory = new Territory();
                 Services.TerritoryFactory.InitializeTerritory(territory);
                 territory.Name = "me@a.com's territory";
+                territory.Type = TerritoryTypes.Desert;
                 user.Territory = territory;
             }
         }

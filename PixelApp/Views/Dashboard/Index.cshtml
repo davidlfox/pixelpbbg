@@ -40,6 +40,10 @@
     .save-resource-allocation {
         margin-top: 15px;
     }
+
+    .label-attack {
+        line-height: 2;
+    }
 </style>
 
 @if (!string.IsNullOrWhiteSpace(Model.MOTD.Message))
@@ -60,15 +64,16 @@
 
 <div class="row section-info territory-info">
     <div class="col-sm-4">
-        <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
-        <p>Type: <strong>@Model.TerritoryType</strong></p>
-        <p>Outskirts appeal: <strong>@Model.OutskirtsAppeal</strong></p>
+        <img class="type" src="@($"{assetPath}{Model.TerritoryType.ToString().ToLower()}.png")" alt="@Model.TerritoryType" />
         <p>Civilian Population: <strong>@Model.CivilianPopulation</strong></p>
     </div>
     <div class="col-sm-4">
-        <img class="type" src="@($"{assetPath}{Model.TerritoryType.ToString().ToLower()}.png")" alt="@Model.TerritoryType" />
-    </div>
-    <div class="col-sm-4">
+        <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
+        <p>
+            Type: <strong>@Model.TerritoryType</strong>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Outskirts appeal: <strong>@Model.OutskirtsAppeal</strong>
+        </p>
         <p>
             Neighboring Territories:
             <ul>
@@ -79,10 +84,7 @@
             </ul>
         </p>
     </div>
-</div>
-<div class="row">&nbsp;</div>
-<div class="row section-info recent-attack-info">
-    <div class="col-xs-12">
+    <div class="col-sm-4">
         <h4>Recent Attacks</h4>
         @if (Model.RecentAttacks.Count == 0)
         {
@@ -90,10 +92,15 @@
         }
         else
         {
-            foreach (var log in Model.RecentAttacks)
-            {
-                <p class="alert alert-@(log.WasAttacked ? "danger" : "success")">@log.TimeOfAttack.ToShortDateString(): @log.Message</p>
-            }
+            <h4>
+                @foreach (var log in Model.RecentAttacks)
+                {
+                    <span class="label label-@(log.WasAttacked ? "danger" : "success") label-lg label-attack" data-toggle="tooltip" title="@log.Message">
+                        @log.TimeOfAttack.ToShortDateString()
+                    </span>
+                    @:&nbsp;
+                }
+            </h4>
         }
     </div>
 </div>
@@ -161,6 +168,8 @@
 @section scripts {
     <script type="text/javascript">
         $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ html: true });
+
             $('.save-resource-allocation').on('click', function (e) {
                 var sum = 0;
                 $('.resource-info .allocation').each(function () {

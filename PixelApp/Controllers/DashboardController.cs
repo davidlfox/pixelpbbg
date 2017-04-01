@@ -76,7 +76,7 @@ namespace PixelApp.Controllers
             vm.RecentAttacks = this.Context.AttackLogs
                 .Where(x => x.UserId == this.UserContext.Id)
                 .OrderByDescending(x => x.TimeOfAttack)
-                .Take(3)
+                .Take(6)
                 .Select(x => new AttackLogSkinny
                 {
                     Message = x.Message,
