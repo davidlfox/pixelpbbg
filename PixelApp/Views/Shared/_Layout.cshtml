@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
         .navbar i {
@@ -36,6 +36,16 @@
         }
         .has-mail { 
             color: #d9534f !important;
+        }
+        .li-paypal {
+            background: #d9534f;
+            font-weight: bold;
+        }
+        .li-paypal a {
+            color: #fff !important;
+        }
+        .li-paypal a:hover {
+            color: #ccc !important;
         }
     </style>
 </head>
@@ -68,6 +78,7 @@
                         </div>
                     </li>
                     <li class="active"><a href="@Url.Action("Index", "Home")">Home<i class="pull-right hidden-xs showopacity fa fa-home"></i></a></li>
+                    <li class="li-paypal"><a href="@Url.Action("Index", "Paypal")">Get A Boost!<i class="pull-right hidden-xs showopacity fa fa-thermometer-full"></i></a></li>
                     <li><a href="@Url.Action("Index", "Mailbox")" class="mailbox">Mailbox<i class="pull-right hidden-xs showopacity fa fa-envelope"></i></a></li>
                     <li><a href="@Url.Action("Index", "Profile")">Profile<i class="pull-right hidden-xs showopacity fa fa-user"></i></a></li>
                     <li><a href="@Url.Action("Zombies", "Find")">Hunt Zombies<i class="pull-right hidden-xs showopacity fa fa-exclamation-triangle"></i></a></li>
@@ -81,11 +92,10 @@
                             <li><a href="@Url.Action("Index", "Workbench")">Workbench<i class="pull-right hidden-xs showopacity fa fa-briefcase"></i></a></li>
                         </ul>
                     </li>
-                    <li><a href="@Url.Action("Users", "Home")">Users<i class="pull-right hidden-xs showopacity fa fa-users"></i></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-cog"></i></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="javascript:void(0);">Coming Soon!</a></li>
+                            <li><a href="@Url.Action("Users", "Home")">Users<i class="pull-right hidden-xs showopacity fa fa-users"></i></a></li>
                         </ul>
                     </li>
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)

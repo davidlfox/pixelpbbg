@@ -52,6 +52,12 @@
     </div>
 }
 
+<div class="alert alert-success text-center">
+    <a href="@Url.Action("Index", "Paypal")">
+        <h3><strong><u>GET A 24-HOUR RESOURCE BOOST FOR $0.99!!!</u></strong></h3>
+    </a>
+</div>
+
 <div class="row section-info territory-info">
     <div class="col-sm-4">
         <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
@@ -96,6 +102,11 @@
     <p class="alert alert-info">
         This is your resource stockpile. You can adjust the <strong>percentages</strong> of civilian population dedicated to gathering each resource.
         <strong>Percentages must total 100% or less.</strong>
+        <a href="@Url.Action("Index", "Paypal")">
+            <span class="label label-success">
+                GET A 24-HOUR RESOURCE BOOST FOR $0.99!!!
+            </span>
+        </a>
     </p>
     @foreach (var res in Model.Resources)
     {
