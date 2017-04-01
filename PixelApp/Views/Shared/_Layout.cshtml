@@ -50,6 +50,9 @@
         .li-paypal a:hover {
             color: #ccc !important;
         }
+        .boost-hours {
+            color: #d90224;
+        }
     </style>
 </head>
 <body>
@@ -84,6 +87,10 @@
                     <li class="li-paypal @(ViewBag.BoostHours > 0 ? "boosted" : string.Empty)">
                         <a href="@Url.Action("Index", "Paypal")" data-toggle="tooltip" title="@(ViewBag.BoostHours > 0 ? "You're currently boosted, and you can always add more!" : string.Empty)">
                             Get A Boost!
+                            @if (ViewBag.BoostHours > 0)
+                            {
+                                <small class="text-muted boost-hours">@string.Format("({0}h left!)", ViewBag.BoostHours)</small>
+                            }
                             <i class="pull-right hidden-xs showopacity fa fa-thermometer-full"></i>
                         </a>
                     </li>
