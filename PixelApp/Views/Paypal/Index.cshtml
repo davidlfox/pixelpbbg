@@ -1,6 +1,15 @@
 ﻿@model PixelApp.Views.Paypal.Models.PaypalViewModel
 @{
     ViewBag.Title = "Index";
+    var boostHours = ViewBag.BoostHours;
+}
+
+@if (boostHours > 0)
+{
+    <div class="alert alert-info">
+        <h3>You have @boostHours @string.Format("hour{0}", boostHours > 1 ? "s" : string.Empty) remaining!</h3>
+        <h4>You're currently boosted! You can always add more time to your boost and really gain an edge!</h4>
+    </div>
 }
 
 <div class="alert alert-success">
