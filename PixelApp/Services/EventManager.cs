@@ -148,7 +148,7 @@ namespace PixelApp.Services
                 if (territory.LastPopulationUpdate < DateTime.Now.AddHours(-24))
                 {
                     var elapsed = DateTime.Now - territory.LastPopulationUpdate;
-                    var daysElapsed = elapsed.Days;
+                    var daysElapsed = (int)Math.Floor(elapsed.TotalDays);
 
                     var noteText = string.Empty;
 
@@ -183,7 +183,7 @@ namespace PixelApp.Services
                 if (territory.LastNightlyAttack < DateTime.Now.AddHours(-24))
                 {
                     var elapsed = DateTime.Now - territory.LastNightlyAttack;
-                    var daysElapsed = elapsed.Days;
+                    var daysElapsed = (int)Math.Floor(elapsed.TotalDays);
 
                     var rand = new Random();
 
