@@ -7,7 +7,6 @@
 
 <style type="text/css">
     .territory {
-        margin: 1px;
         display:inline-block;
         height: @(size)vw;
         width: @(size)vw;
@@ -51,12 +50,12 @@
 @section scripts {
     <script type="text/javascript">
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip({ html: true });
         });
     </script>
 }
 
-<h2>@(Model.IsTerritorySelectionMode ? "Please select an available Territory" : "Territory Map")</h2>
+<h2>@(Model.Mode != null && Model.Mode.Equals("s") ? "Please select an available Territory" : "Territory Map")</h2>
 <div>
     <div class="well well-lg map-canvas text-center">
         @for (int y = (Model.Y + Model.Reach); y >= (Model.Y - Model.Reach); y--)
@@ -67,13 +66,16 @@
                     var pixel = Model.Territories.FirstOrDefault(z => z.X.Equals(x) && z.Y.Equals(y));
                     if (pixel != null)
                     {
-                            <div class="territory" data-toggle="tooltip" title="@pixel.Name @pixel.UserName">
+                        var IsMyTerritory = (x.Equals(Model.X) && y.Equals(Model.Y));
+                        <a href='@(Model.Mode != null && Model.Mode.Equals("c") && !IsMyTerritory ? Url.Action("AttackTerritory", "Map", new { x = x, y = y }) : "javascript:void(0)")'>
+                            <div class="territory" data-toggle="tooltip" title="@pixel.Name <br /> @pixel.UserName <br /> Level: @pixel.UserLevel">
                                 <img class="type" src="@($"{assetPath}{pixel.Type.ToString().ToLower()}.png")" alt="@pixel.Type" />
                             </div>
+                        </a>
                     }
                     else
                     {
-                        if (Model.IsTerritorySelectionMode && Model.Territories.Any(a =>
+                        if (Model.Mode != null && Model.Mode.Equals("s") && Model.Territories.Any(a =>
                             (a.X + 1).Equals(x) && a.Y.Equals(y)
                             || (a.X - 1).Equals(x) && a.Y.Equals(y)
                             || a.X.Equals(x) && (a.Y + 1).Equals(y)

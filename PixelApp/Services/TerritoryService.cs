@@ -1,4 +1,6 @@
-﻿using PixelApp.Models;
+﻿using Pixel.Common.Data;
+using Pixel.Common.Models;
+using PixelApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,6 +97,75 @@ namespace PixelApp.Services
             public int Size { get; set; }
             public int X { get; set; }
             public int Y { get; set; }
+        }
+
+        public ProcessResponse AttackTerritory(ApplicationUser attacker, int territoryId)
+        {
+            if (attacker.Energy < 50)
+                return new ProcessResponse(false, "Not enough energy to Attack.");
+
+            var response = new ProcessResponse();
+            var target = context.Territories.FirstOrDefault(t => t.TerritoryId.Equals(territoryId));
+            if (target == null)
+                return new ProcessResponse(false, "Territory not found.");
+
+            var defender = target.Players.First();
+            var levelBoost = (attacker.Level - defender.Level) * 10;
+            var offensePercent = attacker.Techs.Where(x => x.Technology.BoostTypeId == BoostTypes.Offense).Sum(x => x.Technology.BoostAmount * 100);
+            var defensePercent = defender.Techs.Where(x => x.Technology.BoostTypeId == BoostTypes.Defense).Sum(x => x.Technology.BoostAmount * 100);
+
+            var winPercent = 45 + offensePercent - defensePercent + levelBoost;
+            if (winPercent < 2 && attacker.Level < defender.Level)
+                return new ProcessResponse(false, "Victory is not possible");
+
+            attacker.Experience -= 50;
+            var baseExp = attacker.Level * 20;
+            var rand = new Random();
+            if (rand.Next(0, 99) + 1 < winPercent)
+            {
+                // Win
+                response.Messages.Add("Result", "Victory");
+
+                var xpChange = Math.Max((int)(baseExp * (100 - winPercent)), 5);
+                attacker.Experience += xpChange;
+                response.Messages.Add("Experience Gain", xpChange);
+
+                var popChange = attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100);
+                attacker.Territory.CivilianPopulation -= popChange;
+                response.Messages.Add("Population Lost", popChange);
+
+                var lootType = (ResourceTypes)(rand.Next(0, 6) + 1);
+                var defenderItem = defender.Items.Single(x => x.ItemId == (int)lootType);
+                var attackerItem = attacker.Items.Single(x => x.ItemId == (int)lootType);
+                var lootAmt = defenderItem.Quantity * ((rand.Next(0, 5) + 2) / 100);
+                attackerItem.Quantity += lootAmt;
+                defenderItem.Quantity -= lootAmt;
+                response.Messages.Add("Loot Taken", $"{lootAmt} {lootType.ToString()}");
+            }
+            else
+            {
+                // Loss
+                response.Messages.Add("Result", "Loss");
+
+                attacker.Experience += 5;
+                response.Messages.Add("Experience Gain", 5);
+
+                var popChange = attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100);
+                attacker.Territory.CivilianPopulation -= popChange;
+                response.Messages.Add("Population Lost", popChange);
+            }
+
+            return response;
+        }
+
+        public Territory GetTerritory(int x, int y)
+        {
+            return context.Territories.FirstOrDefault(t => t.X.Equals(x) && t.Y.Equals(y));
+        }
+
+        public IQueryable<Territory> GetTerritories()
+        {
+            return context.Territories;
         }
     }
 }

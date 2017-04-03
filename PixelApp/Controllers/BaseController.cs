@@ -48,7 +48,7 @@ namespace PixelApp.Controllers
                     && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "SelectTerritory"))
                 {
 
-                    filterContext.Result = RedirectToAction("Index", "Map", new { sm = true });
+                    filterContext.Result = RedirectToAction("Index", "Map", new { Mode = "s" });
                 }
             }
 

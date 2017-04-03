@@ -105,6 +105,11 @@ namespace PixelApp.Models
         /// </summary>
         public ICollection<UserItem> Items { get; set; }
 
+        /// <summary>
+        /// Collection of items
+        /// </summary>
+        public ICollection<UserTechnology> Techs { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

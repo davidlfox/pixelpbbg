@@ -19,6 +19,11 @@ namespace PixelApp.Views.Map.Models
         public string UserName { get; set; }
 
         /// <summary>
+        /// The level of the territory's owner
+        /// </summary>
+        public byte UserLevel { get; set; }
+
+        /// <summary>
         /// Type of territory
         /// </summary>
         public TerritoryTypes Type { get; set; }

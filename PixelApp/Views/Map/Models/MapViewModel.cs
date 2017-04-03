@@ -15,8 +15,8 @@ namespace PixelApp.Views.Map.Models
         public int X { get; set; }
         public int Y { get; set; }
 
-        // Is the map allowing for territory selection
-        public bool IsTerritorySelectionMode { get; set; }
+        // Which map mode is being used regular map (null), territory selection ("s"), or combat mode? ("c")
+        public string Mode { get; set; }
 
         public int Reach { get; set; }
     }

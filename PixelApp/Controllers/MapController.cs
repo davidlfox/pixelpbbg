@@ -16,7 +16,7 @@ namespace PixelApp.Controllers
         /// </summary>
         /// <param name="sm">Is selection mode on?</param>
         /// <returns></returns>
-        public ActionResult Index(int? size = null, bool sm = false)
+        public ActionResult Index(int? size = null, string mode = null)
         {
             var vm = new MapViewModel();
             var mapOptions = new MapOptions();
@@ -33,7 +33,7 @@ namespace PixelApp.Controllers
             }
 
             vm = GenMapViewModel(mapOptions);
-            vm.IsTerritorySelectionMode = sm;
+            vm.Mode = mode;
             return View(vm);
         }
 
@@ -58,6 +58,7 @@ namespace PixelApp.Controllers
                     Y = x.Y,
                     Name = x.Name,
                     UserName = x.Players.FirstOrDefault().UserName,
+                    UserLevel = x.Players.FirstOrDefault().Level,
                     Type = x.Type
                 }).ToList();
 
@@ -66,6 +67,9 @@ namespace PixelApp.Controllers
 
         public ActionResult SelectTerritory(int x, int y)
         {
+            if (this.UserContext.Territory != null)
+                return RedirectToAction("Index");
+
             var territory = TerritoryFactory.CreateTerritory(x, y);
             TerritoryFactory.InitializeTerritory(territory);
             this.Context.Territories.Add(territory);
@@ -73,6 +77,37 @@ namespace PixelApp.Controllers
             this.Context.SaveChanges();
 
             return RedirectToAction("NameTerritory", "Dashboard");
+        }
+
+        [HttpGet]
+        public ActionResult AttackTerritory(int xCoord, int yCoord)
+        {
+            var ts = new TerritoryService();
+            var vm = new AttackTerritoryModel();
+            var targetInfo = ts.GetTerritories().Where(x => x.X.Equals(xCoord) && x.Y.Equals(yCoord))
+                .Select(x => new {
+                    Name = x.Name,
+                    UserName = x.Players.First().UserName,
+                    Level = x.Players.First().Level,
+                    TerritoryId = x.TerritoryId
+                })
+                .FirstOrDefault();
+            if (targetInfo == null)
+                return RedirectToAction("Index");
+
+            vm.TerritoryName = targetInfo.Name;
+            vm.UserName = targetInfo.UserName;
+            vm.Level = targetInfo.Level;
+            vm.TerritoryId = targetInfo.TerritoryId;
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult AttackTerritory(AttackTerritoryModel vm)
+        {
+            var ts = new TerritoryService();
+            var response = ts.AttackTerritory(this.UserContext, vm.TerritoryId);
+            return View();
         }
     }
 }
