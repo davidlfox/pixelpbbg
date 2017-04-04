@@ -118,6 +118,7 @@ namespace PixelApp.Migrations
                 var territory = Services.TerritoryFactory.CreateTerritory(0,0);
                 Services.TerritoryFactory.InitializeTerritory(territory);
                 territory.Name = "me@a.com's territory";
+                territory.Type = TerritoryTypes.Desert;
                 user.Territory = territory;
             }
 
@@ -345,7 +346,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Wood,
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .02m,
+                    BoostAmount = .01m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -357,7 +358,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Wood,
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .02m,
+                    BoostAmount = .01m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -369,7 +370,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Oil,
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .02m,
+                    BoostAmount = .01m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -381,7 +382,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Food,
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .02m,
+                    BoostAmount = .01m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -393,7 +394,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Stone,
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .02m,
+                    BoostAmount = .01m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -405,7 +406,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Water,
                     ResourceCost = 100,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .02m,
+                    BoostAmount = .01m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -417,7 +418,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Stone,
                     ResourceCost = 500,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .03m,
+                    BoostAmount = .02m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 },
@@ -429,7 +430,7 @@ namespace PixelApp.Migrations
                     ResourceCostTypeId = ResourceTypes.Water,
                     ResourceCost = 500,
                     BoostTypeId = BoostTypes.Population,
-                    BoostAmount = .03m,
+                    BoostAmount = .02m,
                     ResearchDays = 1,
                     EnergyCost = 20,
                 }

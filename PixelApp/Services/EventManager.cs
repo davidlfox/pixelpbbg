@@ -26,7 +26,7 @@ namespace PixelApp.Services
                 {
                     // determine how many intervals
                     var elapsed = DateTime.Now - territory.LastResourceCollection;
-                    var hoursElapsed = elapsed.Hours;
+                    var hoursElapsed = (int)Math.Floor(elapsed.TotalHours);
 
                     // Get boosts from technology
                     var techBoosts = db.UserTechnologies
@@ -49,6 +49,8 @@ namespace PixelApp.Services
                     var userItems = user.Items
                         .OrderByDescending(x => x.Item.MaxBoost)
                         .ToList();
+
+                    var bonusHours = user.HourlyResourceBoosts ?? 0;
 
                     foreach (var resource in db.Items.Where(x => x.IsCore.Equals(true)))
                     {
@@ -85,9 +87,47 @@ namespace PixelApp.Services
                         {
                             boost += GetItemBoost((BoostTypes)resource.ItemId, boostItems.ToList(), allocation, civPop);
                         }
+
                         // do resource collection
-                        resourceItem.Quantity += (int)((allocation + boost) * civPop * hoursElapsed);
+
+                        // process purchaseable boosts
+                        // currently, one 100% boost per hour
+
+                        // don't modify hoursElapsed within this loop
+                        var hoursElapsedCopy = hoursElapsed;
+                        if (bonusHours > 0)
+                        {
+                            if (bonusHours >= hoursElapsed)
+                            {
+                                // user has more or equal boost than hours to be processed
+                                resourceItem.Quantity += (int)((allocation + boost) * civPop * hoursElapsedCopy * 2);
+                                // so it doesnt process below
+                                hoursElapsedCopy = 0;
+                            }
+                            else
+                            {
+                                // user has fewer boost hours than hours elapsed
+                                resourceItem.Quantity += (int)((allocation + boost) * civPop * bonusHours * 2);
+                                // adjust so the next round of processing doesnt duplicate boost hours
+                                hoursElapsedCopy -= bonusHours;
+                            }
+                        }
+                        
+                        resourceItem.Quantity += (int)((allocation + boost) * civPop * hoursElapsedCopy);
                         resourceMeta.Single(x => x.ItemId == resource.ItemId).NewQuantity = resourceItem.Quantity;
+                    }
+
+                    // process bonus hours
+                    if (bonusHours > 0)
+                    {
+                        if (bonusHours >= hoursElapsed)
+                        {
+                            user.HourlyResourceBoosts = user.HourlyResourceBoosts.Value - hoursElapsed;
+                        }
+                        else
+                        {
+                            user.HourlyResourceBoosts = null;
+                        }
                     }
 
                     // reset update time to the most recent hour to account for partial intervals
@@ -108,7 +148,7 @@ namespace PixelApp.Services
                 if (territory.LastPopulationUpdate < DateTime.Now.AddHours(-24))
                 {
                     var elapsed = DateTime.Now - territory.LastPopulationUpdate;
-                    var daysElapsed = elapsed.Days;
+                    var daysElapsed = (int)Math.Floor(elapsed.TotalDays);
 
                     var noteText = string.Empty;
 
@@ -143,7 +183,7 @@ namespace PixelApp.Services
                 if (territory.LastNightlyAttack < DateTime.Now.AddHours(-24))
                 {
                     var elapsed = DateTime.Now - territory.LastNightlyAttack;
-                    var daysElapsed = elapsed.Days;
+                    var daysElapsed = (int)Math.Floor(elapsed.TotalDays);
 
                     var rand = new Random();
 

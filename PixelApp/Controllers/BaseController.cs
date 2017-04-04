@@ -69,6 +69,7 @@ namespace PixelApp.Controllers
                 ViewBag.MaxLife = this.UserContext.MaxLife;
                 ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
                 ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
+                ViewBag.BoostHours = this.UserContext.HourlyResourceBoosts ?? 0;
 
                 this.Context.SaveChanges();
             }

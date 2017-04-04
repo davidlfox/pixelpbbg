@@ -41,11 +41,13 @@
         margin-top: 15px;
     }
 
+<<<<<<< HEAD
     .map-link{
-    }
 
+=======
     .label-attack {
         line-height: 2;
+>>>>>>> dev
     }
 </style>
 
@@ -215,6 +217,13 @@
                         toastr.error('There was a problem. Please try again later.');
                     }
                 }
+<<<<<<< HEAD
             });
         </script>
     }
+=======
+            }
+        });
+    </script>
+}
+>>>>>>> dev
