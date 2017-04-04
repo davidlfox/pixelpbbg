@@ -36,6 +36,7 @@ namespace PixelApp.Controllers
                 // load vitals
                 this.UserContext = this.Context.Users
                     .Include(x => x.Items)
+                    .Include(x => x.UserTechnologies)
                     .Single(x => x.Id == userId);
 
                 // do timed updates

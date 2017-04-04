@@ -67,7 +67,7 @@
                     if (pixel != null)
                     {
                         var IsMyTerritory = (x.Equals(Model.X) && y.Equals(Model.Y));
-                        <a href='@(Model.Mode != null && Model.Mode.Equals("c") && !IsMyTerritory ? Url.Action("AttackTerritory", "Map", new { x = x, y = y }) : "javascript:void(0)")'>
+                        <a href='@(Model.Mode != null && Model.Mode.Equals("c") && !IsMyTerritory ? Url.Action("AttackTerritory", "Map", new { xCoord = x, yCoord = y }) : "javascript:void(0)")'>
                             <div class="territory" data-toggle="tooltip" title="@pixel.Name <br /> @pixel.UserName <br /> Level: @pixel.UserLevel">
                                 <img class="type" src="@($"{assetPath}{pixel.Type.ToString().ToLower()}.png")" alt="@pixel.Type" />
                             </div>

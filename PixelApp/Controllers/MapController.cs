@@ -87,9 +87,10 @@ namespace PixelApp.Controllers
             var targetInfo = ts.GetTerritories().Where(x => x.X.Equals(xCoord) && x.Y.Equals(yCoord))
                 .Select(x => new {
                     Name = x.Name,
-                    UserName = x.Players.First().UserName,
-                    Level = x.Players.First().Level,
-                    TerritoryId = x.TerritoryId
+                    UserName = x.Players.FirstOrDefault().UserName,
+                    Level = x.Players.FirstOrDefault().Level,
+                    TerritoryId = x.TerritoryId,
+                    Popultion = x.CivilianPopulation
                 })
                 .FirstOrDefault();
             if (targetInfo == null)
@@ -99,6 +100,7 @@ namespace PixelApp.Controllers
             vm.UserName = targetInfo.UserName;
             vm.Level = targetInfo.Level;
             vm.TerritoryId = targetInfo.TerritoryId;
+            vm.Population = targetInfo.Popultion;
             return View(vm);
         }
 
@@ -107,7 +109,10 @@ namespace PixelApp.Controllers
         {
             var ts = new TerritoryService();
             var response = ts.AttackTerritory(this.UserContext, vm.TerritoryId);
-            return View();
+            if (response.IsSuccessful)
+                vm.ResultMessages = response.Messages;
+
+                return View(vm);
         }
     }
 }

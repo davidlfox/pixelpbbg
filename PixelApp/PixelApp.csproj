@@ -339,6 +339,7 @@
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
     <Compile Include="Views\Inventory\Models\InventoryIndexViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
+    <Compile Include="Views\Map\Models\AttackTerritoryModel.cs" />
     <Compile Include="Views\MOTD\Models\MOTDViewModel.cs" />
     <Compile Include="Views\Profile\Models\BadgesViewModel.cs" />
     <Compile Include="Views\Profile\Models\ProfileViewModel.cs" />
@@ -485,6 +486,7 @@
     <Content Include="Views\ItemIngredients\Index.cshtml" />
     <Content Include="Views\Workbench\Index.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Map\AttackTerritory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
