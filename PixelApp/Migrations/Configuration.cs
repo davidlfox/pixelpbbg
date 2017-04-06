@@ -155,6 +155,24 @@ namespace PixelApp.Migrations
                 Oil = 50,
                 Iron = 50,
             };
+
+            user.Items = new List<UserItem>();
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Water, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Food, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Wood, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Stone, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Oil, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Iron, UserId = user.Id, Quantity = 50, });
+
+            var techs = context.Technologies.Where(x => x.TechnologyTypeId == TechnologyTypes.Military).ToList();
+
+            user.UserTechnologies.Add(new UserTechnology {
+                ResearchStartDate = DateTime.Now.AddDays(-3),
+                 StatusId = UserTechnologyStatusTypes.Researched,
+                  TechnologyId = techs.OrderBy(x => Guid.NewGuid()).First().TechnologyId,
+                   UserId = user.Id,                 
+            });
+
             manager.Create(user, string.Format("{0}-123456", seed));
 
             var territory = Services.TerritoryFactory.CreateTerritory(xCoord, yCoord);
