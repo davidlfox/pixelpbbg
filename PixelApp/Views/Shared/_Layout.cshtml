@@ -53,6 +53,9 @@
         .boost-hours {
             color: #d90224;
         }
+        .stop-impersonate {
+            background-color: pink;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +70,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="javascript:void(0);">Pixelocalypse</a>
+                @if (ViewBag.IsImpersonating)
+                {
+                    @Html.ActionLink("Stop Impersonating", "StopAsync", "Impersonate", null, new { @class = "stop-impersonate"})
+                }
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">

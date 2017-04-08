@@ -313,6 +313,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
     <Compile Include="Models\Badge.cs" />
+    <Compile Include="Models\IdentityExtensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ItemIngredient.cs" />
@@ -487,7 +488,6 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Paypal\Thanks.cshtml" />
     <Content Include="Views\Paypal\Index.cshtml" />
-    <Content Include="Views\Impersonate\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
