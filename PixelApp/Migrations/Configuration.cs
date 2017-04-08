@@ -36,10 +36,13 @@ namespace PixelApp.Migrations
 
             SeedPermissions(context);
             SeedItems(context);
-            SeedUsers(context);
-            TryToSetupAdmin(context);
             SeedTechnologies(context);
             SeedBadges(context);
+
+            context.SaveChanges();
+
+            SeedUsers(context);
+            TryToSetupAdmin(context);
         }
 
         private static void SeedPermissions(ApplicationDbContext context)
@@ -165,6 +168,8 @@ namespace PixelApp.Migrations
             user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Iron, UserId = user.Id, Quantity = 50, });
 
             var techs = context.Technologies.Where(x => x.TechnologyTypeId == TechnologyTypes.Military).ToList();
+
+            user.UserTechnologies = new List<UserTechnology>();
 
             user.UserTechnologies.Add(new UserTechnology {
                 ResearchStartDate = DateTime.Now.AddDays(-3),
