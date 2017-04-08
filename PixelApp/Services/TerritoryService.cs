@@ -156,6 +156,7 @@ namespace PixelApp.Services
                 response.Messages.Add("Population Lost", popChange);
             }
 
+            response.IsSuccessful = true;
             return response;
         }
 
