@@ -101,8 +101,8 @@ namespace PixelApp.Services
 
         public ProcessResponse AttackTerritory(ApplicationUser attacker, int territoryId)
         {
-            //if (attacker.Energy < 50)
-            //    return new ProcessResponse(false, "Not enough energy to Attack.");
+            if (attacker.Energy < 50)
+                return new ProcessResponse(false, "Not enough energy to Attack.");
 
             var response = new ProcessResponse();
             var target = context.Territories.Include(x => x.Players).FirstOrDefault(t => t.TerritoryId.Equals(territoryId));
@@ -119,7 +119,7 @@ namespace PixelApp.Services
             if (winPercent < 2 && attacker.Level < defender.Level)
                 return new ProcessResponse(false, "Victory is not possible");
 
-            //attacker.Energy -= 50;
+            attacker.Energy -= 50;
             var baseExp = attacker.Level * 20;
             var rand = new Random();
             if (rand.Next(0, 99) + 1 < winPercent)
