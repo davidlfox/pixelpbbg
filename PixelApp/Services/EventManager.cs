@@ -144,41 +144,6 @@ namespace PixelApp.Services
                         resourceMeta.Single(x => x.ItemId == (int)ResourceTypes.Iron).NewQuantity);
                 }
 
-                // check territory population growth
-                if (territory.LastPopulationUpdate < DateTime.Now.AddHours(-24))
-                {
-                    var elapsed = DateTime.Now - territory.LastPopulationUpdate;
-                    var daysElapsed = (int)Math.Floor(elapsed.TotalDays);
-
-                    var noteText = string.Empty;
-
-                    // Get boosts from technology
-                    var populationBoosts = db.UserTechnologies.Where(x => x.UserId.Equals(user.Id)
-                        && x.StatusId == UserTechnologyStatusTypes.Researched
-                        && x.Technology.BoostTypeId == BoostTypes.Population)
-                        .Select(x => x.Technology.BoostAmount).ToList();
-
-                    var growth = (int)(territory.CivilianPopulation * (territory.PopulationGrowthRate + populationBoosts.Sum()) * daysElapsed);
-
-                    territory.CivilianPopulation += growth;
-
-                    // reset update time to account for partial intervals
-                    territory.LastPopulationUpdate = new DateTime(now.Year, now.Month, now.Day);
-
-                    // notify user
-                    var timeText = daysElapsed > 1 ? "recently" : "last night";
-                    noteText = $"A few people from the outskirts found their way into your territory {timeText}. " +
-                                $"Your population grew by {growth} to {territory.CivilianPopulation}. " +
-                                "Your increased population will automatically help you gather more resources.";
-
-                    var note = CommunicationService.CreateNotification(
-                        user.Id,
-                        $"Your civilian population grew by {growth} last night!",
-                        noteText);
-
-                    db.Notes.Add(note);
-                }
-
                 // check nightly attacks
                 if (territory.LastNightlyAttack < DateTime.Now.AddHours(-24))
                 {
