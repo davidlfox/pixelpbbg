@@ -44,7 +44,6 @@ namespace PixelApp.Services
         {
             territory.CivilianPopulation = 120;
             territory.PopulationGrowthRate = 0.02m;
-            territory.LastPopulationUpdate = DateTime.Now;
 
             territory.WaterAllocation = 0.16m;
             territory.WoodAllocation = 0.16m;

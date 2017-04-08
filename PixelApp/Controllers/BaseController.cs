@@ -70,6 +70,7 @@ namespace PixelApp.Controllers
                 ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
                 ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
                 ViewBag.BoostHours = this.UserContext.HourlyResourceBoosts ?? 0;
+                ViewBag.IsImpersonating = System.Web.HttpContext.Current.User.IsImpersonating();
 
                 this.Context.SaveChanges();
             }

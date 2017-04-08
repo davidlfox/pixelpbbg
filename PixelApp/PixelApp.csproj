@@ -207,6 +207,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImpersonateController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemIngredientsController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -313,6 +314,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
     <Compile Include="Models\Badge.cs" />
+    <Compile Include="Models\IdentityExtensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ItemIngredient.cs" />
@@ -338,6 +340,7 @@
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
     <Compile Include="Views\Find\Models\FindFoodViewModel.cs" />
+    <Compile Include="Views\Find\Models\FindPeopleViewModel.cs" />
     <Compile Include="Views\Home\Models\UsersViewModel.cs" />
     <Compile Include="Views\Inventory\Models\InventoryIndexViewModel.cs" />
     <Compile Include="Views\Mailbox\Models\MailboxViewModel.cs" />
@@ -492,6 +495,7 @@
     <Content Include="Views\Map\AttackTerritory.cshtml" />
     <Content Include="Views\Paypal\Thanks.cshtml" />
     <Content Include="Views\Paypal\Index.cshtml" />
+    <Content Include="Views\Find\People.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

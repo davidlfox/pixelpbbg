@@ -53,6 +53,9 @@
         .boost-hours {
             color: #d90224;
         }
+        .stop-impersonate {
+            background-color: pink;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +70,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="javascript:void(0);">Pixelocalypse</a>
+                @if (ViewBag.IsImpersonating)
+                {
+                    @Html.ActionLink("Stop Impersonating", "StopAsync", "Impersonate", null, new { @class = "stop-impersonate"})
+                }
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
@@ -100,12 +107,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operations <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-cogs"></i></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
                             <li><a href="@Url.Action("Index", "Map")">Map<i class="pull-right hidden-xs showopacity fa fa-globe"></i></a></li>
+                            <li><a href="@Url.Action("Index", "Map", new { Mode = "c"})">Attack Territories<i class="pull-right hidden-xs showopacity fa fa-shield"></i></a></li>*@
                             <li><a href="@Url.Action("Zombies", "Find")">Hunt Zombies<i class="pull-right hidden-xs showopacity fa fa-exclamation-triangle"></i></a></li>
-                            <li><a href="@Url.Action("Index", "Map", new { Mode = "c"})">Attack Territories<i class="pull-right hidden-xs showopacity fa fa-shield"></i></a></li>
-                            <li><a href="@Url.Action("Food", "Find")">Find Food<i class="pull-right hidden-xs showopacity fa fa-cutlery"></i></a></li>
-                        </ul>
-                    </li>
                     <li><a href="@Url.Action("Index", "Research")">Research<i class="pull-right hidden-xs showopacity fa fa-university"></i></a></li>
+                            <li><a href="@Url.Action("Food", "Find")">Find Food<i class="pull-right hidden-xs showopacity fa fa-cutlery"></i></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-wrench"></i></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
