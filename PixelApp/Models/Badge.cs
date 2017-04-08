@@ -38,5 +38,10 @@ namespace PixelApp.Models
         /// </summary>
         /// <remarks>Could be leveraged for UI</remarks>
         public int Level { get; set; }
+
+        /// <summary>
+        /// Image URL for the badge
+        /// </summary>
+        public string ImageUrl { get; set; }
     }
 }

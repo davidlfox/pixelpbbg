@@ -309,6 +309,10 @@
     <Compile Include="Migrations\201704011532565_paypal.Designer.cs">
       <DependentUpon>201704011532565_paypal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704082054163_badge-image.cs" />
+    <Compile Include="Migrations\201704082054163_badge-image.Designer.cs">
+      <DependentUpon>201704082054163_badge-image.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttackLog.cs" />
@@ -564,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704011532565_paypal.resx">
       <DependentUpon>201704011532565_paypal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704082054163_badge-image.resx">
+      <DependentUpon>201704082054163_badge-image.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

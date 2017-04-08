@@ -39,6 +39,10 @@
     }
 </style>
 
+<div class="alert alert-info">
+    Researching a technology make take a day, or a week, or even longer. However, the longer term benefit will give you a boost over the competing territories!
+</div>
+
 @if (Model.CurrentlyResearching != null)
 {
     <div class="row research-info currently">
@@ -59,7 +63,10 @@
     @foreach (var techType in Enum.GetValues(typeof(Pixel.Common.Data.TechnologyTypes)))
     {
         <div class="col-sm-4">
-            <h1 class="text-center titles">@techType</h1>
+            <div class="text-center">
+                <img src="@($"//storageasagvk5xvrja2.blob.core.windows.net/assets/{techType.ToString().ToLower()}.png")" alt="@techType" class="text-center" />
+                <h4 class="text-center titles">@techType</h4>
+            </div>
             @foreach (var tech in Model.Technologies.Where(x => x.TechnologyTypeId.Equals(techType)))
             {
                 var completedResearch = Model.ResearchedTechnologyIds.Contains(tech.TechnologyId);

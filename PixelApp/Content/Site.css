@@ -157,3 +157,32 @@ nav:hover .forAnimate{
 section{
     padding-left: 15px;
 }
+
+.badge-container {
+    display: inline;
+    position: relative;
+}
+
+.game-badge {
+    padding: 10px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 5px solid #5a5;
+}
+
+    .game-badge img {
+        border-radius: 10px;
+    }
+
+    .game-badge.missing-badge {
+        border: 5px dashed #a33;
+        opacity: 0.8;
+    }
+
+.level-badge {
+    position: absolute;
+    bottom: -26px;
+    right: 42px;
+    font-weight: bold;
+}

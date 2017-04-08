@@ -410,6 +410,7 @@ namespace PixelApp.Migrations
                     Description = "Kill 10 zombies while hunting!",
                     ExperienceGain = 50,
                     Level = 10,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/zombie.png",
                 },
                 new Badge
                 {
@@ -419,6 +420,7 @@ namespace PixelApp.Migrations
                     Description = "Kill 50 zombies while hunting!",
                     ExperienceGain = 200,
                     Level = 50,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/zombie.png",
                 },
                 new Badge
                 {
@@ -428,6 +430,7 @@ namespace PixelApp.Migrations
                     Description = "Kill 300 zombies while hunting!",
                     ExperienceGain = 1000,
                     Level = 300,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/zombie.png",
                 },
                 new Badge
                 {
@@ -437,6 +440,7 @@ namespace PixelApp.Migrations
                     Description = "Kill 1,000 zombies while hunting!",
                     ExperienceGain = 2500,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/zombie.png",
                 },
                 new Badge
                 {
@@ -446,6 +450,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully forage for food 10 times!",
                     ExperienceGain = 75,
                     Level = 10,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/foraging.png",
                 },
                 new Badge
                 {
@@ -455,6 +460,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully forage for food 50 times!",
                     ExperienceGain = 275,
                     Level = 50,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/foraging.png",
                 },
                 new Badge
                 {
@@ -464,6 +470,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 100 Water!",
                     ExperienceGain = 50,
                     Level = 100,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/water.png",
                 },
                 new Badge
                 {
@@ -473,6 +480,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 1,000 Water!",
                     ExperienceGain = 350,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/water.png",
                 },
                 new Badge
                 {
@@ -482,6 +490,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 10,000 Water!",
                     ExperienceGain = 2500,
                     Level = 10000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/water.png",
                 },
                 new Badge
                 {
@@ -489,8 +498,9 @@ namespace PixelApp.Migrations
                     BadgeType = BadgeTypes.WaterCount,
                     Name = "Water Storage",
                     Description = "Successfully store 100,000 Water!",
-                    ExperienceGain = 50,
+                    ExperienceGain = 5000,
                     Level = 100000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/water.png",
                 },
                 new Badge
                 {
@@ -500,6 +510,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 100 Wood!",
                     ExperienceGain = 50,
                     Level = 100,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/wood.png",
                 },
                 new Badge
                 {
@@ -509,6 +520,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 1,000 Wood!",
                     ExperienceGain = 350,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/wood.png",
                 },
                 new Badge
                 {
@@ -518,6 +530,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 10,000 Wood!",
                     ExperienceGain = 2500,
                     Level = 10000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/wood.png",
                 },
                 new Badge
                 {
@@ -525,8 +538,9 @@ namespace PixelApp.Migrations
                     BadgeType = BadgeTypes.WoodCount,
                     Name = "Wood Storage",
                     Description = "Successfully store 100,000 Wood!",
-                    ExperienceGain = 50,
+                    ExperienceGain = 5000,
                     Level = 100000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/wood.png",
                 },
                 new Badge
                 {
@@ -536,6 +550,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 100 Food!",
                     ExperienceGain = 50,
                     Level = 100,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/food.png",
                 },
                 new Badge
                 {
@@ -545,6 +560,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 1,000 Food!",
                     ExperienceGain = 350,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/food.png",
                 },
                 new Badge
                 {
@@ -554,6 +570,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 10,000 Food!",
                     ExperienceGain = 2500,
                     Level = 10000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/food.png",
                 },
                 new Badge
                 {
@@ -561,8 +578,9 @@ namespace PixelApp.Migrations
                     BadgeType = BadgeTypes.FoodCount,
                     Name = "Food Storage",
                     Description = "Successfully store 100,000 Food!",
-                    ExperienceGain = 50,
+                    ExperienceGain = 5000,
                     Level = 100000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/food.png",
                 },
                 new Badge
                 {
@@ -572,6 +590,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 100 Stone!",
                     ExperienceGain = 50,
                     Level = 100,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/stone.png",
                 },
                 new Badge
                 {
@@ -581,6 +600,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 1,000 Stone!",
                     ExperienceGain = 350,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/stone.png",
                 },
                 new Badge
                 {
@@ -590,6 +610,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 10,000 Stone!",
                     ExperienceGain = 2500,
                     Level = 10000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/stone.png",
                 },
                 new Badge
                 {
@@ -597,8 +618,9 @@ namespace PixelApp.Migrations
                     BadgeType = BadgeTypes.StoneCount,
                     Name = "Stone Storage",
                     Description = "Successfully store 100,000 Stone!",
-                    ExperienceGain = 50,
+                    ExperienceGain = 5000,
                     Level = 100000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/stone.png",
                 },
                 new Badge
                 {
@@ -608,6 +630,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 100 Oil!",
                     ExperienceGain = 50,
                     Level = 100,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/oil.png",
                 },
                 new Badge
                 {
@@ -617,6 +640,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 1,000 Oil!",
                     ExperienceGain = 350,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/oil.png",
                 },
                 new Badge
                 {
@@ -626,6 +650,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 10,000 Oil!",
                     ExperienceGain = 2500,
                     Level = 10000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/oil.png",
                 },
                 new Badge
                 {
@@ -633,8 +658,9 @@ namespace PixelApp.Migrations
                     BadgeType = BadgeTypes.OilCount,
                     Name = "Oil Storage",
                     Description = "Successfully store 100,000 Oil!",
-                    ExperienceGain = 50,
+                    ExperienceGain = 5000,
                     Level = 100000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/oil.png",
                 },
                 new Badge
                 {
@@ -644,6 +670,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 100 Iron!",
                     ExperienceGain = 50,
                     Level = 100,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/iron.png",
                 },
                 new Badge
                 {
@@ -653,6 +680,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 1,000 Iron!",
                     ExperienceGain = 350,
                     Level = 1000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/iron.png",
                 },
                 new Badge
                 {
@@ -662,6 +690,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully store 10,000 Iron!",
                     ExperienceGain = 2500,
                     Level = 10000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/iron.png",
                 },
                 new Badge
                 {
@@ -669,8 +698,9 @@ namespace PixelApp.Migrations
                     BadgeType = BadgeTypes.IronCount,
                     Name = "Iron Storage",
                     Description = "Successfully store 100,000 Iron!",
-                    ExperienceGain = 50,
+                    ExperienceGain = 5000,
                     Level = 100000,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/iron.png",
                 },
                 new Badge
                 {
@@ -680,6 +710,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully researched 3 subjects!",
                     ExperienceGain = 300,
                     Level = 3,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/scholar.png",
                 },
                 new Badge
                 {
@@ -689,6 +720,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully researched 9 subjects!",
                     ExperienceGain = 850,
                     Level = 9,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/scholar.png",
                 },
                 new Badge
                 {
@@ -698,6 +730,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully researched 20 subjects!",
                     ExperienceGain = 1800,
                     Level = 20,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/scholar.png",
                 },
                 new Badge
                 {
@@ -707,6 +740,7 @@ namespace PixelApp.Migrations
                     Description = "Successfully name your territory!",
                     ExperienceGain = 40,
                     Level = 1,
+                    ImageUrl = "storageasagvk5xvrja2.blob.core.windows.net/assets/settler.png",
                 });
         }
 

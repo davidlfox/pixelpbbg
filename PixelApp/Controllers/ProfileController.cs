@@ -24,7 +24,7 @@ namespace PixelApp.Controllers
                     Name = x.Badge.Name,
                     Description = x.Badge.Description,
                     Level = x.Badge.Level,
-                    ImageUrl = "//fillmurray.com/80/80",
+                    ImageUrl = x.Badge.ImageUrl,
                     BadgeType = x.Badge.BadgeType,
                     HasBadge = true,
                 })
@@ -47,7 +47,7 @@ namespace PixelApp.Controllers
                     Name = x.Name,
                     Description = x.Description,
                     Level = x.Level,
-                    ImageUrl = "//fillmurray.com/80/80",
+                    ImageUrl = x.ImageUrl,
                     BadgeType = x.BadgeType,
                 })
                 .ToList();
