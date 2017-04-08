@@ -56,6 +56,7 @@ namespace PixelApp.Migrations
                 Permissions.CanTestController,
                 Permissions.CanEditBadges,
                 Permissions.CanEditItems,
+                Permissions.CanImpersonateUsers,
             };
 
             foreach (var roleName in roles)
@@ -114,6 +115,7 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanTestController);
                 manager.AddToRole(user.Id, Permissions.CanEditBadges);
                 manager.AddToRole(user.Id, Permissions.CanEditItems);
+                manager.AddToRole(user.Id, Permissions.CanImpersonateUsers);
 
                 var territory = new Territory();
                 Services.TerritoryFactory.InitializeTerritory(territory);
@@ -145,6 +147,7 @@ namespace PixelApp.Migrations
                     manager.AddToRole(adminUser.Id, Permissions.CanTestController);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditBadges);
                     manager.AddToRole(adminUser.Id, Permissions.CanEditItems);
+                    manager.AddToRole(adminUser.Id, Permissions.CanImpersonateUsers);
                 }
             }
         }
