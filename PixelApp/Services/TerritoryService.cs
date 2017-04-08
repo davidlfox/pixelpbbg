@@ -131,14 +131,14 @@ namespace PixelApp.Services
                 attacker.Experience += xpChange;
                 response.Messages.Add("Experience Gain", xpChange);
 
-                var popChange = attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100);
+                var popChange = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0));
                 attacker.Territory.CivilianPopulation -= popChange;
                 response.Messages.Add("Population Lost", popChange);
 
                 var lootType = (ResourceTypes)(rand.Next(0, 6) + 1);
                 var defenderItem = defender.Items.Single(x => x.ItemId == (int)lootType);
                 var attackerItem = attacker.Items.Single(x => x.ItemId == (int)lootType);
-                var lootAmt = defenderItem.Quantity * ((rand.Next(0, 5) + 2) / 100);
+                var lootAmt = (int)(defenderItem.Quantity * ((rand.Next(0, 5) + 2) / 100.0));
                 attackerItem.Quantity += lootAmt;
                 defenderItem.Quantity -= lootAmt;
                 response.Messages.Add("Loot Taken", $"{lootAmt} {lootType.ToString()}");
