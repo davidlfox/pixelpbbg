@@ -1,0 +1,18 @@
+﻿@model PixelApp.Views.Find.Models.FindPeopleViewModel
+@{
+    ViewBag.Title = "Recruit People";
+}
+
+<div class="alert alert-info">
+    Recruiting is the way to grow your civilian population. High population means more resource gathering, and better military force!
+</div>
+
+<p>
+    <a href="@Url.Action("People", new { find = true })" class="btn btn-lg btn-danger">Recruit! @(Model.HasRecruited ? "(again!)" : string.Empty)</a>
+</p>
+
+
+@if (Model.HasRecruited)
+{
+    <p class="alert alert-@(Model.IsSuccess ? "success" : "danger")">@Model.Message</p>
+}

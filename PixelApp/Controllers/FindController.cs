@@ -138,5 +138,67 @@ namespace PixelApp.Controllers
 
             return View(vm);
         }
+
+        public ActionResult People(bool find = false)
+        {
+            var vm = new FindPeopleViewModel();
+
+            if (find)
+            {
+                vm.HasRecruited = true;
+                // todo: config
+                var energyRequired = 100;
+
+                if (this.UserContext.Energy < energyRequired)
+                {
+                    vm.Message = "You don't have enough energy to recruit people. Wait for your energy to replenish!";
+                }
+                else
+                {
+                    this.UserContext.Energy -= energyRequired;
+                    this.UserContext.EnergyUpdatedTime = DateTime.Now;
+
+                    var cultureTechs = this.Context.UserTechnologies
+                        .Include("Technology")
+                        .Where(x => x.UserId.Equals(this.UserContext.Id)
+                            && x.StatusId == UserTechnologyStatusTypes.Researched
+                            && x.Technology.BoostTypeId == BoostTypes.Population);
+
+                    var cultureBoost = 0.0m;
+
+                    if (cultureTechs.Any())
+                    {
+                        cultureBoost = cultureTechs.Sum(x => x.Technology.BoostAmount);
+                    }
+
+                    var recruitPercentage = rand.Next(0, 10) + cultureBoost;
+
+                    // if above 50%, recruiting succeeds
+                    if (recruitPercentage > 5)
+                    {
+                        // this is intentionally using the .Level property to avoid race condition when messaging about leveling up
+                        var level = StatManager.GetLevel(this.UserContext.Id, this.Context);
+
+                        var qty = level * (rand.Next(0, 4) + 2);
+                        vm.IsSuccess = true;
+                        vm.Message = $"You venture into the outskirts, spending {energyRequired} energy, and you recruit {qty} people!";
+
+                        this.UserContext.Territory.CivilianPopulation += qty;
+
+                        // todo: config
+                        this.UserContext.Experience += 2;
+
+                        this.Context.SaveChanges();
+                    }
+                    else
+                    {
+                        // failed to find people
+                        vm.Message = $"You spent {energyRequired} energy, and didn't find any people in the outskirts!";
+                    }
+                }
+            }
+
+            return View(vm);
+        }
     }
 }
