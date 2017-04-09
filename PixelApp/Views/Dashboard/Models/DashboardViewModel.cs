@@ -30,8 +30,6 @@ namespace PixelApp.Views.Dashboard.Models
 
         public MOTDViewModel MOTD { get; set; }
 
-        public UserTechnology CurrentlyReasearching { get; set; }
-
         public DashboardViewModel()
         {
             this.Resources = new List<ResourceSkinny>();

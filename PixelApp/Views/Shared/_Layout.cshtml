@@ -56,6 +56,17 @@
         .stop-impersonate {
             background-color: pink;
         }
+        .research-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: #060;
+            z-index: -1000;
+        }
+        .research-progress.not-researching {
+            background-color: #600;
+        }
     </style>
 </head>
 <body>
@@ -120,7 +131,17 @@
                             <li><a href="@Url.Action("Index", "Workbench")">Workbench<i class="pull-right hidden-xs showopacity fa fa-briefcase"></i></a></li>
                         </ul>
                     </li>
-                    <li><a href="@Url.Action("Index", "Research")">Research<i class="pull-right hidden-xs showopacity fa fa-university"></i></a></li>
+                    <li>
+                        <a href="@Url.Action("Index", "Research")" data-toggle="tooltip"
+                            title="@(ViewBag.IsResearching ? $"{ViewBag.ResearchProgress}%" : "Start resarching now!")">
+
+                            <span style="width:@(ViewBag.IsResearching ? ViewBag.ResearchProgress : 100)%" 
+                                  class="hidden-xs research-progress @(ViewBag.IsResearching ? string.Empty : "not-researching")"></span>
+
+                            Research
+                            <i class="pull-right hidden-xs showopacity fa fa-university"></i>
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-cog"></i></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
@@ -131,7 +152,7 @@
                     {
                         <li><a href="javascript:signOut();">Sign Out<i class="pull-right hidden-xs showopacity fa fa-sign-out"></i></a></li>
                     }
-                    </ul>
+                </ul>
 </div>
         </div>
     </nav>

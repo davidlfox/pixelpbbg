@@ -128,31 +128,6 @@
     <a href="javascript:void(0);" class="save-resource-allocation btn btn-success">Save Allocations</a>
 </div>
 <div class="row">&nbsp;</div>
-<div class="row section-info research-info text-center">
-    <div class="col-xs-12">
-        <h4 class="text-center">Currently Researching</h4>
-        <h5 class="text-center">
-            @if (Model.CurrentlyReasearching == null)
-            {
-                <span>None</span>
-            }
-            else
-            {
-                <span>@Model.CurrentlyReasearching.Technology.Name</span>
-            }
-        </h5>
-        @if (Model.CurrentlyReasearching != null)
-        {
-            <div class="progress-bar researching" role="progressbar" aria-valuenow="@(Math.Round((DateTime.Now - Model.CurrentlyReasearching.ResearchStartDate).TotalHours / (Model.CurrentlyReasearching.Technology.ResearchDays * 24), 2))" aria-valuemin="0" aria-valuemax="100" style="width:@(Math.Round((DateTime.Now - Model.CurrentlyReasearching.ResearchStartDate).TotalHours / (Model.CurrentlyReasearching.Technology.ResearchDays * 24), 2))"></div>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="@(Math.Round((DateTime.Now - Model.CurrentlyReasearching.ResearchStartDate).TotalHours / (Model.CurrentlyReasearching.Technology.ResearchDays * 24), 2) * 100)"
-                     aria-valuemin="0" aria-valuemax="100" style="width:@(Math.Round((DateTime.Now - Model.CurrentlyReasearching.ResearchStartDate).TotalHours / (Model.CurrentlyReasearching.Technology.ResearchDays * 24), 2) * 100)%">
-                    <span>@(Math.Round((DateTime.Now - Model.CurrentlyReasearching.ResearchStartDate).TotalHours / (Model.CurrentlyReasearching.Technology.ResearchDays * 24), 2) * 100)%</span>
-                </div>
-            </div>
-        }
-    </div>
-</div>
 <div class="row section-info text-center col-xs-12">
     <h4 class="col-xs-4 map-link">Territory Map</h4>
     <a class="btn btn-primary col-xs-4 map-link" href="@Url.Action("Index", "Map")">Local View</a>

@@ -72,6 +72,23 @@ namespace PixelApp.Controllers
                 ViewBag.BoostHours = this.UserContext.HourlyResourceBoosts ?? 0;
                 ViewBag.IsImpersonating = System.Web.HttpContext.Current.User.IsImpersonating();
 
+                var ts = new TechnologyService();
+                var progress = ts.GetCheckPendingResearch(this.UserContext.Id);
+                ts.SaveChanges();
+
+                if (progress == null)
+                {
+                    ViewBag.IsResearching = false;
+                }
+                else
+                {
+                    ViewBag.IsResearching = true;
+                    var hoursSpent = (DateTime.Now - progress.ResearchStartDate).TotalHours;
+                    var hoursRequired = progress.Technology.ResearchDays * 24;
+                    ViewBag.ResearchProgress = Math.Round(hoursSpent / hoursRequired, 2) * 100;
+                }
+
+
                 this.Context.SaveChanges();
             }
 
