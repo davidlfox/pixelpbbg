@@ -36,10 +36,13 @@ namespace PixelApp.Migrations
 
             SeedPermissions(context);
             SeedItems(context);
-            SeedUsers(context);
-            TryToSetupAdmin(context);
             SeedTechnologies(context);
             SeedBadges(context);
+
+            context.SaveChanges();
+
+            SeedUsers(context);
+            TryToSetupAdmin(context);
         }
 
         private static void SeedPermissions(ApplicationDbContext context)
@@ -117,12 +120,73 @@ namespace PixelApp.Migrations
                 manager.AddToRole(user.Id, Permissions.CanEditItems);
                 manager.AddToRole(user.Id, Permissions.CanImpersonateUsers);
 
-                var territory = new Territory();
+                var territory = Services.TerritoryFactory.CreateTerritory(0,0);
                 Services.TerritoryFactory.InitializeTerritory(territory);
                 territory.Name = "me@a.com's territory";
                 territory.Type = TerritoryTypes.Desert;
                 user.Territory = territory;
             }
+
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "1@a.com"))
+                CreateRandomUser(1, context, manager, 0, 1);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "2@a.com"))
+                CreateRandomUser(2, context, manager, -1, 1);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "3@a.com"))
+                CreateRandomUser(3, context, manager, -1, 0);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "4@a.com"))
+                CreateRandomUser(4, context, manager, -2, 0);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "5@a.com"))
+                CreateRandomUser(5, context, manager, 1, 0);
+            if (System.Configuration.ConfigurationManager.AppSettings["Environment"] == "dev" && !context.Users.Any(x => x.Email == "6@a.com"))
+                CreateRandomUser(6, context, manager, 0, 2);
+        }
+
+        private void CreateRandomUser(int seed, ApplicationDbContext context, UserManager<ApplicationUser> manager, int xCoord, int yCoord)
+        {
+            var user = new ApplicationUser()
+            {
+                Email = string.Format("{0}@a.com", seed),
+                EmailConfirmed = true,
+                Energy = 100,
+                MaxEnergy = 100,
+                Life = 100,
+                MaxLife = 100,
+                Level = 1,
+                UserName = string.Format("{0}@a.com", seed),
+                Water = 50,
+                Wood = 50,
+                Food = 50,
+                Stone = 50,
+                Oil = 50,
+                Iron = 50,
+            };
+
+            user.Items = new List<UserItem>();
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Water, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Food, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Wood, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Stone, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Oil, UserId = user.Id, Quantity = 50, });
+            user.Items.Add(new UserItem { ItemId = (int)ResourceTypes.Iron, UserId = user.Id, Quantity = 50, });
+
+            var techs = context.Technologies.Where(x => x.TechnologyTypeId == TechnologyTypes.Military).ToList();
+
+            user.UserTechnologies = new List<UserTechnology>();
+
+            user.UserTechnologies.Add(new UserTechnology {
+                ResearchStartDate = DateTime.Now.AddDays(-3),
+                 StatusId = UserTechnologyStatusTypes.Researched,
+                  TechnologyId = techs.OrderBy(x => Guid.NewGuid()).First().TechnologyId,
+                   UserId = user.Id,                 
+            });
+
+            manager.Create(user, string.Format("{0}-123456", seed));
+
+            var territory = Services.TerritoryFactory.CreateTerritory(xCoord, yCoord);
+            Services.TerritoryFactory.InitializeTerritory(territory);
+            territory.Name = string.Format("{0}'s territory", user.UserName);
+            user.Territory = territory;
+            context.Territories.AddOrUpdate(x => x.Name, territory);
         }
 
         private void TryToSetupAdmin(ApplicationDbContext context)

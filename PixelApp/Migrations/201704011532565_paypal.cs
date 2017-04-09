@@ -23,7 +23,7 @@ namespace PixelApp.Migrations
                 .PrimaryKey(t => t.PaypalTransactionId)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId);
-            
+
             AddColumn("dbo.AspNetUsers", "HourlyResourceBoosts", c => c.Int());
         }
         

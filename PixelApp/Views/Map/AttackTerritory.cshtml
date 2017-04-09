@@ -1,0 +1,52 @@
+﻿@model PixelApp.Views.Map.Models.AttackTerritoryModel
+@{
+    ViewBag.Title = "AttackTerritory";
+}
+
+<style type="text/css">
+    .section-info {
+        background-color: #222123;
+        padding:20px;
+    }
+
+    .btn{
+        padding-left:30px;
+        padding-right:30px;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    <h2>Attack Territory</h2>
+    <div class="text-center section-info clearfix">
+        <h4>Territory Name: <strong>@Model.TerritoryName</strong></h4>
+        <h4>Territory Owner: <strong>@Model.UserName</strong></h4>
+        <h4>Owner Level: <strong>@Model.Level</strong></h4>
+        <h4>Civilian Population: <strong>@Model.Population</strong></h4>
+        @Html.HiddenFor(x => x.TerritoryName)
+        @Html.HiddenFor(x => x.UserName)
+        @Html.HiddenFor(x => x.Level)
+        @Html.HiddenFor(x => x.Population)
+        @Html.HiddenFor(x => x.TerritoryId)
+        <br />
+        <div class="col-xs-6">
+            <a href="@Url.Action("Index", new { Mode = "c"})" class="btn btn-default">Cancel</a>
+        </div>
+        <div class="col-xs-6">
+            <input type="submit" class="btn btn-primary" value="Attack" />
+        </div>
+    </div>
+}
+
+@if (Model.ResultMessages.Any())
+{
+    <h2>Attack Results</h2>
+    <div class="text-center section-info clearfix">
+        <h3>Result: <strong>@Model.ResultMessages["Result"].ToString()</strong></h3><br />
+        @foreach(var message in Model.ResultMessages.Where(x => x.Key != "Result"))
+        {
+            <h4>@message.Key: <strong>@message.Value.ToString()</strong></h4>
+        }
+    </div>
+}
+

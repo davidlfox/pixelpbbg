@@ -12,7 +12,7 @@ namespace PixelApp.Services
     {
         private static Random rand = new Random();
 
-        public static Territory CreateTerritory()
+        public static Territory CreateTerritory(int xCoord, int yCoord)
         {
             var terr = new Territory();
 
@@ -30,23 +30,8 @@ namespace PixelApp.Services
             terr.Stone = GetRandomResource(ResourceTypes.Stone, terr.Type);
             terr.Oil = GetRandomResource(ResourceTypes.Oil, terr.Type);
             terr.Iron = GetRandomResource(ResourceTypes.Iron, terr.Type);
-
-            var db = new ApplicationDbContext();
-
-            // todo: algorithm to randomly select coordinates
-            var maxX = db.Territories.OrderByDescending(x => x.X).FirstOrDefault();
-
-            if(maxX == null)
-            {
-                terr.X = 0;
-            }
-            else
-            {
-                // just generate X coordinate to the east of the eastmost territory
-                terr.X = maxX.X + 1;
-            }
-
-            terr.Y = 0;
+            terr.X = xCoord;
+            terr.Y = yCoord;
 
             return terr;
         }

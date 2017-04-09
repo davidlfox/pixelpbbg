@@ -6,8 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
+        .navbar i {
+            font-size: 20px;
+        }
         .progress-bar { 
             font-weight: bold;
         }
@@ -17,11 +21,40 @@
         .progress-bar.energy {
             background-color: #f0ad4e;
         }
+        .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+            background-color: #646266;
+        }
+        .table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+            background-color: #858186;
+            color: #222123;
+        }
         .main {
             background-image: url('/Content/dashboard-bg.jpg');
             background-size: cover;
             top: 0;
             bottom: 0;
+        }
+        .has-mail { 
+            color: #d9534f !important;
+        }
+        .li-paypal {
+            background: #d9534f;
+            font-weight: bold;
+        }
+        .li-paypal.boosted {
+            background: #5cb85c;
+        }
+        .li-paypal a {
+            color: #fff !important;
+        }
+        .li-paypal a:hover {
+            color: #ccc !important;
+        }
+        .boost-hours {
+            color: #d90224;
+        }
+        .stop-impersonate {
+            background-color: pink;
         }
     </style>
 </head>
@@ -37,13 +70,17 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="javascript:void(0);">Pixelocalypse</a>
+                @if (ViewBag.IsImpersonating)
+                {
+                    @Html.ActionLink("Stop Impersonating", "StopAsync", "Impersonate", null, new { @class = "stop-impersonate"})
+                }
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="vitals">
                         <strong>Name:</strong> @ViewBag.Username<br />
-                        <strong>Level:</strong> @ViewBag.Level (@string.Format("{0:P0}", ViewBag.LevelProgress))<br /><br />
+                        <strong>Level:</strong> @ViewBag.Level (@string.Format("{0:P0}", ViewBag.LevelProgress.ToString("0%") == "100%" ? 0.99 : ViewBag.LevelProgress))<br /><br />
                         Life: <span class="text-muted">@ViewBag.Life / @ViewBag.MaxLife</span>
                         <div class="progress">
                             <div class="progress-bar life" role="progressbar" aria-valuenow="@ViewBag.Life" aria-valuemin="0" aria-valuemax="@ViewBag.MaxLife" style="width:@ViewBag.Life%"></div>
@@ -53,26 +90,56 @@
                             <div class="progress-bar energy" role="progressbar" aria-valuenow="@ViewBag.Energy" aria-valuemin="0" aria-valuemax="@ViewBag.MaxEnergy" style="width:@ViewBag.Energy%"></div>
                         </div>
                     </li>
-                    <li class="active"><a href="@Url.Action("Index", "Home")">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                    <li><a href="@Url.Action("Index", "Profile")">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-<<<<<<< HEAD
-                    <li><a href="@Url.Action("Zombies", "Find")">Hunt Zombies<span class="pull-right hidden-xs showopacity glyphicon glyphicon-warning-sign"></span></a></li>
-                    <li><a href="@Url.Action("Food", "Find")">Find Food<span class="pull-right hidden-xs showopacity glyphicon glyphicon-cutlery"></span></a></li>
-                    <li><a href="@Url.Action("Index", "Trades")">Trade<span class="pull-right hidden-xs showopacity glyphicon glyphicon-random"></span></a></li>
-=======
-                    <li><a href="@Url.Action("Index", "Research")">Research<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tree-deciduous"></span></a></li>
->>>>>>> goon
+                    <li class="active"><a href="@Url.Action("Index", "Home")">Home<i class="pull-right hidden-xs showopacity fa fa-home"></i></a></li>
+                    <li class="li-paypal @(ViewBag.BoostHours > 0 ? "boosted" : string.Empty)">
+                        <a href="@Url.Action("Index", "Paypal")" data-toggle="tooltip" title="@(ViewBag.BoostHours > 0 ? "You're currently boosted, and you can always add more!" : string.Empty)">
+                            Get A Boost!
+                            @if (ViewBag.BoostHours > 0)
+                            {
+                                <small class="text-muted boost-hours">@string.Format("({0}h left!)", ViewBag.BoostHours)</small>
+                            }
+                            <i class="pull-right hidden-xs showopacity fa fa-thermometer-full"></i>
+                        </a>
+                    </li>
+                    <li><a href="@Url.Action("Index", "Mailbox")" class="mailbox">Mailbox<i class="pull-right hidden-xs showopacity fa fa-envelope"></i></a></li>
+                    <li><a href="@Url.Action("Index", "Profile")">Profile<i class="pull-right hidden-xs showopacity fa fa-user"></i></a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operations <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-cogs"></i></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="javascript:void(0);">Coming Soon!</a></li>
+<<<<<<< HEAD
+                            <li><a href="@Url.Action("Index", "Map")">Map<i class="pull-right hidden-xs showopacity fa fa-globe"></i></a></li>
+                            <li><a href="@Url.Action("Zombies", "Find")">Hunt Zombies<i class="pull-right hidden-xs showopacity fa fa-exclamation-triangle"></i></a></li>
+                            <li><a href="@Url.Action("Index", "Map", new { Mode = "c"})">Attack Territories<i class="pull-right hidden-xs showopacity fa fa-shield"></i></a></li>
+                            <li><a href="@Url.Action("Food", "Find")">Find Food<i class="pull-right hidden-xs showopacity fa fa-cutlery"></i></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="@Url.Action("Index", "Research")">Research<i class="pull-right hidden-xs showopacity fa fa-university"></i></a></li>
+=======
+                            @*<li><a href="@Url.Action("Index", "Map")">Map<i class="pull-right hidden-xs showopacity fa fa-globe"></i></a></li>
+                            <li><a href="@Url.Action("Index", "Map", new { Mode = "c"})">Attack Territories<i class="pull-right hidden-xs showopacity fa fa-shield"></i></a></li>*@
+                            <li><a href="@Url.Action("Zombies", "Find")">Hunt Zombies<i class="pull-right hidden-xs showopacity fa fa-exclamation-triangle"></i></a></li>
+                            <li><a href="@Url.Action("Food", "Find")">Find Food<i class="pull-right hidden-xs showopacity fa fa-cutlery"></i></a></li>
+                            <li><a href="@Url.Action("People", "Find")">Add Population<i class="pull-right hidden-xs showopacity fa fa-users"></i></a></li>
+                        </ul>
+                    </li>
+>>>>>>> dev
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu forAnimate" role="menu">
+                            <li><a href="@Url.Action("Index", "Trades")">Trade<i class="pull-right hidden-xs showopacity fa fa-random"></i></a></li>
+                            <li><a href="@Url.Action("Index", "Inventory")">Inventory<i class="pull-right hidden-xs showopacity fa fa-th-large"></i></a></li>
+                            <li><a href="@Url.Action("Index", "Workbench")">Workbench<i class="pull-right hidden-xs showopacity fa fa-briefcase"></i></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><i class="pull-right hidden-xs showopacity fa fa-cog"></i></a>
+                        <ul class="dropdown-menu forAnimate" role="menu">
+                            <li><a href="@Url.Action("Users", "Home")">Users<i class="pull-right hidden-xs showopacity fa fa-users"></i></a></li>
                         </ul>
                     </li>
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
-                        <li>
-                            <a href="javascript:signOut();">Sign Out</a>
-                        </li>
+                        <li><a href="javascript:signOut();">Sign Out<i class="pull-right hidden-xs showopacity fa fa-sign-out"></i></a></li>
                     }
                 </ul>
             </div>
@@ -97,6 +164,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ html: true });
+        });
+    </script>
 
     <!-- theme setup -->
     <script type="text/javascript">
@@ -129,5 +202,19 @@
         });
     </script>
     <!-- /theme setup-->
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type: 'get',
+                url: '/mailbox/any',
+                success: function (data) {
+                    if (data.hasmail) {
+                        $('.mailbox').addClass('has-mail');
+                    }
+                }
+            })
+        })
+    </script>
 </body>
 </html>

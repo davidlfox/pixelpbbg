@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using PixelApp.Models;
 using Pixel.Common;
@@ -13,7 +8,7 @@ using Pixel.Common;
 namespace PixelApp.Controllers
 {
     [Authorize(Roles = Permissions.CanEditTerritories)]
-    public class TerritoriesController : Controller
+    public class TerritoriesController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

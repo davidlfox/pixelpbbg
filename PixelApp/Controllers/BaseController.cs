@@ -36,6 +36,7 @@ namespace PixelApp.Controllers
                 // load vitals
                 this.UserContext = this.Context.Users
                     .Include(x => x.Items)
+                    .Include(x => x.UserTechnologies)
                     .Single(x => x.Id == userId);
 
                 // do timed updates
@@ -44,10 +45,11 @@ namespace PixelApp.Controllers
 
                 // force territory selection/naming
                 if (!this.UserContext.TerritoryId.HasValue 
-                    && filterContext.ActionDescriptor.ActionName != "NameTerritory"
-                    && !(filterContext.Controller is HomeController))
+                    && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "Index")
+                    && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "SelectTerritory"))
                 {
-                    filterContext.Result = RedirectToAction("NameTerritory", "Dashboard");
+
+                    filterContext.Result = RedirectToAction("Index", "Map", new { Mode = "s" });
                 }
             }
 
