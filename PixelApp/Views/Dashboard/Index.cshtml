@@ -7,35 +7,25 @@
 <style type="text/css">
     .section-info {
         background-color: #222123;
-    }
-
-    .territory-info {
-        padding: 30px !important;
-    }
-
-        .territory-info img.type {
-            border: 3px solid #666;
-        }
-
-    .recent-attack-info {
         padding: 15px 30px !important;
     }
 
-    .resource-info {
-        padding: 30px !important;
+    img.territory-type {
+        border: 3px solid #666;
     }
 
-        .resource-info .type {
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-        }
+    img.resource-type {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 60px;
+    }
 
-        .resource-info input {
-            margin-left: auto;
-            margin-right: auto;
-            width: 100px;
-        }
+    .resource-info input {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100px;
+    }
 
     .save-resource-allocation {
         margin-top: 15px;
@@ -43,6 +33,15 @@
 
     .label-attack {
         line-height: 2;
+    }
+
+    .darker {
+        color: #333;
+    }
+
+    .right-border {
+        border-right: 1px solid #aaa;
+        min-height: 150px;
     }
 </style>
 
@@ -58,16 +57,19 @@
 
 <div class="alert alert-success text-center">
     <a href="@Url.Action("Index", "Paypal")">
-        <h3><strong><u>GET A 24-HOUR RESOURCE BOOST FOR $0.99!!!</u></strong></h3>
+        <h4><strong><u>BRIBE THE GOVERNMENT FOR A 24-HOUR RESOURCE BOOST--JUST $0.99!!!</u></strong></h4>
     </a>
 </div>
 
 <div class="row section-info territory-info">
-    <div class="col-sm-4">
-        <img class="type" src="@($"{assetPath}{Model.TerritoryType.ToString().ToLower()}.png")" alt="@Model.TerritoryType" />
+    <div class="alert alert-info text-center">
+        <strong>This is home base. Here you manage the people on resource collection as well as get basic insights to recent zombie attacks.</strong>
+    </div>
+    <div class="col-sm-4 right-border">
+        <img class="territory-type" src="@($"{assetPath}{Model.TerritoryType.ToString().ToLower()}.png")" alt="@Model.TerritoryType" />
         <p>Civilian Population: <strong>@Model.CivilianPopulation</strong></p>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 right-border">
         <h4>Territory: <strong>@Model.TerritoryName @($"({Model.TerritoryX}, {Model.TerritoryY})")</strong></h4>
         <p>
             Type: <strong>@Model.TerritoryType</strong>
@@ -107,26 +109,20 @@
 <div class="row">&nbsp;</div>
 <div class="row section-info resource-info text-center">
     <p class="alert alert-info">
-        This is your resource stockpile. You can adjust the <strong>percentages</strong> of civilian population dedicated to gathering each resource.
-        <strong>Percentages must total 100% or less.</strong>
-        <a href="@Url.Action("Index", "Paypal")">
-            <span class="label label-success">
-                GET A 24-HOUR RESOURCE BOOST FOR $0.99!!!
-            </span>
-        </a>
+        <strong>Either enter in a number or use the up and down arrows to adjust the percentage of the population assigned to gathering a specific resource.</strong>
     </p>
     @foreach (var res in Model.Resources)
     {
         <div class="col-sm-2">
-            <img class="type" src="@($"{assetPath}{res.Name.ToLower()}.png")" alt="@res.Name" />
+            <img class="resource-type" src="@($"{assetPath}{res.Name.ToLower()}.png")" alt="@res.Name" data-toggle="tooltip" title="@res.Name" />
             <strong>@res.Count</strong>
             <div class="input-group">
                 <input type="number" placeholder="% @res.Name" value="@((int)(res.Allocation * 100))" class="form-control allocation allocation-@res.Name.ToLower()" />
-                <span class="input-group-addon"><strong>%</strong></span>
+                <span class="input-group-addon"><strong class="darker">%</strong></span>
             </div>
         </div>
     }
-    <a href="javascript:void(0);" class="save-resource-allocation btn btn-lg btn-warning">Save Allocations</a>
+    <a href="javascript:void(0);" class="save-resource-allocation btn btn-success">Save Allocations</a>
 </div>
 <div class="row">&nbsp;</div>
 <div class="row section-info research-info text-center">
@@ -152,16 +148,6 @@
                 </div>
             </div>
         }
-    </div>
-</div>
-<div class="row">&nbsp;</div>
-<div class="row">
-    <div class="col-sm-6">
-        <p>Todo: link to map</p>
-    </div>
-    <div class="col-sm-6">
-        <h4>Daily Task: <strong>@Model.DailyTask</strong></h4>
-        <p>Time to completion: todo</p>
     </div>
 </div>
 

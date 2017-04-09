@@ -6,9 +6,16 @@
 
 @if (boostHours > 0)
 {
-    <div class="alert alert-info">
+    <div class="alert alert-info text-center">
         <h3>You have @boostHours @string.Format("hour{0}", boostHours > 1 ? "s" : string.Empty) remaining!</h3>
         <h4>You're currently boosted! You can always add more time to your boost and really gain an edge!</h4>
+    </div>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        <p>You can bribe the government to help out by providing extra bodies for resource gathering.</p>
+        <strong>Click 'Add to Cart' to be directed to PayPal and get a 24hr boost on resoucre collection. </strong>
     </div>
 }
 

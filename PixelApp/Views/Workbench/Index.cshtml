@@ -1,5 +1,5 @@
 ﻿@model PixelApp.Views.Workbench.Models.WorkbenchIndexViewModel
-@{ 
+@{
     var defaultIngredientUrl = "//fillmurray.com/100/100";
 }
 
@@ -10,15 +10,14 @@
         height: 124px;
     }
 
-    .ingredient-slot .quantity {
-        font-size: 72px;
-        background-color: #aaa;
-        color: #333;
-    }
+        .ingredient-slot .quantity {
+            font-size: 72px;
+            background-color: #aaa;
+            color: #333;
+        }
 
-    .ingredient-slot img {
-
-    }
+        .ingredient-slot img {
+        }
 
     .item-description {
         padding: 5px;
@@ -27,6 +26,20 @@
 </style>
 
 <h2>Workbench</h2>
+
+<div class="alert alert-info">
+    <p>
+        Tools don't grow on trees, you'll need to spend your hard earned resoucres to craft items to more effiecntly gather resoucres.
+        Wash, rinse, repeat.
+    </p>
+    <p>
+        <ol>
+            <li><strong>Select and item from the dropdown menu</strong> to craft. The resources needed and the quantity will be displayed as well as the maximumm amount you can make.</li>
+            <li><strong>Enter the quantity</strong> you want to craft.</li>
+            <li><strong>Click 'Craft'</strong></li>
+        </ol>
+    </p>
+</div>
 
 @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
 {
@@ -48,8 +61,7 @@
         <div class="col-xs-4">
             <div class="form-group">
                 <select name="ItemId" class="form-control"
-                        data-bind="options: selectitems, optionsText: 'name', optionsValue: 'value', optionsCaption: 'Select an item', value: selected, event: { change: itemSelected }">
-                </select>
+                        data-bind="options: selectitems, optionsText: 'name', optionsValue: 'value', optionsCaption: 'Select an item', value: selected, event: { change: itemSelected }"></select>
             </div>
         </div>
     </div>
