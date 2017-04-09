@@ -120,6 +120,8 @@ namespace PixelApp.Services
                 return new ProcessResponse(false, "Victory is not possible");
 
             attacker.Energy -= 50;
+            attacker.EnergyUpdatedTime = DateTime.Now;
+
             var baseExp = attacker.Level * 20;
             var rand = new Random();
             if (rand.Next(0, 99) + 1 < winPercent)
