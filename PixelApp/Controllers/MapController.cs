@@ -83,24 +83,21 @@ namespace PixelApp.Controllers
         public ActionResult AttackTerritory(int xCoord, int yCoord)
         {
             var ts = new TerritoryService();
-            var vm = new AttackTerritoryModel();
-            var targetInfo = ts.GetTerritories().Where(x => x.X.Equals(xCoord) && x.Y.Equals(yCoord))
-                .Select(x => new {
-                    Name = x.Name,
-                    UserName = x.Players.FirstOrDefault().UserName,
-                    Level = x.Players.FirstOrDefault().Level,
-                    TerritoryId = x.TerritoryId,
-                    Popultion = x.CivilianPopulation
-                })
-                .FirstOrDefault();
-            if (targetInfo == null)
+            var vm = ts.GetTerritories().Where(x => x.X.Equals(xCoord) && x.Y.Equals(yCoord))
+                .Select(x => new AttackTerritoryModel()
+                    {
+                           TerritoryName = x.Name,
+                        UserName = x.Players.FirstOrDefault().UserName,
+                        Level = x.Players.FirstOrDefault().Level,
+                        TerritoryId = x.TerritoryId,
+                        Population = x.CivilianPopulation,
+                        TerritoryTypeId = x.Type
+                    }
+                ).FirstOrDefault();
+
+            if (vm == null)
                 return RedirectToAction("Index");
 
-            vm.TerritoryName = targetInfo.Name;
-            vm.UserName = targetInfo.UserName;
-            vm.Level = targetInfo.Level;
-            vm.TerritoryId = targetInfo.TerritoryId;
-            vm.Population = targetInfo.Popultion;
             return View(vm);
         }
 
@@ -109,6 +106,7 @@ namespace PixelApp.Controllers
         {
             var ts = new TerritoryService();
             var response = ts.AttackTerritory(this.UserContext, vm.TerritoryId);
+            ts.SaveChanges();
             if (response.IsSuccessful)
                 vm.ResultMessages = response.Messages;
 

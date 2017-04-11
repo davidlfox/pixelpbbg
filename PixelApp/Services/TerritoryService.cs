@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Text;
 
 namespace PixelApp.Services
 {
@@ -116,27 +117,43 @@ namespace PixelApp.Services
             var defensePercent = defender.UserTechnologies.Where(x => x.Technology.BoostTypeId == BoostTypes.Defense).Sum(x => x.Technology.BoostAmount * 100);
 
             var winPercent = 45 + offensePercent - defensePercent + levelBoost;
-            if (winPercent < 2 && attacker.Level < defender.Level)
+            if (winPercent < 2)
                 return new ProcessResponse(false, "Victory is not possible");
 
             attacker.Energy -= 50;
             attacker.EnergyUpdatedTime = DateTime.Now;
 
-            var baseExp = attacker.Level * 20;
             var rand = new Random();
+
+            // Population change calculations
+            var popChangeWin = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0));
+            var popChangeLoss = (int)(attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0));
+
+            // Base xp is a function of level and a random multiplier of 50% to 150% so the numbers aren't all the same
+            var baseExp = (int)(attacker.Level * 20 * ((rand.Next(0, 101) + 50) / 100.0));
+            var defenderMessages = new Dictionary<string, object>();
             if (rand.Next(0, 99) + 1 < winPercent)
             {
                 // Win
                 response.Messages.Add("Result", "Victory");
+                defenderMessages.Add("Result", "Loss");
 
                 var xpChange = Math.Max((int)(baseExp * ((100 - winPercent) / 100)), 5);
                 attacker.Experience += xpChange;
                 response.Messages.Add("Experience Gain", xpChange);
 
-                var popChange = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0));
-                attacker.Territory.CivilianPopulation -= popChange;
-                response.Messages.Add("Population Lost", popChange);
+                // Attacker Population Change
+                attacker.Territory.CivilianPopulation -= popChangeWin;
+                response.Messages.Add("Population Lost", popChangeWin);
+                defenderMessages.Add("Enemies Killed", popChangeWin);
 
+                // Defender Population Change
+                var defenderPopulationLosses = (int)(popChangeLoss * .5);
+                defender.Territory.CivilianPopulation -= defenderPopulationLosses;
+                response.Messages.Add("Enemies Killed", defenderPopulationLosses);
+                defenderMessages.Add("Population Lost", defenderPopulationLosses);
+
+                // Looting values
                 var lootType = (ResourceTypes)(rand.Next(0, 6) + 1);
                 var defenderItem = defender.Items.Single(x => x.ItemId == (int)lootType);
                 var attackerItem = attacker.Items.Single(x => x.ItemId == (int)lootType);
@@ -144,19 +161,54 @@ namespace PixelApp.Services
                 attackerItem.Quantity += lootAmt;
                 defenderItem.Quantity -= lootAmt;
                 response.Messages.Add("Loot Taken", $"{lootAmt} {lootType.ToString()}");
+                defenderMessages.Add("Resources Lost", $"{lootAmt} {lootType.ToString()}");
             }
             else
             {
                 // Loss
                 response.Messages.Add("Result", "Loss");
+                defenderMessages.Add("Result", "Victory");
 
+                // Experience Gains
                 attacker.Experience += 5;
                 response.Messages.Add("Experience Gain", 5);
+                var defenderXPChange = Math.Max((int)(baseExp * ((winPercent) / 100)), 5);
+                defender.Experience += defenderXPChange;
+                defenderMessages.Add("Experience Gain", defenderXPChange);
 
-                var popChange = attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100);
-                attacker.Territory.CivilianPopulation -= popChange;
-                response.Messages.Add("Population Lost", popChange);
+                // Attacker Population Change
+                attacker.Territory.CivilianPopulation -= popChangeLoss;
+                response.Messages.Add("Population Lost", popChangeLoss);
+                defenderMessages.Add("Enemies Killed", popChangeLoss);
+
+                // Defender Population Change
+                var defenderPopulationLosses = (int)(popChangeWin * .5);
+                defender.Territory.CivilianPopulation -= defenderPopulationLosses;
+                response.Messages.Add("Enemies Killed", defenderPopulationLosses);
+                defenderMessages.Add("Population Lost", defenderPopulationLosses);
             }
+
+            // Send result messgages
+            var sb = new StringBuilder();
+            sb.Append($"Here are the results of your recent attack against {defender.Territory.Name}.<br />");
+            foreach (var msg in response.Messages)
+                sb.Append($"{msg.Key}: <strong>{msg.Value.ToString()}</strong><br />");
+            var attackerNote = CommunicationService.CreateNotification(
+                attacker.Id,
+                response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "You Triumphed Over Your Enemy" : "You Suffered a Humiliating Defeat",
+                sb.ToString()               
+            );
+
+            sb = new StringBuilder();
+            sb.Append($"Here are the results from the attack by your neighbor {attacker.Territory.Name}.<br />");
+            foreach (var msg in defenderMessages)
+                sb.Append($"{msg.Key}: <strong>{msg.Value.ToString()}</strong><br />");
+            var defenderrNote = CommunicationService.CreateNotification(
+                attacker.Id,
+                response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "You Successfully Defended Your Territory" : "You Received a Thorough Beating From an Enemy",
+                sb.ToString()
+            );
+            context.Notes.Add(attackerNote);
 
             response.IsSuccessful = true;
             return response;

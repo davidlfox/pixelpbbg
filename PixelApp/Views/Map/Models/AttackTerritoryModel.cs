@@ -1,4 +1,5 @@
-﻿using PixelApp.Models;
+﻿using Pixel.Common.Data;
+using PixelApp.Models;
 using System.Collections.Generic;
 
 namespace PixelApp.Views.Map.Models
@@ -11,6 +12,8 @@ namespace PixelApp.Views.Map.Models
         }
 
         public string TerritoryName { get; set; }
+
+        public TerritoryTypes TerritoryTypeId { get; set; }
 
         public string UserName { get; set; }
 

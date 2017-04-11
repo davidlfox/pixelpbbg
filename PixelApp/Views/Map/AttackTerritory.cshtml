@@ -1,6 +1,7 @@
 ﻿@model PixelApp.Views.Map.Models.AttackTerritoryModel
 @{
     ViewBag.Title = "AttackTerritory";
+    var assetPath = "//storageasagvk5xvrja2.blob.core.windows.net/assets/";
 }
 
 <style type="text/css">
@@ -19,15 +20,17 @@
 {
     <h2>Attack Territory</h2>
     <div class="text-center section-info clearfix">
-        <h4>Territory Name: <strong>@Model.TerritoryName</strong></h4>
-        <h4>Territory Owner: <strong>@Model.UserName</strong></h4>
-        <h4>Owner Level: <strong>@Model.Level</strong></h4>
-        <h4>Civilian Population: <strong>@Model.Population</strong></h4>
+        <h2><strong>@Model.TerritoryName</strong></h2>
+        <img class="territory-type" src="@($"{assetPath}{Model.TerritoryTypeId.ToString().ToLower()}.png")" alt="@Model.TerritoryTypeId" />
+        <h4>Owner: <strong>@Model.UserName</strong></h4>
+        <h4>Level: <strong>@Model.Level</strong></h4>
+        <h4>Population: <strong>@Model.Population</strong></h4>
         @Html.HiddenFor(x => x.TerritoryName)
         @Html.HiddenFor(x => x.UserName)
         @Html.HiddenFor(x => x.Level)
         @Html.HiddenFor(x => x.Population)
         @Html.HiddenFor(x => x.TerritoryId)
+        @Html.HiddenFor(x => x.TerritoryTypeId)
         <br />
         <div class="col-xs-6">
             <a href="@Url.Action("Index", new { Mode = "c"})" class="btn btn-default">Cancel</a>
@@ -42,7 +45,10 @@
 {
     <h2>Attack Results</h2>
     <div class="text-center section-info clearfix">
-        <h3>Result: <strong>@Model.ResultMessages["Result"].ToString()</strong></h3><br />
+        <h2>
+            Result: <strong class="@(Model.ResultMessages.ContainsKey("Result") && Model.ResultMessages["Result"].ToString() == "Victory" ? "text-success" : "text-danger")">@Model.ResultMessages["Result"].ToString()</strong>
+        </h2>
+        <br />
         @foreach(var message in Model.ResultMessages.Where(x => x.Key != "Result"))
         {
             <h4>@message.Key: <strong>@message.Value.ToString()</strong></h4>
