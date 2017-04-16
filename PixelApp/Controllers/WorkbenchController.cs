@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace PixelApp.Controllers
 {
@@ -22,10 +23,13 @@ namespace PixelApp.Controllers
         [HttpGet]
         public JsonResult GetItems()
         {
-            var vm = new WorkbenchViewModel(this.UserContext.Items);
+            var userId = this.User.Identity.GetUserId();
+            var user = this.Context.Users.Include(x => x.Items).Single(x => x.Id == userId);
+
+            var vm = new WorkbenchViewModel(user.Items);
             // get items and affordability for the user
             vm.LoadItems(this.Context);
-            vm.CivilianPopulation = this.UserContext.Territory.CivilianPopulation;
+            vm.CivilianPopulation = user.Territory.CivilianPopulation;
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
 
