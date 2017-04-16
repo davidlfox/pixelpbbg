@@ -374,7 +374,7 @@
     <Content Include="Content\pixel-home-bg2.jpg" />
     <Content Include="Content\pixel-home-bg3.jpg" />
     <Content Include="Content\pixel-home-bg4.jpg" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
