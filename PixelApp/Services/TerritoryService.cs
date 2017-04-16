@@ -203,12 +203,13 @@ namespace PixelApp.Services
             sb.Append($"Here are the results from the attack by your neighbor {attacker.Territory.Name}.<br />");
             foreach (var msg in defenderMessages)
                 sb.Append($"{msg.Key}: <strong>{msg.Value.ToString()}</strong><br />");
-            var defenderrNote = CommunicationService.CreateNotification(
+            var defenderNote = CommunicationService.CreateNotification(
                 attacker.Id,
                 response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "You Successfully Defended Your Territory" : "You Received a Thorough Beating From an Enemy",
                 sb.ToString()
             );
             context.Notes.Add(attackerNote);
+            context.Notes.Add(defenderNote);
 
             response.IsSuccessful = true;
             return response;
