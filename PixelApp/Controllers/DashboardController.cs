@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace PixelApp.Controllers
 {
@@ -175,8 +176,11 @@ namespace PixelApp.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.DenyGet);
             }
 
+            var userId = this.User.Identity.GetUserId();
+            var user = this.Context.Users.Single(x => x.Id == userId);
+
             var ts = new TerritoryService();
-            ts.UpdateResourceAllocations(this.UserContext.TerritoryId.Value, vm.WaterAllocation, vm.WoodAllocation
+            ts.UpdateResourceAllocations(user.TerritoryId.Value, vm.WaterAllocation, vm.WoodAllocation
                 , vm.FoodAllocation, vm.StoneAllocation, vm.OilAllocation, vm.IronAllocation);
             try
             {
