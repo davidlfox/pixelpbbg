@@ -341,6 +341,7 @@
     <Compile Include="Services\TerritoryFactory.cs" />
     <Compile Include="Services\TerritoryService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Chat\ChatViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\NameTerritoryViewModel.cs" />
     <Compile Include="Views\Dashboard\Models\UpdateResourcesModel.cs" />
@@ -507,7 +508,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Chat\" />
     <Folder Include="Views\Technology\" />
   </ItemGroup>
   <ItemGroup>

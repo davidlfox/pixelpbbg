@@ -10,5 +10,6 @@ namespace Pixel.Common.Cloud
     {
         public const string MOTD = "motd";
         public const string GameEvents = "gameevents";
+        public const string Chats = "chats";
     }
 }

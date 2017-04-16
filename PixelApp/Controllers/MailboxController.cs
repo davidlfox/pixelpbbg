@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace PixelApp.Controllers
 {
+    [Authorize]
     public class MailboxController : BaseController
     {
         public JsonResult Any()
         {
+            var userId = this.User.Identity.GetUserId();
             var notes = this.Context.Notes.Any(x => 
-                x.UserId == this.UserContext.Id
+                x.UserId == userId
                 && x.IsActive.Equals(true) 
                 && x.IsRead.Equals(false));
 

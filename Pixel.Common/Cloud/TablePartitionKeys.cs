@@ -12,6 +12,7 @@ namespace Pixel.Common.Cloud
         {
             public const string ZombieFights = "zombiefights";
             public const string FoodForages = "foodforages";
+            public const string Chats = "chats";
         }
     }
 }

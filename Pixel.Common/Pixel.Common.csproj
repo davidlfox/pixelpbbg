@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Cloud\AddPopulationMessage.cs" />
     <Compile Include="Cloud\AddResourceMessage.cs" />
+    <Compile Include="Cloud\ChatEntity.cs" />
     <Compile Include="Cloud\ExperienceMessage.cs" />
     <Compile Include="Cloud\FoodForageEntity.cs" />
     <Compile Include="Cloud\ResearchCompletedMessage.cs" />

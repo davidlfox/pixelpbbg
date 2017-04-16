@@ -8,7 +8,7 @@
         position: fixed;
         bottom: -20px;
         right: 0;
-        width:100%;
+        width: 100%;
     }
 
     .chat {
@@ -17,28 +17,31 @@
         padding: 0;
     }
 
-    .chat li {
-        margin-bottom: 10px;
-        padding-bottom: 5px;
-        border-bottom: 1px dotted #B3A9A9;
+        .chat li {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #B3A9A9;
+        }
+
+            .chat li.left .chat-body {
+                margin-left: 60px;
+            }
+
+            .chat li.right .chat-body {
+                margin-right: 60px;
+            }
+
+            .chat li .chat-body p {
+                margin: 0;
+                color: #777777;
+            }
+    .chat-img img {
+        width: 45px;
     }
 
-    .chat li.left .chat-body {
-        margin-left: 60px;
-    }
-
-    .chat li.right .chat-body {
-        margin-right: 60px;
-    }
-
-    .chat li .chat-body p {
-        margin: 0;
-        color: #777777;
-    }
-
-    .panel .slidedown .glyphicon, .chat .glyphicon {
-        margin-right: 5px;
-    }
+        .panel .slidedown .glyphicon, .chat .glyphicon {
+            margin-right: 5px;
+        }
 
     .panel-body {
         overflow-y: scroll;
@@ -75,71 +78,10 @@
                     </div>
                 </div>
                 <div class="panel-collapse collapse" id="collapseOne">
-                    <div class="panel-body">
-                        <ul class="chat">
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>12 mins ago
-                                        </small>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                        <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>14 mins ago
-                                        </small>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                        <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="panel-body" id="chat-body">
+                        <!-- main chat dialog -->
+                        <ul class="chat" id="chat"></ul>
+                        <!-- /main chat dialog -->
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
@@ -158,12 +100,28 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        // load chat
+    var lastLookup;
 
-        // poll for new messages
+    $(function () {
+        poll();
+
+        // poll for new messages every 3 seconds, update last lookup date
+        var interval = setInterval(poll, 5000);
 
         // bind event to send message
+        $('#btn-chat').click(function () {
+            sendChat();
+        });
+
+        $('#btn-input').keypress(function (e) {
+            if (e.which == 13) {
+                sendChat();
+            }
+        });
+
+        $('#collapseOne').on('shown.bs.collapse', function () {
+            scrollToLastChat();
+        });
 
         $('.chat-toggle').click(function () {
             if ($(this).hasClass('glyphicon-chevron-down')) {
@@ -173,4 +131,47 @@
             }
         })
     });
+
+    function poll() {
+        var url = lastLookup ? '/chat?since=' + lastLookup : '/chat'
+        lastLookup = getDateString();
+        // load chat
+        var chats = $.getJSON(url, function (data) {
+            appendNewChat(data);
+        });
+    }
+
+    function sendChat() {
+        var msg = $('#btn-input').val();
+        if (msg) {
+            $('#btn-chat').attr('disabled', 'disabled');
+            $.ajax({
+                url: '/chat/send',
+                type: 'post',
+                data: { Message: $('#btn-input').val() },
+                success: function (data) {
+                    $('#btn-input').val('');
+                },
+                complete: function () {
+                    $('#btn-chat').removeAttr('disabled');
+                }
+            });
+        }
+    }
+
+    function appendNewChat(data) {
+        for (var i = 0; i < data.chats.length; i++) {
+            $('<li class="left clearfix"><span class="chat-img pull-left"><img alt="User Avatar" class="img-circle" src="' + data.chats[i].ImageUrl + '" /></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + data.chats[i].Author + '</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span><span>' + data.chats[i].Posted + '</span></small></div><p>' + data.chats[i].Message + '</p></div></li>').appendTo("#chat");
+        }
+        scrollToLastChat();
+    }
+
+    function getDateString() {
+        return moment().utc().format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    function scrollToLastChat() {
+        var objDiv = document.getElementById("chat-body");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
 </script>
