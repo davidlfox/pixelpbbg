@@ -500,6 +500,7 @@
     <Content Include="Views\Paypal\Thanks.cshtml" />
     <Content Include="Views\Paypal\Index.cshtml" />
     <Content Include="Views\Find\People.cshtml" />
+    <Content Include="Views\Home\Robots.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -154,6 +154,13 @@ namespace PixelApp.Controllers
             return View(vm);
         }
 
+        [AllowAnonymous]
+        public ActionResult Robots()
+        {
+            Response.ContentType = "text/plain";
+            return View();
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

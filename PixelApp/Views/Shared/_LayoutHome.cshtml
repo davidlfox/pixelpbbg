@@ -1,12 +1,34 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var ogtitle = "Pixelocalypse - A Browser Game";
+    var ogdescription = "The world has fallen into dark times after recent political turmoil. Can your territory survive the recreation of society?";
+    var ogurl = "http://pixelocalypse.com";
+    var ogimageurl = "http://pixelocalypse.com/Content/dashboard-bg.jpg";
+    var twittersitename = "@pixelocalypse";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Pixelocalypse</title>
     @Styles.Render("~/Content/css")
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
     @Scripts.Render("~/bundles/modernizr")
+
+    <meta property="og:title" content="@ogtitle" />
+    <meta property="og:description" content="@ogdescription" />
+    <meta property="og:url" content="@ogurl" />
+    <meta property="og:image" content="@ogimageurl" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="450" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twittersitename" />
+    <meta name="twitter:title" content="@ogtitle" />
+    <meta name="twitter:description" content="@ogdescription" />
+    <meta name="twitter:image" content="@ogimageurl" />
+
     <style type="text/css">
         footer {
             position: absolute;
