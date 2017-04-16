@@ -22,6 +22,10 @@ namespace PixelApp.Controllers
             if (!string.IsNullOrWhiteSpace(since))
             {
                 chatsSince = DateTime.ParseExact(since, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                if (chatsSince < DateTime.Now.AddDays(-1))
+                {
+                    chatsSince = DateTime.Now.AddDays(-1);
+                }
             }
             else
             {
