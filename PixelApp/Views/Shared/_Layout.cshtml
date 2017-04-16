@@ -12,6 +12,11 @@
         .navbar i {
             font-size: 20px;
         }
+        @@media (max-width:768px){
+            .navbar {
+                margin-bottom: 0;
+            }
+        }
         .progress-bar { 
             font-weight: bold;
         }
@@ -67,6 +72,8 @@
         .research-progress.not-researching {
             background-color: #600;
         }
+
+        
     </style>
 </head>
 <body>
@@ -154,7 +161,7 @@
                         <li><a href="javascript:signOut();">Sign Out<i class="pull-right hidden-xs showopacity fa fa-sign-out"></i></a></li>
                     }
                 </ul>
-</div>
+            </div>
         </div>
     </nav>
     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "signout-form" }))
@@ -176,6 +183,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @RenderSection("scripts", required: false)
+
+    @Html.Partial("_Chat")
 
     <script type="text/javascript">
         $(function () {

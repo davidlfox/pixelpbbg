@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AttackLogsController.cs" />
     <Compile Include="Controllers\BadgesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -501,10 +502,12 @@
     <Content Include="Views\Paypal\Index.cshtml" />
     <Content Include="Views\Find\People.cshtml" />
     <Content Include="Views\Home\Robots.cshtml" />
+    <Content Include="Views\Shared\_Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Chat\" />
     <Folder Include="Views\Technology\" />
   </ItemGroup>
   <ItemGroup>

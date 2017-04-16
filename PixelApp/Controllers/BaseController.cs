@@ -29,27 +29,30 @@ namespace PixelApp.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            // load something like a user context
-            var userId = this.User.Identity.GetUserId();
-            if (!string.IsNullOrWhiteSpace(userId))
+            if(!Request.IsAjaxRequest())
             {
-                // load vitals
-                this.UserContext = this.Context.Users
-                    .Include(x => x.Items)
-                    .Include(x => x.UserTechnologies)
-                    .Single(x => x.Id == userId);
-
-                // do timed updates
-                var em = new EventManager();
-                em.ProcessEvents(this.Context, this.UserContext);
-
-                // force territory selection/naming
-                if (!this.UserContext.TerritoryId.HasValue 
-                    && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "Index")
-                    && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "SelectTerritory"))
+                // load something like a user context
+                var userId = this.User.Identity.GetUserId();
+                if (!string.IsNullOrWhiteSpace(userId))
                 {
+                    // load vitals
+                    this.UserContext = this.Context.Users
+                        .Include(x => x.Items)
+                        .Include(x => x.UserTechnologies)
+                        .Single(x => x.Id == userId);
 
-                    filterContext.Result = RedirectToAction("Index", "Map", new { Mode = "s" });
+                    // do timed updates
+                    var em = new EventManager();
+                    em.ProcessEvents(this.Context, this.UserContext);
+
+                    // force territory selection/naming
+                    if (!this.UserContext.TerritoryId.HasValue 
+                        && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "Index")
+                        && !(filterContext.Controller is MapController && filterContext.ActionDescriptor.ActionName == "SelectTerritory"))
+                    {
+
+                        filterContext.Result = RedirectToAction("Index", "Map", new { Mode = "s" });
+                    }
                 }
             }
 
@@ -58,38 +61,41 @@ namespace PixelApp.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var userId = this.User.Identity.GetUserId();
-
-            if (!string.IsNullOrWhiteSpace(userId))
+            if (!Request.IsAjaxRequest())
             {
-                ViewBag.Username = this.UserContext.UserName;
-                ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
-                ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
-                ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
-                ViewBag.MaxLife = this.UserContext.MaxLife;
-                ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
-                ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
-                ViewBag.BoostHours = this.UserContext.HourlyResourceBoosts ?? 0;
-                ViewBag.IsImpersonating = System.Web.HttpContext.Current.User.IsImpersonating();
+                var userId = this.User.Identity.GetUserId();
 
-                var ts = new TechnologyService();
-                var progress = ts.GetCheckPendingResearch(this.UserContext.Id);
-                ts.SaveChanges();
-
-                if (progress == null)
+                if (!string.IsNullOrWhiteSpace(userId))
                 {
-                    ViewBag.IsResearching = false;
-                }
-                else
-                {
-                    ViewBag.IsResearching = true;
-                    var hoursSpent = (DateTime.Now - progress.ResearchStartDate).TotalHours;
-                    var hoursRequired = progress.Technology.ResearchDays * 24;
-                    ViewBag.ResearchProgress = Math.Round(hoursSpent / hoursRequired, 2) * 100;
-                }
+                    ViewBag.Username = this.UserContext.UserName;
+                    ViewBag.Level = StatManager.GetLevel(userId, this.Context, false);
+                    ViewBag.LevelProgress = StatManager.GetLevelProgress(this.UserContext.Level, this.UserContext.Experience);
+                    ViewBag.Life = StatManager.GetLife(userId, this.Context, false);
+                    ViewBag.MaxLife = this.UserContext.MaxLife;
+                    ViewBag.Energy = StatManager.GetEnergy(userId, this.Context, false);
+                    ViewBag.MaxEnergy = this.UserContext.MaxEnergy;
+                    ViewBag.BoostHours = this.UserContext.HourlyResourceBoosts ?? 0;
+                    ViewBag.IsImpersonating = System.Web.HttpContext.Current.User.IsImpersonating();
+
+                    var ts = new TechnologyService();
+                    var progress = ts.GetCheckPendingResearch(this.UserContext.Id);
+                    ts.SaveChanges();
+
+                    if (progress == null)
+                    {
+                        ViewBag.IsResearching = false;
+                    }
+                    else
+                    {
+                        ViewBag.IsResearching = true;
+                        var hoursSpent = (DateTime.Now - progress.ResearchStartDate).TotalHours;
+                        var hoursRequired = progress.Technology.ResearchDays * 24;
+                        ViewBag.ResearchProgress = Math.Round(hoursSpent / hoursRequired, 2) * 100;
+                    }
 
 
-                this.Context.SaveChanges();
+                    this.Context.SaveChanges();
+                }
             }
 
             base.OnActionExecuted(filterContext);
