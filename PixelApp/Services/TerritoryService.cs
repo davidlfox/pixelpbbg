@@ -144,12 +144,14 @@ namespace PixelApp.Services
 
                 // Attacker Population Change
                 attacker.Territory.CivilianPopulation -= popChangeWin;
+
                 response.Messages.Add("Population Lost", popChangeWin);
                 defenderMessages.Add("Enemies Killed", popChangeWin);
 
                 // Defender Population Change
                 var defenderPopulationLosses = (int)(popChangeLoss * .5);
                 defender.Territory.CivilianPopulation -= defenderPopulationLosses;
+
                 response.Messages.Add("Enemies Killed", defenderPopulationLosses);
                 defenderMessages.Add("Population Lost", defenderPopulationLosses);
 
@@ -188,6 +190,16 @@ namespace PixelApp.Services
                 defenderMessages.Add("Population Lost", defenderPopulationLosses);
             }
 
+            // floor population at 100 people
+            if (attacker.Territory.CivilianPopulation < 100)
+            {
+                attacker.Territory.CivilianPopulation = 100;
+            }
+            if (defender.Territory.CivilianPopulation < 100)
+            {
+                defender.Territory.CivilianPopulation = 100;
+            }
+
             // Send result messgages
             var sb = new StringBuilder();
             sb.Append($"Here are the results of your recent attack against {defender.Territory.Name}.<br />");
@@ -204,10 +216,11 @@ namespace PixelApp.Services
             foreach (var msg in defenderMessages)
                 sb.Append($"{msg.Key}: <strong>{msg.Value.ToString()}</strong><br />");
             var defenderNote = CommunicationService.CreateNotification(
-                attacker.Id,
+                defender.Id,
                 response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "You Successfully Defended Your Territory" : "You Received a Thorough Beating From an Enemy",
                 sb.ToString()
             );
+
             context.Notes.Add(attackerNote);
             context.Notes.Add(defenderNote);
 
