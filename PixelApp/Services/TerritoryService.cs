@@ -126,10 +126,11 @@ namespace PixelApp.Services
             var rand = new Random();
 
             // Population change calculations
-            var attackerPopChangeWin = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0));
-            var attackerPopChangeLoss = (int)(attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0));
-            var defenderPopChangeWin = (int)(defender.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0) * .5);
-            var defenderPopChangeLoss = (int)(defender.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0) * .5);
+            var populationChangeTweak = .5;
+            var attackerPopChangeWin = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0) * populationChangeTweak);
+            var attackerPopChangeLoss = (int)(attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0) * populationChangeTweak);
+            var defenderPopChangeWin = (int)(defender.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0) * .5 * populationChangeTweak);
+            var defenderPopChangeLoss = (int)(defender.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0) * .5 * populationChangeTweak);
 
             // Don't allow populations to dip below 100 as the result of the attack
             attackerPopChangeWin = Math.Max(Math.Min(attacker.Territory.CivilianPopulation - 100, attackerPopChangeWin), 0);

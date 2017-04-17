@@ -32,6 +32,7 @@
     }
 
     .map-link{
+        margin: 10px;
     }
 
     .label-attack {
@@ -129,9 +130,13 @@
 </div>
 <div class="row">&nbsp;</div>
 <div class="row section-info text-center col-xs-12">
-    <h4 class="col-xs-4 map-link">Territory Map</h4>
-    <a class="btn btn-primary col-xs-4 map-link" href="@Url.Action("Index", "Map")">Local View</a>
-    <a class="btn btn-primary col-xs-4 map-link" href="@Url.Action("Index", "Map", new { size = 25 })">Macro View</a>
+    <h4 class="col-sm-4 col-xs-12">Territory Map</h4>
+    <div class="col-sm-4 col-xs-12">
+        <a class="btn btn-primary map-link" href="@Url.Action("Index", "Map")">Local View</a>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <a class="btn btn-primary map-link" href="@Url.Action("Index", "Map", new { size = 25 })">Macro View</a>
+    </div>
 </div>
 <div class="row">&nbsp;</div>
 
