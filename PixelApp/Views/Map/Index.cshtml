@@ -16,8 +16,8 @@
 <style>
     .map-canvas {
         background-color: #b9bbb4;
-        font-size:5px;
-        line-height:normal;
+        font-size: 5px;
+        line-height: normal;
     }
 
     .nomarginnopadding {
@@ -26,15 +26,15 @@
     }
 
     .available {
-        background-color:darkslategrey;
+        background-color: darkslategrey;
     }
 
-    .unavavilable{
-        background-color:black;
+    .unavavilable {
+        background-color: black;
     }
 
     .tooltip-inner {
-        font-size:15px;
+        font-size: 15px;
     }
 
     .territory img {
@@ -54,12 +54,15 @@
         });
     </script>
 }
-
 <h2>@(Model.Mode != null && Model.Mode.Equals("s") ? "Please select an available Territory" : "Territory Map")</h2>
+<div class="col-xs-12 clearfix">
+    <a class="btn btn-sm btn-primary pull-right" href="@Url.Action("Index", new { Mode = Request["Mode"] != null ? Request["Mode"].ToString() : null })">Local View</a>
+    <a class="btn btn-sm btn-primary pull-right" href="@Url.Action("Index", new { Size = 25, Mode = Request["Mode"] != null ? Request["Mode"].ToString() : null })">Macro View</a>
+</div>
 <div>
     <div class="well well-lg map-canvas text-center">
         @for (int y = (Model.Y + Model.Reach); y >= (Model.Y - Model.Reach); y--)
-        {
+            {
             <div>
                 @for (int x = (Model.X - Model.Reach); x <= (Model.X + Model.Reach); x++)
                 {
