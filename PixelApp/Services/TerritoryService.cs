@@ -126,8 +126,16 @@ namespace PixelApp.Services
             var rand = new Random();
 
             // Population change calculations
-            var popChangeWin = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0));
-            var popChangeLoss = (int)(attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0));
+            var attackerPopChangeWin = (int)(attacker.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0));
+            var attackerPopChangeLoss = (int)(attacker.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0));
+            var defenderPopChangeWin = (int)(defender.Territory.CivilianPopulation * (rand.Next(0, 2) / 100.0) * .5);
+            var defenderPopChangeLoss = (int)(defender.Territory.CivilianPopulation * ((rand.Next(0, 4) + 2) / 100.0) * .5);
+
+            // Don't allow populations to dip below 100 as the result of the attack
+            attackerPopChangeWin = Math.Max(Math.Min(attacker.Territory.CivilianPopulation - 100, attackerPopChangeWin), 0);
+            attackerPopChangeLoss = Math.Max(Math.Min(attacker.Territory.CivilianPopulation - 100, attackerPopChangeLoss), 0);
+            defenderPopChangeWin = Math.Max(Math.Min(defender.Territory.CivilianPopulation - 100, defenderPopChangeWin), 0);
+            defenderPopChangeLoss = Math.Max(Math.Min(defender.Territory.CivilianPopulation - 100, defenderPopChangeLoss), 0);
 
             // Base xp is a function of level and a random multiplier of 50% to 150% so the numbers aren't all the same
             var baseExp = (int)(attacker.Level * 20 * ((rand.Next(0, 101) + 50) / 100.0));
@@ -143,17 +151,14 @@ namespace PixelApp.Services
                 response.Messages.Add("Experience Gain", xpChange);
 
                 // Attacker Population Change
-                attacker.Territory.CivilianPopulation -= popChangeWin;
-
-                response.Messages.Add("Population Lost", popChangeWin);
-                defenderMessages.Add("Enemies Killed", popChangeWin);
+                attacker.Territory.CivilianPopulation -= attackerPopChangeWin;
+                response.Messages.Add("Population Lost", attackerPopChangeWin);
+                defenderMessages.Add("Enemies Killed", attackerPopChangeWin);
 
                 // Defender Population Change
-                var defenderPopulationLosses = (int)(popChangeLoss * .5);
-                defender.Territory.CivilianPopulation -= defenderPopulationLosses;
-
-                response.Messages.Add("Enemies Killed", defenderPopulationLosses);
-                defenderMessages.Add("Population Lost", defenderPopulationLosses);
+                defender.Territory.CivilianPopulation -= defenderPopChangeLoss;
+                response.Messages.Add("Enemies Killed", defenderPopChangeLoss);
+                defenderMessages.Add("Population Lost", defenderPopChangeLoss);
 
                 // Looting values
                 var lootType = (ResourceTypes)(rand.Next(0, 6) + 1);
@@ -179,25 +184,14 @@ namespace PixelApp.Services
                 defenderMessages.Add("Experience Gain", defenderXPChange);
 
                 // Attacker Population Change
-                attacker.Territory.CivilianPopulation -= popChangeLoss;
-                response.Messages.Add("Population Lost", popChangeLoss);
-                defenderMessages.Add("Enemies Killed", popChangeLoss);
+                attacker.Territory.CivilianPopulation -= attackerPopChangeLoss;
+                response.Messages.Add("Population Lost", attackerPopChangeLoss);
+                defenderMessages.Add("Enemies Killed", attackerPopChangeLoss);
 
                 // Defender Population Change
-                var defenderPopulationLosses = (int)(popChangeWin * .5);
-                defender.Territory.CivilianPopulation -= defenderPopulationLosses;
-                response.Messages.Add("Enemies Killed", defenderPopulationLosses);
-                defenderMessages.Add("Population Lost", defenderPopulationLosses);
-            }
-
-            // floor population at 100 people
-            if (attacker.Territory.CivilianPopulation < 100)
-            {
-                attacker.Territory.CivilianPopulation = 100;
-            }
-            if (defender.Territory.CivilianPopulation < 100)
-            {
-                defender.Territory.CivilianPopulation = 100;
+                defender.Territory.CivilianPopulation -= defenderPopChangeWin;
+                response.Messages.Add("Enemies Killed", defenderPopChangeWin);
+                defenderMessages.Add("Population Lost", defenderPopChangeWin);
             }
 
             // Send result messgages
@@ -207,7 +201,7 @@ namespace PixelApp.Services
                 sb.Append($"{msg.Key}: <strong>{msg.Value.ToString()}</strong><br />");
             var attackerNote = CommunicationService.CreateNotification(
                 attacker.Id,
-                response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "You Triumphed Over Your Enemy" : "You Suffered a Humiliating Defeat",
+                response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "Your Attack was a Great Success" : "Your Attack was a Utter Failure",
                 sb.ToString()               
             );
 
@@ -217,7 +211,7 @@ namespace PixelApp.Services
                 sb.Append($"{msg.Key}: <strong>{msg.Value.ToString()}</strong><br />");
             var defenderNote = CommunicationService.CreateNotification(
                 defender.Id,
-                response.Messages.ContainsKey("Result") && response.Messages["Result"].ToString() == "Victory" ? "You Successfully Defended Your Territory" : "You Received a Thorough Beating From an Enemy",
+                defenderMessages.ContainsKey("Result") && defenderMessages["Result"].ToString() == "Victory" ? "You Successfully Defended Your Territory" : "You Failed to Defend Your Territory",
                 sb.ToString()
             );
 
