@@ -111,10 +111,9 @@ namespace PixelApp.Controllers
                         // 2-5 food for now X level
                         // todo: should this be some other f(level * factor) ?
 
-                        // this is intentionally using the .Level property to avoid race condition when messaging about leveling up
                         var level = StatManager.GetLevel(this.UserContext.Id, this.Context);
 
-                        var qty = level * (rand.Next(0, 4) + 2);
+                        var qty = level * (rand.Next(0, 4) + 4);
                         vm.IsSuccess = true;
                         vm.Message = $"You spent {energyRequired} energy, and found {qty} food!";
                         var food = this.UserContext.Items.Single(x => x.ItemId == (int)ResourceTypes.Food);
@@ -147,9 +146,11 @@ namespace PixelApp.Controllers
             {
                 vm.HasRecruited = true;
                 // todo: config
-                var energyRequired = 100;
+                var energyRequired = 50;
 
-                if (this.UserContext.Energy < energyRequired)
+                var userEnergy = StatManager.GetEnergy(this.UserContext.Id, this.Context);
+
+                if (userEnergy < energyRequired)
                 {
                     vm.Message = "You don't have enough energy to recruit people. Wait for your energy to replenish!";
                 }
@@ -171,30 +172,20 @@ namespace PixelApp.Controllers
                         cultureBoost = cultureTechs.Sum(x => x.Technology.BoostAmount);
                     }
 
-                    var recruitPercentage = rand.Next(0, 10) + cultureBoost;
+                    // find random people between (level and level X 4) + culture boosts
+                    var level = StatManager.GetLevel(this.UserContext.Id, this.Context);
+                    var upperBound = level * 4;
+                    var qty = (int)(rand.Next(level, upperBound) * (1m + cultureBoost));
 
-                    // if above 50%, recruiting succeeds
-                    if (recruitPercentage > 5)
-                    {
-                        // this is intentionally using the .Level property to avoid race condition when messaging about leveling up
-                        var level = StatManager.GetLevel(this.UserContext.Id, this.Context);
+                    vm.IsSuccess = true;
+                    vm.Message = $"You venture into the outskirts, spending {energyRequired} energy, and you recruit {qty} people!";
 
-                        var qty = level * (rand.Next(0, 4) + 2);
-                        vm.IsSuccess = true;
-                        vm.Message = $"You venture into the outskirts, spending {energyRequired} energy, and you recruit {qty} people!";
+                    this.UserContext.Territory.CivilianPopulation += qty;
 
-                        this.UserContext.Territory.CivilianPopulation += qty;
+                    // todo: config
+                    this.UserContext.Experience += 5;
 
-                        // todo: config
-                        this.UserContext.Experience += 2;
-
-                        this.Context.SaveChanges();
-                    }
-                    else
-                    {
-                        // failed to find people
-                        vm.Message = $"You spent {energyRequired} energy, and didn't find any people in the outskirts!";
-                    }
+                    this.Context.SaveChanges();
                 }
             }
 
